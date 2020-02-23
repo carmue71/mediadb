@@ -37,6 +37,6 @@ include VIEWPATH.'fragments/navigation.php';
 	</div>
 </div><!-- container -->
 
-<?php
-include VIEWPATH.'fragments/footer.php';
-?>
+<?php include VIEWPATH.'fragments/js.php'; ?>
+</body>
+</html>

@@ -64,7 +64,7 @@ $bodymodifier = " style=\""
 
 
 <?php 
-    include VIEWPATH.'fragments/footer.php';
+    include VIEWPATH.'fragments/js.php';
     include VIEWPATH.'fragments/confirmdelete.php';
 ?>
 
@@ -117,3 +117,5 @@ $bodymodifier = " style=\""
 		
 </script>
 
+</body>
+</html>

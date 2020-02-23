@@ -104,7 +104,6 @@ $bodymodifier = " style=\""
 	</div><!-- container -->
 </div><!-- container -->
 
-
-<?php
-include VIEWPATH.'fragments/footer.php';
-?>
+<?php include VIEWPATH.'fragments/js.php'; ?>
+</body>
+</html>

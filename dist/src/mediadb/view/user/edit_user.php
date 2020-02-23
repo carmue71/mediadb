@@ -118,6 +118,6 @@ include VIEWPATH.'fragments/navigation.php';
   </div>
 </div>
 
-<?php
-include VIEWPATH.'fragments/footer.php';
-?>
+<?php include VIEWPATH.'fragment/js.php'; ?>
+</body>
+</html>

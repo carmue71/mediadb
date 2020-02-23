@@ -258,13 +258,13 @@ class ActorController extends FileContainterController
                     $numberOfSets = $params['numberOfSets'];
                     $totalNumberOfFiles = $this->fileRepository->countFilesForActor($actor->ID_Actor, ""); //For File-Badge
                     $this->pageTitle = $actor->Fullname . " TAG's MediaDB";
-                    include VIEWPATH.'actor/actordetails.php';
+                    include VIEWPATH.'actors/details_actor.php';
                 } break;
             case 'listactors':
                 if (isset($params['entries'])) {
                     $numberOfSets = -1;
                     $this->pageTitle = "List of Actors in TAG's MediaDB";
-                    include VIEWPATH.'actor/listactors.php';
+                    include VIEWPATH.'actors/list_actors.php';
                 }
                 break;
             case 'edit':
@@ -276,7 +276,7 @@ class ActorController extends FileContainterController
                         $this->pageTitle = $actor->Fullname . " TAG's MediaDB";
                     else 
                         $this->pageTitle = "New Actor - TAG's MediaDB";
-                    include VIEWPATH.'actor/edit_actor.php';
+                    include VIEWPATH.'actors/edit_actor.php';
                 }
                 break;
             case 'listepisodesforactor':
@@ -287,7 +287,7 @@ class ActorController extends FileContainterController
                     $numberOfSets = $params['numberOfSets'];
                     $totalNumberOfFiles = $this->fileRepository->countFilesForActor($actor->ID_Actor, ""); //For File-Badge
                     $this->pageTitle = $actor->Fullname . " TAG's MediaDB";
-                    include VIEWPATH.'actor/listepisodesforactor.php';
+                    include VIEWPATH.'actors/actor_episodes.php';
                 }
                 break;
                 
@@ -297,7 +297,7 @@ class ActorController extends FileContainterController
                     $numberOfSets = $params['numberOfSets'];
                     $totalNumberOfFiles = $this->fileRepository->countFilesForActor($actor->ID_Actor, ""); //For File-Badge
                     $this->pageTitle = $actor->Fullname . " TAG's MediaDB";
-                    include VIEWPATH.'actor/tweetsfromactor.php';
+                    include VIEWPATH.'actor/actor_tweets.php';
                 }
                 break;
             case 'showfiles':
@@ -311,7 +311,7 @@ class ActorController extends FileContainterController
                     $offset = $params['offset']; 
                     $this->pageTitle = $actor->Fullname . " TAG's MediaDB";
                     $lastpage = ceil($currentNumberOfFiles / $this->pageSize);
-                    include VIEWPATH.'actor/showfiles.php';
+                    include VIEWPATH.'actor/actor_files.php';
                 }
                 break;
             default:

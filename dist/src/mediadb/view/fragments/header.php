@@ -9,6 +9,6 @@
    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/fontawesome.min.css" integrity="sha256-mM6GZq066j2vkC2ojeFbLCcjVzpsrzyMVUnRnEQ5lGw=" crossorigin="anonymous" />
    	<link rel="stylesheet" type="text/css" href="<?php print WWW?>css/star-rating-svg.css">
    	<link rel="stylesheet" href="<?php print WWW?>css/mystyle.css" />
-	<link rel="icon" href="<?php print WWW?>favicon.ico" type="image/x-icon">
+	<link rel="icon" href="<?php print WWW?>img/favicon.ico" type="image/x-icon">
   </head>
   <body<?php if ( isset($bodymodifier) ) print $bodymodifier;?>>

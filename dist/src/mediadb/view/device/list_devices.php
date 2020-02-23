@@ -9,7 +9,7 @@
 
 
 $bodymodifier = " style=\""
-    ."background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url('/mediadb/wallpaper.php?file=default.png') no-repeat center center fixed;"
+    ."background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url('/mediadb/ajax/wallpaper.php?file=default.png') no-repeat center center fixed;"
         ."background-size: cover;\"";
         
         include VIEWPATH.'fragments/header.php';

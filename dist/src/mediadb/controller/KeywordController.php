@@ -51,7 +51,7 @@ class KeywordController extends AbstractController
     }
     
     protected function showList($params){
-        include VIEWPATH.'listkeywords.php';
+        include VIEWPATH.'keywords/list_keywords.php';
     }
     
     private function showKeyword(String $key)
@@ -61,7 +61,7 @@ class KeywordController extends AbstractController
         $mediasets = $keyword->episodes;
         $models = $keyword->actors;
         
-        include VIEWPATH.'keyworddetails.php';
+        include VIEWPATH.'keywords/details_keyword.php';
     }
 }
 

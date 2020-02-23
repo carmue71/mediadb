@@ -22,14 +22,14 @@ https://fontawesome.com/
 
 Version 5.12.1
 
-##Included in here:
+Included in here:
 
-###JavaScript Cookie 
+JavaScript Cookie 
 
 v2.2.1
 
 https://github.com/js-cookie/js-cookie
  
-###star-rating-svg
+Star-rating-svg
 
 https://github.com/nashio/star-rating-svg 

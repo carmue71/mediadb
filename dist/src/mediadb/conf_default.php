@@ -24,6 +24,8 @@ namespace src\mediadb;
     define('MAXPAGECNT', 9);
     define('COOKIE_LIFETIME', 3600*24*365);
     
+    define('SALT', "SomeStrange,,,,KombinationOfCharacters#ääToEncryptYourPasswords#####Don'tlooseit");
+    
     define('MAX_ASSET_UPLOAD_SIZE', 20971520); //20MB
     /* Number of navigation buttons (plus 2) displayed at the bottom of a page; 
      * should be an odd number, so that the current page can be in the middle - if possible.

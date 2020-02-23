@@ -1,6 +1,5 @@
 <?php
 
-
 function connectToDatabase(){
     try {
         $pdo = new PDO('mysql:host='.DBHOST.';dbname='.DBNAME.';charset=utf8', DBUSER,  PASSWORD);

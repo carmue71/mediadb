@@ -57,12 +57,12 @@ class EpisodeController extends FileContainterController
     private function getBodymodifier(Episode $ms){
         if ( isset($ms->Wallpaper) && $ms->Wallpaper != "" ){
             return " style=\""
-                ."background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url('/mediadb/wallpaper.php?file={$ms->Wallpaper}') no-repeat center center fixed;"
+                ."background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url('/mediadb/ajax/wallpaper.php?file={$ms->Wallpaper}') no-repeat center center fixed;"
                 ."background-size: cover;\"";
         } else { 
             $wallpaper = $this->repository->getChannelWallpaper($ms->REF_Channel);
           return " style=\""
-                 ."background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url('/mediadb/wallpaper.php?file={$wallpaper}') no-repeat center center fixed;"
+                 ."background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url('/mediadb/ajax/wallpaper.php?file={$wallpaper}') no-repeat center center fixed;"
                  ."background-size: cover;\"";
         }
     }
@@ -277,7 +277,7 @@ class EpisodeController extends FileContainterController
                 
                 $bodymodifier = $this->getBodymodifier($ms);
                 
-                include VIEWPATH.'episode/detail_episode.php';
+                include VIEWPATH.'episode/details_episode.php';
                 break;
             case 'showmovie':
                 $ms = $params['entry'];
@@ -295,7 +295,7 @@ class EpisodeController extends FileContainterController
                 $movies = $params['files'];
                 
                 $bodymodifier = $this->getBodymodifier($ms);
-                include VIEWPATH.'episode/showmovie.php';
+                include VIEWPATH.'episode/episode_movie.php';
                 break;
             case 'showfiles':
                 $this->updatePageNumbers();
@@ -319,7 +319,7 @@ class EpisodeController extends FileContainterController
                 
                 $lastpage = ceil($this->fileRepository->countFilesForEpisode($ms->ID_Episode, $this->sqlFileFilter)/$this->pageSize);
                 
-                include VIEWPATH.'episode/showfiles_episodes.php';
+                include VIEWPATH.'episode/episode_files.php';
                 break;
             case 'showpix':
                 $this->updatePageNumbers();
@@ -343,7 +343,7 @@ class EpisodeController extends FileContainterController
                 
                 $lastpage = ceil($this->fileRepository->countFilesForEpisode($ms->ID_Episode, $this->sqlPixFilter)/$this->pageSize);
                 
-                include VIEWPATH.'episode/showpix.php';
+                include VIEWPATH.'episode/episode_pictures.php';
                 break;
             case 'edit':
                 $ms = $params['entry'];

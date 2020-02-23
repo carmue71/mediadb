@@ -1,0 +1,284 @@
+ @charset "UTF-8";
+
+body {
+  color: #f8f9fa;
+  background-color: #222222;
+}
+
+pre {
+	color: #f8f9fa;
+  	background-color: #868e96;
+}
+
+.card {
+	background-color: #343a40;	
+}
+.card-body {
+	background-color: 007bff;
+	padding-left: 60px;	
+}
+
+.card-title {
+	color: #868e96;
+}
+
+.mb-0 {
+	color: DarkOrange;
+	font-size: 12px;
+	font-weight: bold; 
+	text-decoration: none;
+}
+
+.card-text {
+	color: #000000;
+}
+
+.dropdown-item{
+	color: : #ffc107;
+} 
+
+.jumbotron{
+	background-color: LightGrey; /*#868e96;*/
+	color: #343a40;
+	opacity: 0.8;
+	margin-top: 10%;
+}
+
+.list-group-item{
+	background-color: #343a40;
+	color: AntiqueWhite;
+}
+
+.list-group :hover {
+	background-color:  #343a40;
+	color: AntiqueWhite;
+}
+
+.list-group-item :hover {
+	background-color: #343a40;
+	color: AntiqueWhite;
+}
+
+.list-group-item a{
+	color: AntiqueWhite;
+}
+
+a {
+	color: Chocolate; /*DarkOrange; /*Blue; Red; LightSlateGray; /*Khaki; AntiqueWhite;*/
+	font-style:italic;
+}
+
+.btn-link{
+	color: Chocolate; /*DarkOrange; /*Blue; Red; LightSlateGray; /*Khaki; AntiqueWhite;*/
+	font-style:italic;
+}
+
+.btn-link:hover {
+	color: Orange;
+    text-decoration: none;
+}
+
+a:hover {
+	color: Orange;
+    text-decoration: none;
+}
+.nav-link {
+	color: AntiqueWhite;
+}
+
+.table-hover{
+	background-color: DarkSlateGray;
+}
+
+.table {
+	background-color: #343a40;
+}
+
+.btn-outline-danger{
+	margin: 2px 1px;
+} 
+
+#welcome {
+    background: url('/mediadb/img/wallpaper01.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.vertical-center {
+  min-height: 100vh;  /* Fallback for browsers do NOT support vh unit */
+  display: flex;
+  align-items: center;
+}
+
+/*List for the Mediaset Details*/
+#msdetails{
+	list-style: none;
+	margin-top: 10px;
+}
+
+#msdetails a{
+	color: AntiqueWhite;	
+}
+
+
+.badge-light {
+	background-color: LightSlateGray;
+}
+
+.clearbox {
+	background: url('/mediadb/img/clear_grey.png') no-repeat center;
+	background-color: White;
+	border-style: solid solid solid none;
+	border-radius: 5px;
+	border-color: Darkgrey;
+	width: 25px;
+	height: 40px;
+}
+
+.clearbox :hover {
+	background-color: White;
+	background: url('/mediadb/img/clear_red.png') no-repeat center center fixed;
+}
+
+.tag_listimage{
+	margin: 1px 15px 1px 2px;
+	max-height: 80px;
+	max-width: 120px;
+}
+
+.modal-title {
+ 	color: #333333
+}
+
+.modal-body {
+ 	color: #1a1a1a; 
+}
+
+
+/*.img-fluid{
+	max-height: 80px;
+} */
+
+.gallery-item {	
+	max-height: 160px; 
+	max-width: 280px;
+	margin: 2px;
+}
+
+.watched {
+  color: #111;
+  background-color: #ffc107;
+  border-color: #ffc107;
+  align-items: center;
+  justify-content: center;
+}
+
+.watched:hover {
+  color: #111;
+  background-color: #e0a800;
+  border-color: #d39e00;
+}
+
+.watched:focus, .btn-warning.focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
+}
+
+.watched.disabled, .btn-warning:disabled {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+
+.watched:not([disabled]):not(.disabled):active, .watched:not([disabled]):not(.disabled).active,
+.show > .watched.dropdown-toggle {
+  color: #111;
+  background-color: #d39e00;
+  border-color: #c69500;
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.5);
+}
+
+.unwatched {
+  color: #dc3545;
+  background-color: transparent;
+  background-image: none;
+  border-color: #dc3545;
+  align-items: center;
+  justify-content: center;
+}
+
+.unwatched:hover {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.unwatched:focus, .btn-outline-danger.focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+.unwatched.disabled, .btn-outline-danger:disabled {
+  color: #dc3545;
+  background-color: transparent;
+}
+
+.unwatched:not([disabled]):not(.disabled):active, .unwatched:not([disabled]):not(.disabled).active,
+.show > .unwatched.dropdown-toggle {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5);
+}
+
+/*--- Star Rating -----*/
+.star-rating {
+  line-height:32px;
+  font-size:1.25em;
+}
+
+.carousel .item img {
+  max-height: 600px;
+  min-width: auto;
+}
+
+.star-rating .fa-star{color: yellow;}
+
+.previewImage {
+	max-width: 80%; 
+	max-height: 300px;
+}
+
+.modal-upload-dialog {
+  position: relative;
+  width: 95%;
+  margin: 0.5rem;
+  pointer-events: none;
+}
+
+.transparent {
+	opacity: 0.7;
+}
+
+#msdetails{
+	padding-left: 6px;
+}
+
+.unlinkModel {
+	cursor: pointer;
+}
+
+.modellink {
+	font-size: 16px;
+}
+
+.acticeItem {
+	cursor: pointer;
+}
+
+.acticeItem:hover {
+	cursor: pointer;
+	color: Tomato; 
+}
+
+.form-horizontal .control-label{
+  /* text-align:right; */
+  text-align:left;
+  background-color:#ffa;
+}

@@ -70,7 +70,8 @@ class File extends AbstractModel
         $ext=pathinfo($this->Name, PATHINFO_EXTENSION);
         switch(strtolower($ext)){
             case "avi": print "video/avi"; break;
-            case "mkv": print "video/x-matroska"; break;
+            #case "mkv": print "video/x-matroska"; break;
+            case "mkv": 
             case "webm": print "video/webm"; break;
             case "ppt": case "ppz": case "pps":
             case "pptx": print "application/mspowerpoint"; break;

@@ -23,12 +23,13 @@ foreach ($movies as $video){
         case "wmv": 
             $vidtype='video/x-ms-wmv';
             break;
+        case "mkv":
+            #$vidtype = 'video/x-matroska';
+            #break;
         case "webm":
             $vidtype='video/webm';
             break;
-        case "mkv":
-            $vidtype = 'video/x-matroska';
-            break;
+        
         case "mp4":
         default: 
             $vidtype='video/mp4';

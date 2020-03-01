@@ -121,7 +121,7 @@ if ( isset($_GET['type'])){
     }//switch
 }//fi
 
-$ext = pathinfo($file, PATHINFO_EXTENSION);
+$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
 if ($ext == 'jpg' || $ext == 'jpeg') {
     $image = imagecreatefromjpeg($fullname);

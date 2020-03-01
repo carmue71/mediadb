@@ -111,7 +111,7 @@ class FileRepository extends AbstractRepository
     }
     
     public function isImage($ext){
-        $ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "gif" || $ext== "webp";
+        return $ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "gif" || $ext== "webp";
     }
         
     private function getFiletype($file){

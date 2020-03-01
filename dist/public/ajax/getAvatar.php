@@ -29,7 +29,7 @@ if ( isset($_GET['file'])){
     $file = "avatar_default.png";
 }
 
-$ext = pathinfo($file, PATHINFO_EXTENSION);
+$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
 //TODO: allow webp as well
 if ($ext == 'jpg' || $ext == 'jpeg') { 

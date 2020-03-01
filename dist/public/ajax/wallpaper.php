@@ -15,7 +15,7 @@ $fullname = $file != ""?ASSETSYSPATH.'wallpaper/'.$file:"";
 if ( $fullname == "" || !file_exists($fullname) ){
     $fullname = ASSETSYSPATH."wallpaper/default.png";
 }
-$ext = pathinfo($file, PATHINFO_EXTENSION);
+$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
 if ($ext == 'jpg' || $ext == 'jpeg') {
     $image = imagecreatefromjpeg($fullname);

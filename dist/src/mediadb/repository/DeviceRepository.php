@@ -31,7 +31,7 @@ class DeviceRepository extends AbstractRepository
         $this->logLevel = 1;
         parent::__construct($pdo);
         $this->filter = "";
-        $this->className = "\\mediadb\\actor\\Device";
+        $this->className = "\\mediadb\\model\\Device";
         $this->tableName = "Device";
         $this->orderBy = "Name";
         $this->idColumn = "ID_Device";

@@ -11,7 +11,7 @@
       <li class="nav-item <?php if (isset($this) && $this->currentSection == 'Actors') print ' active'; ?>">
         <a class="nav-link" href="<?php print INDEX?>listactors">Actors <i class="fas fa-female"></i><i class="fas fa-male"></i></a>
       </li>
-      <li class="nav-item <?php if (isset($this) && $this->currentSection == 'Media Sets') print ' active'; ?>">
+      <li class="nav-item <?php if (isset($this) && $this->currentSection == 'Episodes') print ' active'; ?>">
         <a class="nav-link" href="<?php print INDEX?>listepisodes">Media Sets <i class="fab fa-youtube"></i></a>
       </li>
       
@@ -39,7 +39,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href='<?php print INDEX."editsettings"?>'><i class="fas fa-wrench"></i> Settings</a>
           <a class="dropdown-item" href='<?php print INDEX."newactor"?>'><i class="fas fa-female"></i><i class="fas fa-male"></i> Add Actor</a>
-          <a class="dropdown-item" href='<?php print INDEX."newepisode"?>'><i class="fab fa-youtube"></i> Add Media Set</a>
+          <a class="dropdown-item" href='<?php print INDEX."newepisode"?>'><i class="fab fa-youtube"></i> Add Episode</a>
           <a class="dropdown-item" href='<?php print INDEX."newchannel"?>'><i class="fas fa-user-secret"></i> Add Channel</a>
           <a class="dropdown-item" href='<?php print INDEX."newwatchlist"?>'><i class="fas fa-binoculars"></i> Add Watch-List</a>
           <a class="dropdown-item" href='<?php print INDEX."newdevice"?>'><i class="fas fa-database"></i> Add Device</a>

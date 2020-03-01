@@ -26,6 +26,9 @@ namespace src\mediadb;
     
     define('SALT', "SomeStrange,,,,KombinationOfCharacters#ääToEncryptYourPasswords#####Don'tlooseit");
     
+    #your registration with font-awesome
+    define('FONTAWESOME', '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/fontawesome.min.css" integrity="sha256-mM6GZq066j2vkC2ojeFbLCcjVzpsrzyMVUnRnEQ5lGw=" crossorigin="anonymous" />');
+    
     define('MAX_ASSET_UPLOAD_SIZE', 20971520); //20MB
     /* Number of navigation buttons (plus 2) displayed at the bottom of a page; 
      * should be an odd number, so that the current page can be in the middle - if possible.

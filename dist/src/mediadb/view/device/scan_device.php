@@ -20,6 +20,6 @@ include VIEWPATH.'fragments/navigation.php';
 	</div><!-- row -->
 </div><!-- container -->
 
-<?php include VIEWPATH.'fragment/js.php'; ?>
+<?php include VIEWPATH.'fragments/js.php'; ?>
 </body>
 </html>

@@ -48,6 +48,6 @@ include VIEWPATH.'fragments/navigation.php';
 	</form>
 </div><!-- container -->
 
-<?php include VIEWPATH.'fragment/js.php'; ?>
+<?php include VIEWPATH.'fragments/js.php'; ?>
 </body>
 </html>

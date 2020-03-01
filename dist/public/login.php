@@ -38,7 +38,6 @@ if (isset($_POST['login']) && $_POST['login'] != "") {
         $errorMessage="<strong>Error</strong> Username or Password are wrong!"
             ."Please contact your administrator if necessary!<br />";
                 #."Your ip address ".getAddress()." will be added to the logfile!";
-        include VIEWPATH."fragments/alert.php";
     }
 }
 

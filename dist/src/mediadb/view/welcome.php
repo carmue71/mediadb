@@ -19,8 +19,15 @@ if ( !$showLogin ){
 	<span class="display-3">Welcome to Charly's MediaDB</span>
 		<p><?php print VERSION;?> - Please note, that this is still work in progress!</p>
 		<p><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#aboutModal"> About </button></p>
-		
-		<?php if ( $showLogin ){?>
+		<?php if (isset($errorMessage) && $errorMessage != ""){ ?>
+		    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?php print $errorMessage;?>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<?php }
+		if ( $showLogin ){?>
 		<form method="POST" action='/mediadb/login.php'>
 			<div class='form-row'>
 				<div class='col-sm-4'>

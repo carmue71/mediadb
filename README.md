@@ -33,3 +33,6 @@ https://github.com/js-cookie/js-cookie
 Star-rating-svg
 
 https://github.com/nashio/star-rating-svg 
+
+Also needs getid3 to be installed in the folder /opt/mediadb/lib/getid3. 
+You can get the latest version from here: https://www.getid3.org/

@@ -1,4 +1,4 @@
--- MediaDB
+-- mediadb
 -- Version 0.8
 -- Created by Karl Müller
 -- Generates an empty database
@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `MediaDB`
+-- Database: `mediadb`
 --
-CREATE DATABASE IF NOT EXISTS `MediaDB` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `MediaDB`;
+CREATE DATABASE IF NOT EXISTS `mediadb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `mediadb`;
 
 -- --------------------------------------------------------
 
@@ -143,7 +143,7 @@ CREATE TABLE `File` (
   `ResY` int(11) DEFAULT NULL COMMENT 'Height',
   `Created` timestamp NULL DEFAULT NULL COMMENT 'Creation Date of the file',
   `Modified` timestamp NULL DEFAULT NULL COMMENT 'Last Modification Date',
-  `Added` timestamp NULL DEFAULT current_timestamp() COMMENT 'Notes, when the file was added to MediaDB',
+  `Added` timestamp NULL DEFAULT current_timestamp() COMMENT 'Notes, when the file was added to mediadb',
   `Playtime` int(11) DEFAULT 0 COMMENT 'Movie: Playtime in seconds, others 0',
   `Progress` double DEFAULT 0 COMMENT 'Viewed Percent'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

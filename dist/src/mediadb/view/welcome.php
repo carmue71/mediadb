@@ -39,6 +39,6 @@ if ( !$showLogin ){
 		<?php } ?>
 	</div>
 </div>
-<?php include VIEWPATH.'fragment/js.php'; ?>
+<?php include VIEWPATH.'fragments/js.php'; ?>
 </body>
 </html>

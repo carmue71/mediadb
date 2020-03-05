@@ -15,7 +15,7 @@ include VIEWPATH.'fragments/navigation.php';
 
 <?php
 $activeTab = "Details";
-include VIEWPATH . 'episode/episode_tabs.php';
+include VIEWPATH . 'episodes/episode_tabs.php';
 
 if ($this->successMessage != "") {
     ?>

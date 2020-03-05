@@ -133,8 +133,8 @@ abstract class AbstractRepository
             if ( $result ){
                 return $result->fetch()['Number'];
             } else {
-                print "Executed Query: " + $query;
-                return false;
+                print "Executed Query: ". $query;
+                return 0;
             }
         } catch (PDOException $ex) {
             print "PDOException: <br />";

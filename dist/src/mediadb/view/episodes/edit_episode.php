@@ -107,7 +107,7 @@ include VIEWPATH . 'episodes/episode_tabs.php';
 					</div>
 					<div class="col-sm-3">
 						<input class='form-control' id='picture' type="text" name="picture"	size=70
-							value='<?PHP if ( strcmp($ms->Picture,"default/picture06.png" ) <> 0) print $ms->Picture; ?>' />
+							value='<?PHP print $ms->Picture; ?>' />
 				        <!-- input type="file" name="picture" size=80 id='originalPoster'/> --> 
 						<br> <small id=oldposter>&nbsp;</small>
 			                 <!--  <img id=original width=100 src='< ?PHP print $ms->getPicture(); ?>' />-->

@@ -81,7 +81,7 @@ class Episode
         }
         
         $poster = isset($this->Picture)?$this->Picture:"";
-        return WWW."getAsset.php?type=poster&size={$size}&file={$poster}";
+        return WWW."ajax/getAsset.php?type=poster&size={$size}&file={$poster}";
     }
     
     public function getWallpaper(){

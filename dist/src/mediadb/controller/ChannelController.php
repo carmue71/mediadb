@@ -267,7 +267,7 @@ class ChannelController extends FileContainterController
                 if (isset($params['entry'])) {
                     $channel = $params['entry'];
                     $this->pageTitle = "Edit Channel ". $channel->Name;
-                    include VIEWPATH.'channels/edit_channels.php';
+                    include VIEWPATH.'channels/edit_channel.php';
                 }
                 break;
             default:

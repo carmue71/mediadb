@@ -9,7 +9,7 @@
   			</td>
 			<td width=120px>
 			<a href='<?php print INDEX."showepisode?id={$set['ID_Episode']}"?>'>
-			<img class='tag_listimage' src='<?php print WWW."getAsset.php?type=poster&size=S&file={$set['Picture']}";?>' 
+			<img class='tag_listimage' src='<?php print WWW."ajax/getAsset.php?type=poster&size=S&file={$set['Picture']}";?>' 
 				align=left></a></td>
 			<td width=100%> 
 				<div class="d-flex w-100 justify-content-between">

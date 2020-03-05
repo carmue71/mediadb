@@ -41,7 +41,7 @@ foreach ($movies as $video){
     			src='<?php print $fullpath?>' 
     			type='<?php print $vidtype?>' 
     			width=70% 
-        		poster='<?php print WWW."/ajax/getAsset.php?type=poster&file={$ms->Picture}&size=N"?>' 
+        		poster='<?php print WWW."ajax/getAsset.php?type=poster&file={$ms->Picture}&size=N"?>' 
         		autobuffer 
         		controls > 
         		</video>

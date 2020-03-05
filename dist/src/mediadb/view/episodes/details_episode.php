@@ -49,7 +49,7 @@ if ($this->infoMessageBody != "") {
 <div class="row">
 		<div class="col-lg-8">
 		<?php  if ($numberOfMovies>0) print "<a href='".INDEX."movies?id={$ms->ID_Episode}'>"; ?> 
-  		<img width=800px src='/mediadb/getAsset.php?type=poster&size=XL&file=<?php print $ms->Picture;?>' />
+  		<img width=800px src='/mediadb/ajax/getAsset.php?type=poster&size=XL&file=<?php print $ms->Picture;?>' />
   		<?php  if ($numberOfMovies>0) print "</a>"; ?> 
 		</div>
 		<div class="col-lg-4">

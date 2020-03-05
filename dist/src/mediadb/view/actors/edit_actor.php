@@ -77,7 +77,7 @@ include VIEWPATH . 'actors/actor_tabs.php';
 				<div class='form-row'>
 					<div class='col-sm-2'>
 						<img width=80px id=previewMugshot src='/mediadb/ajax/getAsset.php?type=mugshot&file=<?php print $actor->Mugshot; if ( isset($actor->Gender) ) print "&gender={$actor->Gender}"; ?>&size=N'
-							data-img='/mediadb/getAsset.php?type=mugshot&file=<?php print $actor->Mugshot; if ( isset($actor->Gender) ) print "&gender={$actor->Gender}"; ?>&size=L' />
+							data-img='/mediadb/ajax/getAsset.php?type=mugshot&file=<?php print $actor->Mugshot; if ( isset($actor->Gender) ) print "&gender={$actor->Gender}"; ?>&size=L' />
 					</div><!-- col -->
 					<div class='col-sm-4'>
 						<div class='form-group'>

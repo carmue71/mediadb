@@ -35,7 +35,7 @@ class SettingsController extends AbstractController
             case 'edit':
                 $message = $params['message'];
                 $settings = $params['settings'];
-                include VIEWPATH.'edit/settings.php';
+                include VIEWPATH.'settings.php';
                 break;
         }//switch
     }

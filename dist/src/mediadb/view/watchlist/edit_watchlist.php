@@ -16,7 +16,7 @@ include VIEWPATH . 'watchlist/wltabs.php';
 						<div class=form-group>
 							<label class="col-form-label" for='title'>Title</label> 
 							<input class='form-control' id='title' type="text" name="title" size=50 required value='<?PHP print $wl->Title; ?>'
-								placeholder='Unique Name for the studio' />
+								placeholder='Unique Name for this watchlist' />
 						</div><!-- form-group -->
 					</div> <!-- col -->
 				</div><!-- form-row -->

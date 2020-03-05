@@ -76,7 +76,7 @@ class KeywordRepository extends AbstractRepository
                                 if (! $found) {
                                     $kw = new Keyword($strkey);
                                     if ($doEpisode)
-                                        $kw->addSet($entry['ID_Episode']);
+                                        $kw->addEpisode($entry['ID_Episode']);
                                     else
                                         $kw->addActor($entry['ID_Actor']);
                                     array_push($this->keywords, $kw);

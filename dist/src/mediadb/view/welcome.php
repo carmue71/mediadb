@@ -42,7 +42,7 @@ if ( !$showLogin ){
 			</div>
 			</form>
 		<?php } else {?>
-		<p class="lead">A list of <a href='<?php print INDEX; ?>listmediasets'>Mediasets</a> can be found here.</p>
+		<p class="lead">A list of <a href='<?php print INDEX; ?>listepisodes'>episodes</a> can be found here.</p>
 		<?php } ?>
 	</div>
 </div>

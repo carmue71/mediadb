@@ -124,17 +124,23 @@ abstract class AbstractRepository
 
     
     public function getCount(){
+        $query = "SELECT count(*) AS Number FROM {$this->tableName}";
+        if ( isset($this->filter) && $this->filter != ""){
+            $query = $query." WHERE $this->filter";
+        }
         try {
-            $query = "SELECT count(*) AS Number FROM {$this->tableName}";
-            if ( isset($this->filter) && $this->filter != ""){
-                $query = $query." WHERE $this->filter";
-            }
             $result = $this->pdo->query($query);
             return $result->fetch()['Number'];
         } catch (PDOException $ex) {
-            print "Exception: <br />";
+            print "PDOException: <br />";
+            print "Query: " + $query;
             var_dump($ex);
             return -1;
+        } catch (\Exception $e){
+            print "General Exception: in AbstractRepository.getCount()<br />";
+            print "Executed Query: " + $query;
+            var_dump($e);
+            return -2;
         }
     }
     

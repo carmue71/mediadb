@@ -4,7 +4,7 @@
 			<div class="dropdown">
   				<button class="btn btn-secondary dropdown-toggle" type="button" 
   					id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  					Style: <?php print $this->studioStyle?></button>
+  					Style: <?php print $this->channelStyle?></button>
   				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
   					<a class="dropdown-item" href="<?php print INDEX.$target.'style=List'?>">List</a>
 					<a class="dropdown-item" href="<?php print INDEX.$target.'style=Card'?>">Card</a>
@@ -17,7 +17,7 @@
 			<div class="dropdown">
   				<button class="btn btn-secondary dropdown-toggle" type="button" 
   					id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  					Order: <?php print $this->studioOrder?></button>
+  					Order: <?php print $this->channelOrder?></button>
   				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
   					<a class="dropdown-item" href="<?php print INDEX.$target.'order=Name'?>">Name<i class="fas fa-sort-alpha-down"></i></a>
   					<a class="dropdown-item" href="<?php print INDEX.$target.'order=Name%20DESC'?>">Name <i class="fas fa-sort-alpha-up"></i> </a>
@@ -34,7 +34,7 @@
 			<div class="dropdown">
   				<button class="btn btn-secondary dropdown-toggle" type="button" 
   					id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  					<i class="fas fa-filter"></i> Filter: <?php print $this->studioFilter?></button>
+  					<i class="fas fa-filter"></i> Filter: <?php print $this->channelFilter?></button>
   				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
   					<a class="dropdown-item" href="<?php print INDEX.$target.'filter=All'?>">All</a>
     				<a class="dropdown-item" href="<?php print INDEX.$target.'filter=Unwatched'?>">Unwatched</a>

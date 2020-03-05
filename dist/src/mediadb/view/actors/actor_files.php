@@ -49,7 +49,7 @@ include VIEWPATH.'actors/actor_tabs.php';
         //break;
     case 'List':
     default:
-        include VIEWPATH."file/list_files.php";
+        include VIEWPATH."files/list_files.php";
         break;
         }//switch
     ?>

@@ -130,7 +130,12 @@ abstract class AbstractRepository
         }
         try {
             $result = $this->pdo->query($query);
-            return $result->fetch()['Number'];
+            if ( $result ){
+                return $result->fetch()['Number'];
+            } else {
+                print "Executed Query: " + $query;
+                return false;
+            }
         } catch (PDOException $ex) {
             print "PDOException: <br />";
             print "Query: " + $query;

@@ -58,8 +58,8 @@ class KeywordController extends AbstractController
     {
         $keyword = $this->repository->find($key);
         
-        $mediasets = $keyword->episodes;
-        $models = $keyword->actors;
+        $episodes = $keyword->episodes;
+        $actors = $keyword->actors;
         
         include VIEWPATH.'keywords/details_keyword.php';
     }

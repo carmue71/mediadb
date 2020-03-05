@@ -91,7 +91,7 @@ class KeywordRepository extends AbstractRepository
         $stmt = $stmt = $this->pdo->prepare($query);
         if ( $stmt->execute() )
             return $stmt->fetchAll();
-            return null;
+        return null;
     }
     
     private function getActorssByKeyword(String $key){
@@ -99,6 +99,6 @@ class KeywordRepository extends AbstractRepository
         $stmt = $stmt = $this->pdo->prepare($query);
         if ( $stmt->execute() )
             return $stmt->fetchAll();
-            return null;
+        return null;
     }
 }

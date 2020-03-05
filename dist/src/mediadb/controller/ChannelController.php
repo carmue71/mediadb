@@ -243,7 +243,7 @@ class ChannelController extends FileContainterController
                     $offset = $params['offset'];
                     $this->pageTitle = $channel->Name . " Charly's MediaDB";
                     $lastpage = ceil($currentNumberOfFiles / $this->pageSize);
-                    include VIEWPATH.'channel/showfiles.php';
+                    include VIEWPATH.'channels/showfiles.php';
                 }
                 break;
                 
@@ -256,7 +256,7 @@ class ChannelController extends FileContainterController
                 if (isset($params['entries'])) {
                     $channels = $params['entries'];
                     $this->pageTitle = "Channellist";
-                    include VIEWPATH.'channel/list_channels.php';
+                    include VIEWPATH.'channels/list_channels.php';
                 }
                 break;
             case 'edit':
@@ -267,7 +267,7 @@ class ChannelController extends FileContainterController
                 if (isset($params['entry'])) {
                     $channel = $params['entry'];
                     $this->pageTitle = "Edit Channel ". $channel->Name;
-                    include VIEWPATH.'channel/edit_channels.php';
+                    include VIEWPATH.'channels/edit_channels.php';
                 }
                 break;
             default:

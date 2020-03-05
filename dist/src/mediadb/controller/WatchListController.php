@@ -148,7 +148,7 @@ class WatchListController extends AbstractController
                 //TODO: add models to the episodes
                 $this->pageTitle = "Watch List {$wl->Title}";
                 $numberOfSets = $this->episodeRepository->countEpisodesForWatchList($wl->ID_WatchList, "");
-                include VIEWPATH.'watchlist/show.php';
+                include VIEWPATH.'watchlist/details_watchlist.php';
                 break;
             case 'content':
                 $this->currentView = "listepisodesforwatchlist";
@@ -161,14 +161,14 @@ class WatchListController extends AbstractController
                 $numberOfSets = $this->episodeRepository->countEpisodesForWatchList($wl->ID_WatchList, "");
                 $this->msLastPage = ceil($this->episodeRepository->countEpisodesForWatchList($wl->ID_WatchList, $tmpfilter)/$this->pageSize);
                 $this->pageTitle = "Watch List {$wl->Title}";
-                include VIEWPATH.'watchlist/details_watchlist.php';
+                include VIEWPATH.'watchlist/wl_episodes.php';
                 break;
             case 'list':
                 $numberOfSets = -1;
                 if (isset($params['entries'])) {
                     $watchlists = $params['entries'];
                     $this->pageTitle = "List of your Watch Lists";
-                    include VIEWPATH.'watchlist/list_watchlist.php';
+                    include VIEWPATH.'watchlist/list_watchlists.php';
                 }
                 break;
             case 'edit':

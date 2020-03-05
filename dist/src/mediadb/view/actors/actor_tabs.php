@@ -4,7 +4,7 @@
   </li>
   <li class="nav-item">
     <a class="nav-link <?php if ($activeTab == 'Episodes') print ' active'; else if ($actor->ID_Actor== -1) print " disabled"; ?>" 
-    	href='<?php print ($actor->ID_Actor == -1)?"#":INDEX."listmediasetsforactor?id={$actor->ID_Actor}"; ?>'>Episodes
+    	href='<?php print ($actor->ID_Actor == -1)?"#":INDEX."listepisodesforactor?id={$actor->ID_Actor}"; ?>'>Episodes
     <?php if ($numberOfSets>-1) {?>
     	<span class='badge <?php if ($numberOfSets<1) print "badge-warning"; else print"badge-success"; ?>'><?php print $numberOfSets;?></span>
     <?php } ?> </a></li>

@@ -11,8 +11,6 @@ namespace mediadb\controller;
 
 use mediadb\model\Actor;
 
-//include_once 'Actor.php';
-
 class ActorController extends FileContainterController
 {
     private $episodeRepository;

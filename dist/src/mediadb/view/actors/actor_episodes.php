@@ -1,5 +1,5 @@
 <?php
-use mediadb\actor\Episode;
+use mediadb\model\Episode;
 
 $bodymodifier = " style=\""
     ."background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url('/mediadb/ajax/wallpaper.php?file={$actor->Wallpaper}') no-repeat center center fixed;"

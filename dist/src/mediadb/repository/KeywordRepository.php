@@ -15,8 +15,7 @@ use mediadb\model\Keyword;
 class KeywordRepository extends AbstractRepository
 {
     private $keywords;
-    
-    // TODO - Insert your code here
+   
     public function __construct(PDO $pdo)
     {
         parent::__construct($pdo);
@@ -25,7 +24,6 @@ class KeywordRepository extends AbstractRepository
     
     public function getAll(int $limit = 0, int $offset = 0, String $filter="", String $order="")
     {
-        //return null;
         $this->findKeywords(true);
         $this->findKeywords(false);
         return $this->keywords;
@@ -59,23 +57,19 @@ class KeywordRepository extends AbstractRepository
                                     if ($res == 0) { // found
                                         $found = true;
                                         if ($doEpisode)
-                                            $kw->addSet($entry['ID_Episode']);
-                                            else
-                                                $kw->addActor($entry['ID_Actor']);
-                                                break;
+                                            $kw->addEpisode($entry['ID_Episode']);
+                                        else
+                                            $kw->addActor($entry['ID_Actor']);
+                                        break;
                                     } else if ($res > 0) {
                                         $found = true;
                                         $newKw = new Keyword($strkey);
                                         if ($doEpisode)
-                                            $newKw->addSet($entry['ID_Episode']);
-                                            else
-                                                $newKw->addActor($entry['ID_Actor']);
-                                                
-                                                array_splice($this->keywords, $i, 0, array(
-                                                    $newKw
-                                                ));
-                                                
-                                                break;
+                                            $newKw->addEpisode($entry['ID_Episode']);
+                                        else
+                                            $newKw->addActor($entry['ID_Actor']);
+                                        array_splice($this->keywords, $i, 0, array($newKw));
+                                        break;
                                     }
                                     $i ++;
                                 }
@@ -83,9 +77,9 @@ class KeywordRepository extends AbstractRepository
                                     $kw = new Keyword($strkey);
                                     if ($doEpisode)
                                         $kw->addSet($entry['ID_Episode']);
-                                        else
-                                            $kw->addActor($entry['ID_Actor']);
-                                            array_push($this->keywords, $kw);
+                                    else
+                                        $kw->addActor($entry['ID_Actor']);
+                                    array_push($this->keywords, $kw);
                                 }
                         }
                     }

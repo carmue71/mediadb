@@ -256,7 +256,7 @@ class EpisodeController extends FileContainterController
         switch ($view) {
             case 'listepisodes':
                 $this->pageTitle = 'List of Media Sets';
-                include VIEWPATH.'episode/list_episodes.php';
+                include VIEWPATH.'episodes/list_episodes.php';
                 break;
             case 'showepisode':
                 $ms = $params['entry'];
@@ -277,7 +277,7 @@ class EpisodeController extends FileContainterController
                 
                 $bodymodifier = $this->getBodymodifier($ms);
                 
-                include VIEWPATH.'episode/details_episode.php';
+                include VIEWPATH.'episodes/details_episode.php';
                 break;
             case 'showmovie':
                 $ms = $params['entry'];
@@ -295,7 +295,7 @@ class EpisodeController extends FileContainterController
                 $movies = $params['files'];
                 
                 $bodymodifier = $this->getBodymodifier($ms);
-                include VIEWPATH.'episode/episode_movie.php';
+                include VIEWPATH.'episodes/episode_movie.php';
                 break;
             case 'showfiles':
                 $this->updatePageNumbers();
@@ -319,7 +319,7 @@ class EpisodeController extends FileContainterController
                 
                 $lastpage = ceil($this->fileRepository->countFilesForEpisode($ms->ID_Episode, $this->sqlFileFilter)/$this->pageSize);
                 
-                include VIEWPATH.'episode/episode_files.php';
+                include VIEWPATH.'episodes/episode_files.php';
                 break;
             case 'showpix':
                 $this->updatePageNumbers();
@@ -343,7 +343,7 @@ class EpisodeController extends FileContainterController
                 
                 $lastpage = ceil($this->fileRepository->countFilesForEpisode($ms->ID_Episode, $this->sqlPixFilter)/$this->pageSize);
                 
-                include VIEWPATH.'episode/episode_pictures.php';
+                include VIEWPATH.'episodes/episode_pictures.php';
                 break;
             case 'edit':
                 $ms = $params['entry'];
@@ -358,7 +358,7 @@ class EpisodeController extends FileContainterController
                 $numberOfFiles = $this->repository->countFiles($ms->ID_Episode);
                 $this->pageTitle = 'Edit Media Set '.$ms->Title;
                 $channels = $this->repository->getChannelList();
-                include VIEWPATH.'episode/edit_episode.php';
+                include VIEWPATH.'episodes/edit_episode.php';
                 break;
         }
     }

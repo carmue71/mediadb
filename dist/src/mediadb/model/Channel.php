@@ -9,7 +9,7 @@
 namespace mediadb\model;
 
 
-class Studio extends  AbstractModel
+class Channel extends  AbstractModel
 {
     public $ID_Channel;   
     public $Name;

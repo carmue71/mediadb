@@ -22,8 +22,11 @@ $size = isset($_GET['size']) ? $_GET['size']:'XL';
 if ( isset($_GET['type'])){
     switch ($_GET['type']){
         case 'logo': //provide a studio logo
-            $fullname = ASSETSYSPATH.'channels/'.$file;
-            
+            if ( $file != "" ){
+                $fullname = ASSETSYSPATH.'channels/'.$file;
+            } else {
+                $fullname = ASSETSYSPATH.'channels/default.png';
+            }
             switch ( $size ){
                 case 'XS': $maxWidth = 80; $maxHeight = 50; break;
                 case 'S': $maxWidth = 160; $maxHeight = 40; break;
@@ -66,7 +69,7 @@ if ( isset($_GET['type'])){
             $fullname = $file != ""?ASSETSYSPATH.'actors/thumbnails/'.$file:"";
             if ( $fullname == "" || !file_exists($fullname) ){
                 //TODO: randomize and select from size
-                $fullname = ASSETSYSPATH."actors/thumbnaila/default.png";
+                $fullname = ASSETSYSPATH."actors/thumbnails/default.png";
             }
             switch ( $size ){
                 case 'XS': $maxWidth = 27; $maxHeight = 41; break;

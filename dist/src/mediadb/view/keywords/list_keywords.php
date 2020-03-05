@@ -64,6 +64,6 @@ foreach ($keywords as $keyword) :
 
 </div><!-- container -->
 
-<?php include VIEWPATH.'fragment/js.php'; ?>
+<?php include VIEWPATH.'fragments/js.php'; ?>
 </body>
 </html>

@@ -63,7 +63,7 @@ abstract class AbstractController
             $style = $_GET['style'];
         else
             $style = 'plain';
-        include VIEWPATH.'fragment/pagination.php';
+        include VIEWPATH.'fragments/pagination.php';
     }
     
     abstract public function showAll();

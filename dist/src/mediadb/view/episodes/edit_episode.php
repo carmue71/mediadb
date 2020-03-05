@@ -143,8 +143,8 @@ include VIEWPATH . 'episodes/episode_tabs.php';
 
 <?php 
     include VIEWPATH.'fragments/js.php';
-    include VIEWPATH.'fragments/modal/confirmdelete.php';
-    include VIEWPATH.'fragments/modal/slideshowoptions.php';
+    include VIEWPATH.'fragments/confirmdelete.php';
+    include VIEWPATH.'fragments/slideshowoptions.php';
 ?>
 
 

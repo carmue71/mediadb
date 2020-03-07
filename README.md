@@ -36,3 +36,8 @@ https://github.com/nashio/star-rating-svg
 
 Also needs getid3 to be installed in the folder /opt/mediadb/lib/getid3. 
 You can get the latest version from here: https://www.getid3.org/
+
+##Installation script
+To install on a debian like machine (e.g. raspberry pi/ubuntu) you can either run the following script:
+wget https://raw.githubusercontent.com/carmue71/mediadb/master/install/install_ubuntu.sh
+or use the script as guidance for manual installation (recommended).

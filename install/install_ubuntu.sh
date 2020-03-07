@@ -8,8 +8,8 @@ webdir=$optdir/public
 installer=apt-get
 
 
-#install mysql and apache
-sudo apt-get install mysql-server apache2
+#install mysql, unzip, and apache
+sudo apt-get install mysql-server apache2 unzip
 
 #start mysql and apache
 sudo service start mysql
@@ -43,10 +43,10 @@ sudo ln -s $optdir $dir/mediadb
 sudo mkdir $webdir/MediaDBData
 
 #install getid3
-cd $dir/mediadb/dist/lib
+cd $dir/mediadb/install
 wget https://github.com/JamesHeinrich/getID3/archive/master.zip
 unzip master.zip
-ln -s getID3-master/getid3/ .
+ln -s $dir/mediadb/install/getID3-master/getid3/ $dir/mediadb/dist/src/lib/getid3
 
-cp $dir/mediadb/dist/src/mediadb/conf_default.php $dir/dist/src/mediadb/conf.php
-cp $dir/mediadb/install/mediadb.conf /etc/apache2/conf-enabled/  
+sudo cp $dir/mediadb/dist/src/mediadb/conf_default.php $dir/dist/src/mediadb/conf.php
+sudo cp $dir/mediadb/install/mediadb.conf /etc/apache2/conf-enabled/  

@@ -14,7 +14,7 @@ namespace src\mediadb;
     define('CSSPATH', WWW.'css/');
     define('INDEX', WWW.'index.php/');
         
-    define('SYSPATH', '/srv/www/htdocs/mediadb/');
+    define('SYSPATH', '/var/www/html/mediadb/');
     define('LIB_PATH', '/opt/mediadb/lib/');
     
     define('ASSETSYSPATH', '/var/lib/mediadb/asset/');

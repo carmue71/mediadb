@@ -28,6 +28,11 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `mediadb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `mediadb`;
 
+-- User mediadb
+-- The password here needs to match the password in the conf.php
+CREATE USER 'mediadb'@'localhost' IDENTIFIED BY 'your_secret_password';
+GRANT ALL PRIVILEGES ON mediadb.* TO 'mediadb'@'localhost';
+
 -- --------------------------------------------------------
 
 --

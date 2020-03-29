@@ -26,7 +26,7 @@ function changeImage(i){
 	 var pos = getNewPos(i);
 		//console.log(pos);
 	    var values = {
-	    	'msid': <?php print $ms->ID_MediaSet;?>,
+	    	'msid': <?php print $ms->ID_Episode;?>,
 		    'pos': pos
 		};
 		//console.log("Values:", values);
@@ -95,4 +95,3 @@ function changeImage(i){
 	});
 		
 </script>
-<!-- ----------------------------------------------------------------------------------- -->

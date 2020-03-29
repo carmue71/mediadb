@@ -69,6 +69,8 @@ $target = "showpix?id={$ms->ID_Episode}&";?>
 
 </div><!-- container -->
 
+
+
 <!-- Lightbox -->
 <div class='gal-lightbox' data-imgid=1>
 	<div class='gal-content'>
@@ -81,7 +83,7 @@ $target = "showpix?id={$ms->ID_Episode}&";?>
 </div>
 
 <?php 
-    include VIEWPATH.'fragments/js.php';
+    include VIEWPATH.'fragments/js2.php';
     include VIEWPATH.'fragments/confirmdelete.php';
     include VIEWPATH.'fragments/slideshowoptions.php';
 ?>
@@ -91,5 +93,6 @@ $target = "showpix?id={$ms->ID_Episode}&";?>
 <script src="/mediadb/js/js.cookie.js"></script>
 
 <?php include VIEWPATH.'fragments/galscript.php'; ?> 
+
 </body>
 </html>

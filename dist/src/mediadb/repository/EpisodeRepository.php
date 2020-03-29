@@ -171,9 +171,9 @@ class EpisodeRepository extends AbstractRepository
     
    public function countEpisodesForChannel(int $ID_Channel, string $tmpfilter){
        if ( $tmpfilter != "" ){
-           $this->filter = " REF_STUDIO = ".$ID_Channel." AND ".$tmpfilter;
+           $this->filter = " REF_Channel = ".$ID_Channel." AND ".$tmpfilter;
        } else { 
-           $this->filter = " REF_STUDIO = ".$ID_Channel;
+           $this->filter = " REF_Channel = ".$ID_Channel;
        }
        return $this->getCount();
    }

@@ -228,7 +228,7 @@ class ChannelController extends FileContainterController
                 $totalNumberOfFiles = $this->fileRepository->countFilesForChannel($channel->ID_Channel, ""); //For File-Badge
                 $this->msLastPage = ceil($this->episodeRepository->countEpisodesForChannel($channel->ID_Channel, $tmpfilter)/$this->pageSize);
                 $this->pageTitle = "Channel {$channel->Name}";
-                include VIEWPATH.'channels/episodes.php';
+                include VIEWPATH.'channels/channel_episodes.php';
                 break;
             
             case 'showfiles':
@@ -243,7 +243,7 @@ class ChannelController extends FileContainterController
                     $offset = $params['offset'];
                     $this->pageTitle = $channel->Name . " Charly's MediaDB";
                     $lastpage = ceil($currentNumberOfFiles / $this->pageSize);
-                    include VIEWPATH.'channels/showfiles.php';
+                    include VIEWPATH.'channels/channel_files.php';
                 }
                 break;
                 

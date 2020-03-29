@@ -13,7 +13,7 @@ $bodymodifier = " style=\""
 
 <?php 
 $activeTab="Files"; 
-include VIEWPATH.'channel/fragment/studtabs.php';
+include VIEWPATH.'channels/channel_tabs.php';
 $target = "filesforchannel?id={$channel->ID_Channel}&";?> 
 <div class="row">
 <?php include VIEWPATH.'files/file_options.php';?>
@@ -40,7 +40,7 @@ $target = "filesforchannel?id={$channel->ID_Channel}&";?>
         //break;
     case 'List':
     default:
-        include VIEWPATH."file/list_files.php";
+        include VIEWPATH."files/list_files.php";
         break;
         }//switch
     ?>

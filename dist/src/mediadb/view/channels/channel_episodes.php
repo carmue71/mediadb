@@ -53,7 +53,7 @@ include VIEWPATH . 'channels/channel_tabs.php';
 				        case 'plain':
 				        default:
 				            print "<div class='list-group'>";
-				            include VIEWPATH."channel/episode_for_channel.php";
+				            include VIEWPATH."channels/episodes_for_channel.php";
 				            print "</div> <!-- list group -->";
 				    }
 				endforeach;

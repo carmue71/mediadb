@@ -9,6 +9,7 @@
    	<?php print FONTAWESOME; ?>
    	<link rel="stylesheet" type="text/css" href="<?php print WWW?>css/star-rating-svg.css">
    	<link rel="stylesheet" href="<?php print WWW?>css/mystyle.css" />
+   	<link rel="stylesheet" href="<?php print WWW?>css/mygal.css" />
 	<link rel="icon" href="<?php print WWW?>img/favicon.ico" type="image/x-icon">
   </head>
   <body<?php if ( isset($bodymodifier) ) print $bodymodifier;?>>

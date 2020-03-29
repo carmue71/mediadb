@@ -111,15 +111,15 @@ function buildFilter(){
     
     if ( isset($_POST['msid']) ){
         $msid = $_POST['msid'];
-        $filter = " REF_MediaSet = {$msid} "; 
+        $filter = " REF_Episode = {$msid} "; 
     } else if ( isset($_POST['modelid']) ){
         $modelid = $_POST['modelid'];
-        $filter = " REF_MediaSet IN (SELECT REF_MediaSet FROM C_Model_MediaSet WHERE REF_Model = {$modelid}) ";
+        $filter = " REF_Episode IN (SELECT REF_Episode FROM C_Actor_Episode WHERE REF_Actor = {$modelid}) ";
     } else if ( isset($_POST['studioid']) ){
         $studioid = $_POST['studioid'];
-        $filter = " REF_MediaSet IN (SELECT ID_MediaSet FROM MediaSet WHERE REF_Studio = {$studioid}) ";
+        $filter = " REF_Episode IN (SELECT ID_Episode FROM Episode WHERE REF_Channel = {$studioid}) ";
     } else {
-        die ('Neither episode nor model nor provided!');
+        die ('Neither episode nor actor nor provided!');
     }
     
     if ( isset ($_SESSION['filequery_filter']) && $_SESSION['filequery_filter'] != '' ){

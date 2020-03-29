@@ -135,7 +135,7 @@ class SearchController extends AbstractController
     {
         $this->pageTitle ="Search results for {$params['search']}";
         $this->currentView = $view;
-        $Actors = $params['Actors'];
+        $actors = $params['Actors'];
         $sets = $params['Sets'];
         include VIEWPATH."searchresults.php";
     }

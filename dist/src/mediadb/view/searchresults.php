@@ -28,7 +28,7 @@ include VIEWPATH.'fragments/navigation.php';
 			 if ( $actors != null )
 			 {
 			     foreach($actors as $actor):?>
-				<li class="list-group-item list-group-item-dark"><a href='<?php print INDEX."showactor?id={$model->ID_Actor}";?>'>
+				<li class="list-group-item list-group-item-dark"><a href='<?php print INDEX."showactor?id={$actor->ID_Actor}";?>'>
 					<?php print $actor->Fullname;?> </a>&nbsp;&nbsp;</li>
 			<?php endforeach;
 			}?>

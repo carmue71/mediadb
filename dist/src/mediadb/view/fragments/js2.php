@@ -9,7 +9,17 @@
         </button>
       </div>
       <div class="modal-body">
-        This application was written by Karl Müller (c) 2020.
+        This application was written by Karl Müller (c) 2020.<br>
+        It uses the following libraries:
+        <ul>
+        <li> <a href="https://jquery.com/">jquery-3.4.1</a></li>
+        <li> <a href="https://getbootstrap.com/">Bootstrap</a></li>
+        <li> <a href="https://popper.js.org/"> Popper</a></li>
+        <li> <a href="https://fontawesome.com/">Fontawesome</a></li>
+ 		<li> <a href="https://github.com/js-cookie/js-cookie">JavaScript Cookie</a></li>
+		<li> <a href="https://github.com/nashio/star-rating-svg">Star-rating-svg</a></li>
+		<li> <a href="https://www.getid3.org/">getid3</a></li>
+        </ul>
       </div>
     </div>
   </div>
@@ -23,4 +33,3 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 </script>
-

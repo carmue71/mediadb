@@ -260,7 +260,7 @@ class DeviceRepository extends AbstractRepository
         if ( $this->logLevel > 1 ) print "\n\t\t\t\tNo Poster set for {$episode->Title} - checking ...";
             
         //TODO: Check other filetypes as wellmou
-        if ( file_exists(ASSETSYSPATH."episode/picture/{$episode->PublisherCode}.jpg") ){
+        if ( file_exists(ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg") ){
             if ( $this->logLevel > 1 ) print "\n\t\t\t\t\tFound matching asset - linking ...";
             $episode->Picture = $episode->PublisherCode.".jpg";
             return true;
@@ -269,14 +269,14 @@ class DeviceRepository extends AbstractRepository
             
             if ( $firstPic != "" && file_exists($firstPic )){
                 if ( $this->logLevel > 1 ) print ("\n\t\t\t\t\tUsing the first picture: ".$firstPic);
-                //print "target: ".ASSETSYSPATH."episode/picture/{$episode->PublisherCode}.jpg";
+                //print "target: ".ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg";
                 //TODO: resize the image if it is too large
-                if ( copy ($firstPic, ASSETSYSPATH."episode/picture/{$episode->PublisherCode}.jpg") ){
+                if ( copy ($firstPic, ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg") ){
                     $episode->Picture = $episode->PublisherCode.".jpg";
                     return true;
                 } else {
                     print "********************************************************\n".
-                          " Error: Cannot copy $firstPic to ". ASSETSYSPATH."episode/picture/{$episode->PublisherCode}.jpg\n".
+                          " Error: Cannot copy $firstPic to ". ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg\n".
                           "********************************************************\n";
                     return false;
                 }

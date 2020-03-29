@@ -28,7 +28,7 @@ class ChannelRepository extends AbstractRepository
     
     public function insert(){
         try {
-            $query = "INSERT INTO Channel (Name,  Site,  Logo,  Comment, Wallpaper, DefaultSetPath, ChannelType) VALUES (:name, :site, :logo, :comment, :wallpaper, :dsp, :type)";
+            $query = "INSERT INTO Channel (Name,  Site,  Logo,  Comment, Wallpaper, DefaultSetPath, StudioType) VALUES (:name, :site, :logo, :comment, :wallpaper, :dsp, :type)";
             $parameters = array(
                 'name' => $_POST['name'],
                 'site' => $_POST['site'],
@@ -39,7 +39,17 @@ class ChannelRepository extends AbstractRepository
                 'type' => $_POST['type']
             );
             $stmt = $this->pdo->prepare($query);
-            if (! $stmt->execute($parameters)) {
+            if (!$stmt){
+                print "<pre>";
+                print "Cannot Prepare Statemtent!\n";
+                var_dump($parameters);
+                var_dump($query);
+                var_dump($this->pdo->errorInfo());
+                print "</pre>";
+                return null;
+            }
+            if ( ! $stmt->execute($parameters)) {
+                
                 print "<pre>";
                 var_dump($parameters);
                 var_dump($query);
@@ -57,7 +67,7 @@ class ChannelRepository extends AbstractRepository
     function update($id){
         try {
             $query = "UPDATE Channel SET Name = :name, Site = :site, Logo = :logo, Comment = :comment, "
-                ."Wallpaper = :wallpaper, DefaultSetPath = :dsp, ChannelType = :type WHERE ID_Channel = :id";
+                ."Wallpaper = :wallpaper, DefaultSetPath = :dsp, StudioType = :type WHERE ID_Channel = :id";
                     $parameters = array(
                         'name'=>$_POST['name'],
                         'site'=>$_POST['site'],

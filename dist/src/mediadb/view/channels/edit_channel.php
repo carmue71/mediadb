@@ -46,7 +46,7 @@ include VIEWPATH . 'channels/channel_tabs.php';
 							<label class="col-form-label" for='type'>Type</label> 
 							<select class='form-control' id='type' name="type">
 								<?php foreach ( array("Studio","Series","Channel") as $st){
-								    print "<option value='{$st}' "; if ($channel->ChannelType==$st) print "selected "; print">{$st}</option>";
+								    print "<option value='{$st}' "; if ($channel->StudioType==$st) print "selected "; print">{$st}</option>";
 								}?>
 						</select>
 						</div><!-- form-group -->

@@ -18,7 +18,7 @@ class Channel extends  AbstractModel
     public $Logo;
     public $Comment;
     public $Wallpaper;
-    public $ChannelType;
+    public $StudioType;
     public $Modified;
     public $Added;
         

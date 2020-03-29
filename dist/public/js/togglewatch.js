@@ -12,7 +12,10 @@ function setwatched(msid, watched){
             data: values,
             success: function() {
                 console.log("Update OK");
-            }
+            },
+        	error: function(){
+        		console.log("Some error occured");
+        	}
         });
             console.log(result);
             $('#statusflagunwatched').hide();

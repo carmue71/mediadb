@@ -263,7 +263,7 @@ CREATE TABLE `Channel` (
   `Comment` text DEFAULT NULL,
   `Wallpaper` varchar(250) DEFAULT NULL,
   `Twitter` varchar(128) DEFAULT NULL,
-  `ChannelType` varchar(64) DEFAULT NULL,
+  `StudioType` varchar(64) DEFAULT NULL,
   `Modified` timestamp NULL DEFAULT NULL,
   `Added` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

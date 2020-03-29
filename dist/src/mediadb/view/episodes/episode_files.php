@@ -1,6 +1,6 @@
 <?php
-include VIEWPATH.'fragment/header.php';
-include VIEWPATH.'fragment/navigation.php';
+include VIEWPATH.'fragments/header.php';
+include VIEWPATH.'fragments/navigation.php';
 ?>
 <div class="container-fluid">
 

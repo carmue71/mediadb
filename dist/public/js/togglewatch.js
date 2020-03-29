@@ -48,6 +48,7 @@ function setwatched(msid, watched){
     }	
 }
 
+
 $('#watchedtoggle').click(function(){
     var msid = $('#msid').attr('value');
     var watched = $(this).attr('value');

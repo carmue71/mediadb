@@ -22,8 +22,9 @@ include VIEWPATH . 'watchlist/wltabs.php';
 	<div class='row'>
 		<div class='col-lg-12'>
 		<?php
-		  foreach($episodes as $set): 
-			include VIEWPATH.'watchlist/wl_episode_row.php';
+		  foreach($episodes as $set):
+		      include VIEWPATH.'watchlist/wl_episode_row.php';
+		      //include VIEWPATH.'episodes/episode_row.php';
 			endforeach;?>
 			</div>
 	</div>

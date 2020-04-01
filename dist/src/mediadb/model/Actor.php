@@ -38,13 +38,13 @@ class Actor
     
     public function fixMugshot(){
         if ( !isset($this->Mugshot) || $this->Mugshot == "" ){
-            if ( file_exists(ASSETSYSPATH."actor/{$this->Fullname}.jpg") )
+            if ( file_exists(ASSETSYSPATH."actors/{$this->Fullname}.jpg") )
                 $this->Mugshot = $this->Fullname.".jpg";
-            elseif ( file_exists(ASSETSYSPATH."actor/{$this->Fullname}.jpeg") )
+            elseif ( file_exists(ASSETSYSPATH."actors/{$this->Fullname}.jpeg") )
                     $this->Mugshot = $this->Fullname.".jpeg";
-            elseif ( file_exists(ASSETSYSPATH."actor/{$this->Fullname}.png") )
+            elseif ( file_exists(ASSETSYSPATH."actors/{$this->Fullname}.png") )
                     $this->Mugshot = $this->Fullname.".png";
-            elseif ( file_exists(ASSETSYSPATH."actor/{$this->Fullname}.webp") )
+            elseif ( file_exists(ASSETSYSPATH."actors/{$this->Fullname}.webp") )
                     $this->Mugshot = $this->Fullname.".webp";
         }
     }
@@ -64,7 +64,7 @@ class Actor
     
     public function fixThumbnail(){
         if ( !isset($this->Thumbnail) || $this->Thumbnail == "" ){
-            if ( file_exists(ASSETSYSPATH."actor/thumbnail/{$this->Fullname}.png") )
+            if ( file_exists(ASSETSYSPATH."actors/thumbnail/{$this->Fullname}.png") )
                 $this->Thumbnail = $this->Fullname.".png";
         }
     }

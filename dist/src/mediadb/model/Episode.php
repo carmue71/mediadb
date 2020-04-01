@@ -48,13 +48,13 @@ class Episode
     public function fixPicture(){
         if ( !isset($this->Picture) || $this->Picture == "" ){
             //for (['jpg', 'jpeg'] as $ext)
-            if ( file_exists(ASSETSYSPATH."episode/{$this->PublisherCode}.jpg") )
+            if ( file_exists(ASSETSYSPATH."episodes/{$this->PublisherCode}.jpg") )
                 $this->Picture = $this->PublisherCode.".jpg";
-            elseif ( file_exists(ASSETSYSPATH."episode/{$this->PublisherCode}.jpeg") )
+            elseif ( file_exists(ASSETSYSPATH."episodes/{$this->PublisherCode}.jpeg") )
                 $this->Picture = $this->PublisherCode.".jpeg";
-            elseif ( file_exists(ASSETSYSPATH."episode/{$this->PublisherCode}.png") )
+            elseif ( file_exists(ASSETSYSPATH."episodes/{$this->PublisherCode}.png") )
                 $this->Picture = $this->PublisherCode.".png";
-            elseif ( file_exists(ASSETSYSPATH."episode/{$this->PublisherCode}.webp") )
+            elseif ( file_exists(ASSETSYSPATH."episodes/{$this->PublisherCode}.webp") )
                 $this->Picture = $this->PublisherCode.".webp";
         } 
     }

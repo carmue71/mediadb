@@ -14,7 +14,7 @@ use mediadb\model\Actor;
 class ActorController extends FileContainterController
 {
     private $episodeRepository;
-    
+    private $actorRepository;
     //---- for displaying episodes
     private $msFilter;
     private $msOrder;
@@ -26,7 +26,8 @@ class ActorController extends FileContainterController
         parent::__construct($rep, $filerep);
         
         $this->episodeRepository = $episoderep;
-        
+        $this->actorRepository = $this->repository; 
+                
         $this->currentSection = "Actors";
         
         if (isset($_COOKIE['actor_msstyle'])) {
@@ -247,6 +248,7 @@ class ActorController extends FileContainterController
         $this->pageTitle = null;
         $totalNumberOfFiles = -1;
         $numberOfSets = -1;
+        $msRep = $this->episodeRepository;
         
         switch ( $view ){
             case 'showactor':

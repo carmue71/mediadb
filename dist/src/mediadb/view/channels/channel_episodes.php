@@ -62,7 +62,7 @@ include VIEWPATH . 'channels/channel_tabs.php';
 	<!-- row -->
 	<div class="row">
 		<div class="col-md-12">
-        		<?php $this->printPagination($this->msLastPage, $this->mediaSetRepository); ?>
+        		<?php $this->printPagination($this->msLastPage, $this->episodeRepository); ?>
             </div>
 	</div>
 </div><!-- container -->

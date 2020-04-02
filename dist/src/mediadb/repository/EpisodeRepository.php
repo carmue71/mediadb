@@ -126,6 +126,9 @@ class EpisodeRepository extends AbstractRepository
         $removePictureQry = "UPDATE Episode SET Picture = NULL WHERE ID_Episode = :msid LIMIT 1";
         $removePictureStmt = $this->pdo->prepare($removePictureQry);
         
+        $setPictureQry = "UPDATE Episode SET Picture = :pic WHERE ID_Episode = :msid LIMIT 1";
+        $setPictureStmt = $this->pdo->prepare($setPictureQry);
+        
         $removeWallpaperQry = "UPDATE Episode SET Wallpaper = NULL WHERE ID_Episode = :msid LIMIT 1";
         $removeWallaperStmt = $this->pdo->prepare($removeWallpaperQry);
         
@@ -135,12 +138,15 @@ class EpisodeRepository extends AbstractRepository
         if ( $stmt->execute() ){
             while ( $ms = $stmt->fetch() ){
                 if ( $ms['Picture'] != "" ){
-                    if ( !file_exists(ASSETSYSPATH."episode/picture/{$ms['Picture']}") ){
-                        print "Poster {$ms['Picture']} not found - removing it\n";
+                    if ( !file_exists(ASSETSYSPATH."episodes/{$ms['Picture']}") ){
+                        print "Poster{$ms['Picture']} not found - removing it\n";
                         $removePictureStmt->execute(['msid'=>$ms['ID_Episode']]);
                     }
                 } else {
-                    //TODO: check if the publisher Code exists
+                    if ( file_exists(ASSETSYSPATH."episodes/{$ms['ID_Episode']}.jpg") ){
+                        print "Poster {$ms['ID_Episode']}.jpg found - setting it\n";
+                        $setPictureStmt->execute(['msid'=>$ms['ID_Episode'], 'pic'=>"{$ms['ID_Episode']}.jpg"]);
+                    }
                 }
                 
                 if ( $ms['Wallpaper']!=""){

@@ -38,7 +38,7 @@ $episodeRepository = $container->make('EpisodeRepository');
 //TODO: check and set semaphore 
 //TODO: display semaphore in device-list
 
-print "\nChecking Decoration of the Episodes";
+print "\nChecking Decoration of the Episodes\n";
 
 //TODO: Check options if this should happen
 $episodeRepository->checkDecoration(1);
@@ -47,7 +47,10 @@ if ( isset( $argv[1]) ){
     $id = intval($argv[1]);
     $device = $deviceRepository->find($id);
     if ( isset($device)){
+        print "\nScanning device {$id}:\n";
+        print "\tRemoving files {$id}:\n";
         $deviceRepository->removeMissingFiles($device, 1);
+        print "\tScanning for directories and files {$id}:\n";
         $deviceRepository->scan($device, true,2);
     }
     else { 
@@ -58,13 +61,18 @@ if ( isset( $argv[1]) ){
         die();
     }
 }  else {
-    //Scan all availlable devices
+    print "\nScan all availlable devices\n" ;
     $devices = $deviceRepository->getAll();
     foreach ($devices as $device){
         if ( isset($device)){
 
             if ( $device->isActive() ){
+                print "\nScanning device {$device->Name}:\n";
+                print "\tRemoving files:\n";
+                
                 $deviceRepository->removeMissingFiles($device, 1);
+                
+                print "\tScanning for directories and files:\n";
                 $deviceRepository->scan($device, true, 1);
             }
             else 

@@ -114,8 +114,6 @@ class EpisodeRepository extends AbstractRepository
         return -2;
     }
     
-    
-    
     /**
      * checkDecoration
      * 1 if poster is set, check if the file exists, otherwise set poster to blank
@@ -132,6 +130,10 @@ class EpisodeRepository extends AbstractRepository
         $removeWallpaperQry = "UPDATE Episode SET Wallpaper = NULL WHERE ID_Episode = :msid LIMIT 1";
         $removeWallaperStmt = $this->pdo->prepare($removeWallpaperQry);
         
+        $setWallpaperQry = "UPDATE Episode SET Wallpaper = :pic WHERE ID_Episode = :msid LIMIT 1";
+        $setWallaperStmt = $this->pdo->prepare($setWallpaperQry);
+        
+        
         $query = "Select ID_Episode, Picture, Wallpaper, PublisherCode FROM Episode";
         
         $stmt = $this->pdo->prepare($query);
@@ -139,13 +141,13 @@ class EpisodeRepository extends AbstractRepository
             while ( $ms = $stmt->fetch() ){
                 if ( $ms['Picture'] != "" ){
                     if ( !file_exists(ASSETSYSPATH."episodes/{$ms['Picture']}") ){
-                        print "Poster{$ms['Picture']} not found - removing it\n";
+                        print "Poster {$ms['Picture']} not found - removing it\n";
                         $removePictureStmt->execute(['msid'=>$ms['ID_Episode']]);
                     }
                 } else {
-                    if ( file_exists(ASSETSYSPATH."episodes/{$ms['ID_Episode']}.jpg") ){
-                        print "Poster {$ms['ID_Episode']}.jpg found - setting it\n";
-                        $setPictureStmt->execute(['msid'=>$ms['ID_Episode'], 'pic'=>"{$ms['ID_Episode']}.jpg"]);
+                    if ( file_exists(ASSETSYSPATH."episodes/{$ms['PublisherCode']}.jpg") ){
+                        print "Poster {$ms['PublisherCode']}.jpg found - setting it\n";
+                        $setPictureStmt->execute(['msid'=>$ms['ID_Episode'], 'pic'=>"{$ms['PublisherCode']}.jpg"]);
                     }
                 }
                 
@@ -154,7 +156,10 @@ class EpisodeRepository extends AbstractRepository
                         print "Wallpaper {$ms['Wallpaper']} not found - removing it\n";
                         $removeWallaperStmt->execute(['msid'=>$ms['ID_Episode']]);
                 } else {
-                    //TODO: check if the publisher Code exists
+                    if ( file_exists(ASSETSYSPATH."wallpaper/{$ms['PublisherCode']}.jpg") ){
+                        print "Wallpaper {$ms['PublisherCode']}.jpg found - setting it\n";
+                        $setWallaperStmt->execute(['msid'=>$ms['ID_Episode'], 'pic'=>"{$ms['PublisherCode']}.jpg"]);
+                    }
                 }
             }
         }

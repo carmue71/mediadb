@@ -40,10 +40,19 @@ class DeviceRepository extends AbstractRepository
         $this->options = [
             'scan'=>[
                 'refreshFileInfo'=>false, 
-                'checkPoster' => false,
-                'setPosterForNewSets' => true,
+                'checkPoster' => 1,
+                'checkWallpaper' => 1,
             ] 
         ];
+        
+        $this->scanStatistics =[
+            'devices' => 0,
+            'episodes' => [                'new' => 0,                'updated' => 0            ],
+            'files' => [ 'new' =>0, 'updated' => 0, 'removed'=>'0'],
+            'errors' => ['unknownChannels'=>0, 'wrongPlacedFiles'=>0],
+        ];
+        
+        $this->errorLog = "";
         $this->options['scan']['refreshFileInfo'] = false;
     }
 
@@ -147,10 +156,9 @@ class DeviceRepository extends AbstractRepository
 <?php
     }
 
-    public function scan($device, bool $cmdline = false, int $logLevel=1)
+    public function scan($device, bool $cmdline = false, int $logLevel=1, $filesOnly = false, $episodesOnly = false, $episodeIDOnly = -1, $channelIDOnly = -1)
     {
-        $this->logLevel = 2;
-        //$this->logLevel = $logLevel;
+        $this->logLevel = $logLevel;
         if (! $device->isActive()) {
             return [
                 'result' => 'Error',
@@ -161,9 +169,8 @@ class DeviceRepository extends AbstractRepository
         
         if ( !$cmdline ) 
             print "<pre>\n";
-        
-        print "Starting Scan...\n\n";
-        // TODO: Set availlable = false f.a. files of this device
+        if ( $this->logLevel > 0 )
+            print "Starting Scan...\n\n";
         
         print "Pfad {$device->Path} OK!\n";
         
@@ -188,6 +195,14 @@ class DeviceRepository extends AbstractRepository
             
             if (! isset($id_channel) || $id_channel < 0) {
                 $this->warning("\n<strong>*************************************************\nError: Unknown Channel </strong> found: <i>$dir</i>\n*************************************************\n");
+                
+                //TODO: update error counter and log
+                continue;
+            }
+            
+            if ( $channelIDOnly > -1 && $id_channel != $channelIDOnly ){
+                print("\t\t\tSkipping Channel\n");
+                //wrong channel
                 continue;
             }
             
@@ -220,6 +235,10 @@ class DeviceRepository extends AbstractRepository
                     
                     if (! isset($id_episode) || $id_episode < 0) {
                         $newSet = true;
+                        if ( $filesOnly ){
+                            print("\n\t\t\tIgnoring new episode, because fileonly-option is set\n");
+                            continue;
+                        }
                         print "\n\t\t\tNew Set found - adding to MediaDB\n";
                         $episode = new Episode();
                         $episode->ID_Episode = - 1;
@@ -238,12 +257,14 @@ class DeviceRepository extends AbstractRepository
                         $episode = $this->episodeRepository->find($id_episode);
                     }
                     if ( isset($episode) && $episode->ID_Episode > -1 ){
-                        //print "Searching files: ";
-                        $addedFiles = $this->findFiles($device, $episode, $dir . "/" . $set . "/","");
-                        if ( $addedFiles > 0 )
-                            print "\n\t\t\t\tAdded {$addedFiles} Files";
+                        if ( $episodeIDOnly == -1 || $episodeIDOnly == $episode->ID_Episode && !$episodesOnly ){
+                            $addedFiles = $this->findFiles($device, $episode, $dir . "/" . $set . "/","");
+                            if ( $addedFiles > 0 )
+                                print "\n\t\t\t\tAdded {$addedFiles} Files";
+                        }
+                                
                     }
-                    if ( ( $newSet && $this->options['scan']['setPosterForNewSets']) || ($this->options['scan']['checkPoster']) ){
+                    if ( ($newSet && $this->options['scan']['checkPoster'] == 1) || ($this->options['scan']['checkPoster'] == 2) ){
                         if ( $episode->Picture == "" && $this->setPoster($episode, $device) )
                             $this->episodeRepository->save($episode);
                     }
@@ -257,26 +278,29 @@ class DeviceRepository extends AbstractRepository
     }
     
     private function setPoster($episode, $device){
-        if ( $this->logLevel > 1 ) print "\n\t\t\t\tNo Poster set for {$episode->Title} - checking ...";
-            
-        //TODO: Check other filetypes as wellmou
-        if ( file_exists(ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg") ){
-            if ( $this->logLevel > 1 ) print "\n\t\t\t\t\tFound matching asset - linking ...";
+        if ( $this->logLevel > 1 ) 
+            print "\n\t\t\t\tNo Poster set for {$episode->Title} - checking ...";
+        
+        $posterFile = ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg";
+        //TODO: Check other filetypes as well
+        if ( file_exists($posterFile) ){
+            if ( $this->logLevel > 1 ) print "\n\t\t\t\t\tFound {$posterFile} - linking ...";
             $episode->Picture = $episode->PublisherCode.".jpg";
             return true;
         } else {
             $firstPic = $this->fileRepository->findFirstPictureOnDevice($episode->ID_Episode, $device);
             
             if ( $firstPic != "" && file_exists($firstPic )){
-                if ( $this->logLevel > 1 ) print ("\n\t\t\t\t\tUsing the first picture: ".$firstPic);
+                if ( $this->logLevel > 1 ) 
+                    print ("\n\t\t\t\t\tUsing the first picture: ".$firstPic);
                 //print "target: ".ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg";
                 //TODO: resize the image if it is too large
-                if ( copy ($firstPic, ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg") ){
+                    if ( copy ($firstPic, $posterFile) ){
                     $episode->Picture = $episode->PublisherCode.".jpg";
                     return true;
                 } else {
                     print "********************************************************\n".
-                          " Error: Cannot copy $firstPic to ". ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg\n".
+                        " Error: Cannot copy $firstPic to {$posterFile}\n".
                           "********************************************************\n";
                     return false;
                 }
@@ -284,7 +308,12 @@ class DeviceRepository extends AbstractRepository
                 if ( $this->logLevel > 1 && $firstPic <> "" ){
                     print ("\nWarning: firstPic can't be set as poster: '{$firstPic}'");
                 }
-                $this->fileRepository->getImageFromVideo($episode->ID_Episode, $device);
+                
+                if ( $this->fileRepository->getImageFromVideo($episode->ID_Episode, $device, $posterFile)){
+                    $episode->Picture = $episode->PublisherCode.".jpg";
+                    return true;
+                }
+                
             }
         }
         return false;
@@ -323,7 +352,7 @@ class DeviceRepository extends AbstractRepository
         return $addedFiles; 
     }
     
-    public function removeMissingFiles($device, $logLevel){
+    public function removeMissingFiles($device, $logLevel, $episodeID=-1, $channelID=-1){
         $fileCounter = 0;
         $this->logLevel = $logLevel;
         if ( !$device->isActive() )
@@ -377,5 +406,23 @@ class DeviceRepository extends AbstractRepository
             }
         }
         return DEFAULT_SET_PATH; 
+    }
+    
+    public function scanDevice($device, $ignoreExistingFiles, $loglevel, $filesOnly = false, $episodesOnly = false, $episodeID = - 1, $channelID = - 1)
+    {
+        if (isset($device)) {
+            if ($device->isActive()) {
+                print "\n\tScanning device {$device->Name}:\n";
+
+                if (! $ignoreExistingFiles && ! $episodesOnly ) {
+                    print "\t\tRemoving files:\n";
+                    $this->removeMissingFiles($device, $loglevel, $episodeID, $channelID);
+                }
+                if ($loglevel > 0)
+                    print "\tScanning for directories and files:\n";
+                $this->scan($device, true, $loglevel, $filesOnly, $episodesOnly, $episodeID, $channelID);
+            } else
+                print("\nDevice {$device->Name} seems to be unavaillable - ignoring it for now.\n\n");
+        }
     }
 }

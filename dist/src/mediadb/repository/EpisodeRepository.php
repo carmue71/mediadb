@@ -133,7 +133,6 @@ class EpisodeRepository extends AbstractRepository
         $setWallpaperQry = "UPDATE Episode SET Wallpaper = :pic WHERE ID_Episode = :msid LIMIT 1";
         $setWallaperStmt = $this->pdo->prepare($setWallpaperQry);
         
-        
         $query = "Select ID_Episode, Picture, Wallpaper, PublisherCode FROM Episode";
         
         $stmt = $this->pdo->prepare($query);
@@ -141,23 +140,27 @@ class EpisodeRepository extends AbstractRepository
             while ( $ms = $stmt->fetch() ){
                 if ( $ms['Picture'] != "" ){
                     if ( !file_exists(ASSETSYSPATH."episodes/{$ms['Picture']}") ){
-                        print "Poster {$ms['Picture']} not found - removing it\n";
+                        if ( $logLevel > 0 )
+                            print "Poster {$ms['Picture']} not found - removing it\n";
                         $removePictureStmt->execute(['msid'=>$ms['ID_Episode']]);
                     }
                 } else {
                     if ( file_exists(ASSETSYSPATH."episodes/{$ms['PublisherCode']}.jpg") ){
-                        print "Poster {$ms['PublisherCode']}.jpg found - setting it\n";
+                        if ( $logLevel > 0 )
+                            print "Poster {$ms['PublisherCode']}.jpg found - setting it\n";
                         $setPictureStmt->execute(['msid'=>$ms['ID_Episode'], 'pic'=>"{$ms['PublisherCode']}.jpg"]);
                     }
                 }
                 
                 if ( $ms['Wallpaper']!=""){
                     if ( !file_exists(ASSETSYSPATH."wallpaper/{$ms['Wallpaper']}") )
-                        print "Wallpaper {$ms['Wallpaper']} not found - removing it\n";
+                        if ( $logLevel > 0 )
+                            print "Wallpaper {$ms['Wallpaper']} not found - removing it\n";
                         $removeWallaperStmt->execute(['msid'=>$ms['ID_Episode']]);
                 } else {
                     if ( file_exists(ASSETSYSPATH."wallpaper/{$ms['PublisherCode']}.jpg") ){
-                        print "Wallpaper {$ms['PublisherCode']}.jpg found - setting it\n";
+                        if ( $logLevel > 0 )
+                            print "Wallpaper {$ms['PublisherCode']}.jpg found - setting it\n";
                         $setWallaperStmt->execute(['msid'=>$ms['ID_Episode'], 'pic'=>"{$ms['PublisherCode']}.jpg"]);
                     }
                 }

@@ -318,17 +318,17 @@ class FileRepository extends AbstractRepository
         $parameters = array('idms'=>$idEpisode, 'idd'=>$device->ID_Device);
         $file = $this->queryFirst($query, $parameters, $this->className);
         if ( $file ){
-            echo "\nFound file {$file->Name}";
+            echo "\n\t\t\tFound file {$file->Name}";
             $fullpath = "{$file->SystemPath}files/{$file->Path}{$file->Name}";
             return $fullpath;
         }
-        echo "\nNo suitable file found";
+        echo "\n\t\t\tError: No suitable file found";
         //var_dump($query); var_dump($idEpisode); var_dump($device);
         return "";
     }
     
-    public function getImageFromVideo(int $mid, $device){
-        echo "\n\tTrying to retreive image from video ...";
+    public function getImageFromVideo(int $mid, $device, $imageFile){
+        echo "\n\t\t\tTrying to retreive image from video ...";
         // search for the first video and try to extract the image from it
         $query = "SELECT * FROM V_FileWithDevice WHERE REF_Episode = :idms AND REF_Device = :idd AND REF_Filetype = 3 LIMIT 1";
         $parameters = array(
@@ -339,19 +339,28 @@ class FileRepository extends AbstractRepository
         if ($file) {
             $fullname = "{$file->SystemPath}files/{$file->Path}{$file->Name}";
             $fileInfo = $this->getID3->analyze($fullname);
-            //var_dump($fileInfo);
+            var_dump($fileInfo);
             
             if ( isset($fileInfo['comments']['picture'][0]['data']) ){
-                echo "\n\t\tInfo: found a picture!";
+                echo "\n\t\t\tInfo: found a picture!";
                 
                 $image= $fileInfo['comments']['picture'][0]['data'];
-                if ( file_put_contents("/tmp/image.jpg") ){
-                    echo "image successfully written";
+                if ( file_put_contents($imageFile) ){
+                    echo "\n\n\t\t\timage successfully written";
                     return true;
                 }
+            } else {
+                echo "\n\t\t\tInfo: No Poster found in video description! Using ffmpeg";
+                
+                $time="00:01:10";
+                $cmd = "/usr/bin/ffmpeg -i {$fullname} -ss {$time} -vframes 1 {$imageFile}";
+                $output = shell_exec($cmd);
+                echo "$output";
+                return true;
             }
         }
-        echo "\n\tWarning: could also not retreive image from video!";
+        
+        echo "\n\t\t\tWarning: could also not retreive image from video!";
         return false;
     }
     

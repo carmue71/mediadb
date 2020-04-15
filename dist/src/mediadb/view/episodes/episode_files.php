@@ -1,6 +1,9 @@
 <?php
+namespace mediadb;
 include VIEWPATH.'fragments/header.php';
 include VIEWPATH.'fragments/navigation.php';
+\mediadb\Logger::debug("episode_files.php: Document started");
+
 ?>
 <div class="container-fluid">
 
@@ -41,6 +44,9 @@ $target = "showfiles?id={$ms->ID_Episode}&";?>
 <?php 
     include VIEWPATH.'fragments/js.php';
     include VIEWPATH.'fragments/confirmdelete.php';
+    //include VIEWPATH.'episodes/delete_episode.php';
+    //TODO: switch the reactions, depeding on file or episode deletion
+    \mediadb\Logger::debug("episode_files.php: Document finished");
 ?>
 
 <script src="/mediadb/js/togglewatch.js"></script>

@@ -12,7 +12,7 @@
         <a class="nav-link" href="<?php print INDEX?>listactors">Actors <i class="fas fa-female"></i><i class="fas fa-male"></i></a>
       </li>
       <li class="nav-item <?php if (isset($this) && $this->currentSection == 'Episodes') print ' active'; ?>">
-        <a class="nav-link" href="<?php print INDEX?>listepisodes">Media Sets <i class="fab fa-youtube"></i></a>
+        <a class="nav-link" href="<?php print INDEX?>listepisodes">Episodes <i class="fab fa-youtube"></i></a>
       </li>
       
       <li class="nav-item <?php if (isset($this) && $this->currentSection == 'Channels') print ' active'; ?>">
@@ -51,7 +51,7 @@
           <?php if (isset($ms)){?>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" id='deleteMS' value='<?php print $ms->ID_Episode;?>' href='#'> 
-          	<i class="fas fa-trash"></i> Delete Media Set</a>
+          	<i class="fas fa-trash"></i> Delete Episode</a>
           	<div class="dropdown-divider"></div>
           <a class='dropdown-item addepisodetowatchlist' value='<?php print $ms->ID_Episode;?>' href='#'> 
           	<i class="fas fa-binoculars"></i> Add to Watch List</a>

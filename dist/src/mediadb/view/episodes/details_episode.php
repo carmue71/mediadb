@@ -9,6 +9,8 @@
 
 include VIEWPATH.'fragments/header.php';
 include VIEWPATH.'fragments/navigation.php';
+
+\mediadb\Logger::debug("details_episode.php: Document started");
 ?>
 
 <div class="container-fluid">
@@ -310,6 +312,7 @@ $('.unlinkActor').click(function(){
 <?php
     include VIEWPATH.'episodes/delete_episode.php';
     include VIEWPATH.'fragments/addwatchlist.php';
+    \mediadb\Logger::debug("details_episode.php: Document created");
 ?>
 </body>
 </html>

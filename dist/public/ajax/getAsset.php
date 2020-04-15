@@ -130,7 +130,9 @@ if ($ext == 'jpg' || $ext == 'jpeg') {
     $image = imagecreatefromjpeg($fullname);
 } elseif ($ext== 'webp' ){
     $image = imagecreatefromwebp($fullname);
-} else {
+} elseif ($ext== 'gif' ){
+    $image = imagecreatefromgif($fullname);
+} else{
     $image = imagecreatefrompng($fullname);
 }
 

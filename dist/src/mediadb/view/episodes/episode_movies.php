@@ -1,4 +1,5 @@
 <?php
+\mediadb\Logger::debug("episode_movies.php: document started");
 include VIEWPATH.'fragments/header.php';
 include VIEWPATH.'fragments/navigation.php';
 ?>
@@ -65,8 +66,10 @@ foreach ($movies as $video){
 
 </div><!-- container -->
 
-<?php include VIEWPATH.'fragments/js.php'; ?>
-
+<?php 
+include VIEWPATH.'fragments/js.php'; 
+include VIEWPATH.'episodes/delete_episode.php';
+?>
 <script src="/mediadb/js/jquery.star-rating-svg.js"></script>
 <script src="/mediadb/js/togglewatch.js"></script>
 <script src="/mediadb/js/js.cookie.js"></script>
@@ -171,3 +174,4 @@ foreach ($movies as $video){
 </script>
 </body>
 </html>
+<?php \mediadb\Logger::debug("episode_movies.php: document finished");?>

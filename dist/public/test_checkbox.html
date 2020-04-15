@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Test Checkbox</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   	<script src="https://kit.fontawesome.com/cf1dcbb97f.js" crossorigin="anonymous"></script>   	
+   	<link rel="stylesheet" type="text/css" href="/mediadb/css/star-rating-svg.css">
+   	<link rel="stylesheet" href="/mediadb/css/mystyle.css" />
+   	<link rel="stylesheet" href="/mediadb/css/mygal.css" />
+	<link rel="icon" href="/mediadb/img/favicon.ico" type="image/x-icon">
+  </head>
+  <body style="background: linear-gradient( rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6) ),url('/mediadb/ajax/wallpaper.php?file=realitykings.jpg') no-repeat center center fixed;background-size: cover;"><!-- navigation.php start -->
+
+<div class="container-fluid">
+
+  
+<div class="row">
+	<div class="col-sm-8">
+		<h3>239469331&nbsp;		         <i class='far fa-circle' 
+		         	style='color:Grey;' 
+		         	id='statusflagunwatched'
+		         	onClick='setwatched(16757, true)'></i>
+		      	 <i class='fas fa-check-circle' 
+		      	 	style='color:Gold;display:none;' 
+		      	 	id='statusflagwatched'
+		      	 	onClick='setwatched(16757, false)'></i>
+		      		</h3>
+	</div>
+	<div class="col-sm-4">
+				<a href='showchannel?id=121'> 
+			<img 
+				align=right
+				alt='Reality Kings' 
+				src='/mediadb/ajax/getAsset.php?type=logo&size=N&file=reality kings.png'>
+		</a>
+			</div>
+</div>
+
+    
+<ul class="nav nav-tabs">
+    <!-- Details -->
+  <li class="nav-item">
+    <a class="nav-link  " href='/mediadb/index.php/showepisode?id=16757'><i class="fas fa-info-circle"></i> Details</a>
+  </li>
+  <!-- Movie(s) -->
+  <li class="nav-item">
+  	<a class='nav-link ' 
+  		href='/mediadb/index.php/movies?id=16757'> <i class="fas fa-file-video"></i> Movie 
+  	<span class='badge badge-success'>1</span>
+  	  		<span class='badge badge-info'>HD</span>
+  		  	</a>  </li>  
+  
+  <!-- Pictures -->
+  <li class="nav-item">
+    <a class='nav-link disabled' 
+    	href='/mediadb/index.php/showpix?id=16757'><i class="fas fa-file-image"></i> Pictures
+    <span class='badge badge-warning'>0</span></a> 
+  </li>
+  
+  <!-- All Files -->
+  <li class="nav-item">
+    <a class='nav-link active' 
+    	href='/mediadb/index.php/showfiles?id=16757'><i class="fas fa-file"></i> Files
+    <span class='badge badge-success'>1</span></a> 
+  </li>
+  
+  <!-- Edit -->
+  <li class="nav-item">
+    <a class="nav-link  " href='/mediadb/index.php/editepisode?id=16757'><i class="fas fa-pencil-alt"></i> Edit</a>
+  </li>
+</ul>
+<br/> 
+<div class="row">
+	<div class="col-md-4">
+	</div>
+	<div class="col-md-2">
+			<div class="dropdown">
+  				<button class="btn btn-secondary dropdown-toggle" type="button" 
+  					id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  					Style: List</button>
+  				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+  					<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&style=List">List</a>
+					<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&style=Preview">Preview</a>
+					<!-- a class="dropdown-item" href="< ?php print INDEX.$target.'style=Gallery'?>">Gallery</a>
+					<a class="dropdown-item" href="< ?php print INDEX.$target.'style=Slideshow'?>">Slideshow</a>
+					<a class="dropdown-item" href="< ?php print INDEX.$target.'style=Continuous'?>">Continuous</a -->
+  				</div>
+			</div> <!-- dropdown -->
+		</div>
+		<div class="col-md-3">
+			<div class="dropdown">
+  				<button class="btn btn-secondary dropdown-toggle" type="button" 
+  					id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  					Order: Name</button>
+  				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+  					
+  					<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Name">Name <i class="fas fa-sort-alpha-down"></i></a>
+  					<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Name%20DESC">Name <i class="fas fa-sort-alpha-up"></i> </a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Title">Title <i class="fas fa-sort-alpha-down"></i></a>
+  					<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Title%20DESC">Title <i class="fas fa-sort-alpha-up"></i> </a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Created">Created <i class="fas fa-sort-alpha-down"></i></a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Created%20DESC">Created <i class="fas fa-sort-alpha-up"></i></a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Name">Published <i class="fas fa-sort-alpha-down"></i></a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Name%20DESC">Published <i class="fas fa-sort-alpha-up"></i></a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Rating">Rating <i class="fas fa-sort-alpha-down"></i></a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Rating%20DESC">Rating <i class="fas fa-sort-alpha-up"></i></a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Size">Size <i class="fas fa-sort-alpha-down"></i></a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Size%20DESC">Size <i class="fas fa-sort-alpha-up"></i></a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Modified">Modified <i class="fas fa-sort-alpha-down"></i></a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&order=Modified%20DESC">Modified <i class="fas fa-sort-alpha-up"></i></a>
+  				</div>
+			</div> <!-- dropdown -->
+		</div>
+		<div class="col-md-2">
+			<div class="dropdown">
+  				<button class="btn btn-secondary dropdown-toggle" type="button" 
+  					id="dropdownMenuButton3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  					<i class="fas fa-filter"></i> Filter: All</button>
+  				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+  					<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&filter=All">All</a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&filter=Videos">Videos</a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&filter=Pictures">Pictures</a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&filter=OtherFiles">Other Files</a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&filter=HQHDVideos">HQ/HD Videos</a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&filter=Top">High Rated Files</a>
+    				<a class="dropdown-item" href="/mediadb/index.php/showfiles?id=16757&filter=Unrated">Unrated Files</a>    				
+  				</div>
+			</div> <!-- dropdown -->
+			</div><!-- col -->
+		<div class="col-md-1">
+			<a class='btn btn-secondary' title="Slide Show Options" id="slideshowOptionsBtn"><i class="fas fa-cogs"></i></a>
+		</div>
+	<br/></div> <!-- row -->
+
+<div class="row">
+	<div class="col-md-12">
+		<!-- Pagination -->
+		
+              <br/>
+<nav aria-label="Page navigation abstract">
+	<ul class="pagination justify-content-center">
+		<li class="page-item"><a class="page-link" href='/mediadb/index.php/showfiles?id=16757&page=1'
+			tabindex="-1">First</a></li>
+					<li class="page-item"><a class="page-link" href='/mediadb/index.php/showfiles?id=16757&page=1'>
+				1</a>
+			</li>
+				<li class="page-item"><a class="page-link" href='/mediadb/index.php/showfiles?id=16757&page=1'>Last</a></li>
+	</ul>
+</nav>
+
+<!-- Pagination -->	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<table class="table table-hover table-sm  transparent">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Device</th>
+					<th>Episode</th>
+					<th>File<br />
+					<small>Path</small></th>
+					<th>Title</th>
+					<th>Size <br>
+					<small>Playtime</small></th>
+					<th>Resolution</th>
+					<th>Created<br>
+					<small>Modified</small></th>
+					<th>Info</th>
+					<th>Rating</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+			        		<tr id='row_3256688'>
+        			<td><input type='checkbox' class='fileselector'/> </td>
+        			<td><a href='"/mediadb/index.php/showdevice?id=10'>Piccard</a></td>
+        			<td><a href='"/mediadb/index.php/showepisode?id=16757'>Episode</a></td>
+					<td><a href='/mediadb/ajax/image.php?path=/var/media2/mediadb/files/realitykings.com/239469331/720P_4000K_239469331.mp4&type=img'>720P_4000K_239469331.mp4</a><br/>
+						<small> realitykings.com/239469331/</small></td>
+					<td></td>
+					<td>127M<br><small>00:10:41</small></td>
+					<td>1280 x 720</td>
+					<td>2020-03-21 08:01:57<br/>2020-03-20 20:25:56</td>
+					<td></td>
+					<td>0</td>
+					<td>
+						<a class='btn btn-primary viewFile' 
+							data-title='720P_4000K_239469331.mp4'
+							data-img='/mediadb/ajax/image.php?path=/var/media2/mediadb/files/realitykings.com/239469331/720P_4000K_239469331.mp4&type=img'
+            				data-imgid=3256688            				data-type=3            				data-pos='0'><i class="far fa-eye"></i> </a>
+						<a class='btn btn-secondary editFile' data-id='3256688'><i class="fas fa-pencil-alt"></i></a>
+						<a class='btn btn-secondary refreshFile' data-id='3256688' title='Refresh File Info'><i class="fas fa-sync-alt"></i></a>
+						<a class='btn btn-danger deleteFile' data-imgid='3256688'><i class="fas fa-trash-alt"></i></a>
+					</td>
+				</tr>
+    			    	    	<tr>
+					<td><input type='checkbox' id='selectAll' /></td>
+					<td colspan=9>
+						<button type="button" class="btn btn-primary" id='view_selected'>View
+							Selected</button>
+						<button class="btn btn-secondary" id='delete_selected'>Delete
+							Selected</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+    
+	<div class="row">
+        	<div class="col-md-12">
+        		<!-- Pagination -->
+		
+              <br/>
+<nav aria-label="Page navigation abstract">
+	<ul class="pagination justify-content-center">
+		<li class="page-item"><a class="page-link" href='/mediadb/index.php/showfiles?id=16757&page=1'
+			tabindex="-1">First</a></li>
+					<li class="page-item"><a class="page-link" href='/mediadb/index.php/showfiles?id=16757&page=1'>
+				1</a>
+			</li>
+				<li class="page-item"><a class="page-link" href='/mediadb/index.php/showfiles?id=16757&page=1'>Last</a></li>
+	</ul>
+</nav>
+
+<!-- Pagination -->			</div>
+	</div>      
+</div><!-- container -->
+
+
+<!-- Modal About -->
+<div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">MediaDB Version 0.8</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This application was written by Karl Müller (c) 2020.<br>
+        It uses the following libraries:
+        <ul>
+        <li> <a href="https://jquery.com/">jquery-3.4.1</a></li>
+        <li> <a href="https://getbootstrap.com/">Bootstrap</a></li>
+        <li> <a href="https://popper.js.org/"> Popper</a></li>
+        <li> <a href="https://fontawesome.com/">Fontawesome</a></li>
+ 		<li> <a href="https://github.com/js-cookie/js-cookie">JavaScript Cookie</a></li>
+		<li> <a href="https://github.com/nashio/star-rating-svg">Star-rating-svg</a></li>
+		<li> <a href="https://www.getid3.org/">getid3</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+
+</body>
+</html>
+<!-- Modal ConfirmDelete -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modaltitle">Confirmation to Delete Files</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p id='confirmTxt'> Do you really want to delete?</p>
+        <br/>
+        <input type=checkbox id=physicallyDeleteFiles/>Also delete files from disk<br /><br/>
+        <button id='confirmDeleteBtn' type=button class='btn btn-danger'>Confirmed!</button>
+        <button id='cancelWithoutConfirmationBtn' type=button class='btn btn-secondary data-dismiss="modal" aria-label="Close" '>Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/mediadb/js/togglewatch.js"></script>
+<script src="/mediadb/js/deletefile.js"></script>
+<script src="/mediadb/js/js.cookie.js"></script>
+
+</body>
+</html>

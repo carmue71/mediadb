@@ -15,6 +15,9 @@ use mediadb\repository\ActorRepository;
 
 
 include_once SRC_PATH.'tools/texttools.php';
+include_once SRC_PATH.'tools/logging.php';
+\mediadb\Logger::$logLevel = MDB_LOG_DEBUG;
+\mediadb\Logger::$consoleLevel = MDB_LOG_NONE;
 
 class EpisodeController extends FileContainterController
 {

@@ -22,11 +22,14 @@ $('#deleteMS').click( function(event){
         //TODO: remove rows
         //alert("Some fine day I'll do this!");
         msid = $('#deleteMS').attr('value');
+
         
+        purge = $("#confirmDeleteModal").find(':checkbox').prop('checked');
+        console.log("purge: "+purge);
         var values = {
             'what': 'deletems',
-            'msid': msid,
-            'purge': $('#physicallyDeleteFiles').is(':checked'),
+            'msid': msid,        
+            'purge': purge,
         };
         
         var result = $.ajax({

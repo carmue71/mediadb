@@ -22,6 +22,7 @@ class FileRepository extends AbstractRepository
     public function __construct(\PDO $pdo)
     {
         parent::__construct($pdo);
+        \mediadb\Logger::debug("FileRepository.php: loaded");
         $this->filter = "";
         $this->className = "\\mediadb\\model\\File";
         $this->tableName = "File";
@@ -169,13 +170,7 @@ class FileRepository extends AbstractRepository
             else
                 return -1;
         }
-        print "error finding file:<br>";
-        var_dump($val);
-        print "<br>Parameters:<br>";
-        var_dump($parameter);
-        print "<br>Query:<br>";
-        var_dump($query);
-        
+        \mediadb\Logger::error("FileRepository.php: error finding file: {$query}");
         return -1;
     }
     
@@ -258,10 +253,7 @@ class FileRepository extends AbstractRepository
             else
                 return 0;
         } else {
-            print "<pre>";
-            var_dump($query);
-            var_dump($this->pdo->errorInfo());
-            print "</pre>";
+            \mediadb\Logger::error("FileRepository.php: (3) error {$this->pdo->errorInfo()} while executing {$query}");
             return 0;
         }
     }
@@ -278,10 +270,7 @@ class FileRepository extends AbstractRepository
                 else
                     return 0;
         } else {
-            print "<pre>";
-            var_dump($query);
-            var_dump($this->pdo->errorInfo());
-            print "</pre>";
+            \mediadb\Logger::error("FileRepository.php: (1) error {$this->pdo->errorInfo()} while executing {$query}");
             return 0; 
         }
     }
@@ -301,10 +290,7 @@ class FileRepository extends AbstractRepository
             else
                 return 0;
         } else {
-            print "<pre>";
-            var_dump($query);
-            var_dump($this->pdo->errorInfo());
-            print "</pre>";
+            \mediadb\Logger::error("FileRepository.php: (2) error {$this->pdo->errorInfo()} while executing {$query}");
             return 0;
         }
     }
@@ -318,17 +304,16 @@ class FileRepository extends AbstractRepository
         $parameters = array('idms'=>$idEpisode, 'idd'=>$device->ID_Device);
         $file = $this->queryFirst($query, $parameters, $this->className);
         if ( $file ){
-            echo "\n\t\t\tFound file {$file->Name}";
+            \mediadb\Logger::debug("FileRepository.php: Found file {$file->Name}");
             $fullpath = "{$file->SystemPath}files/{$file->Path}{$file->Name}";
             return $fullpath;
         }
-        echo "\n\t\t\tError: No suitable file found";
-        //var_dump($query); var_dump($idEpisode); var_dump($device);
+        \mediadb\Logger::debug("FileRepository.php: No suitable file found");
         return "";
     }
     
     public function getImageFromVideo(int $mid, $device, $imageFile){
-        echo "\n\t\t\tTrying to retreive image from video ...";
+        \mediadb\Logger::info("FileRepository.php: Trying to retreive image from video ...");
         // search for the first video and try to extract the image from it
         $query = "SELECT * FROM V_FileWithDevice WHERE REF_Episode = :idms AND REF_Device = :idd AND REF_Filetype = 3 LIMIT 1";
         $parameters = array(
@@ -339,28 +324,29 @@ class FileRepository extends AbstractRepository
         if ($file) {
             $fullname = "{$file->SystemPath}files/{$file->Path}{$file->Name}";
             $fileInfo = $this->getID3->analyze($fullname);
-            var_dump($fileInfo);
+            //var_dump($fileInfo);
             
             if ( isset($fileInfo['comments']['picture'][0]['data']) ){
-                echo "\n\t\t\tInfo: found a picture!";
+                \mediadb\Logger::info("FileRepository.php: found a picture!");
                 
                 $image= $fileInfo['comments']['picture'][0]['data'];
                 if ( file_put_contents($imageFile) ){
-                    echo "\n\n\t\t\timage successfully written";
+                    \mediadb\Logger::info("FileRepository.php: image successfully written");
                     return true;
                 }
             } else {
-                echo "\n\t\t\tInfo: No Poster found in video description! Using ffmpeg";
+                \mediadb\Logger::info("FileRepository.php: No Poster found in video description! Using ffmpeg");
                 
                 $time="00:01:10";
                 $cmd = "/usr/bin/ffmpeg -i {$fullname} -ss {$time} -vframes 1 {$imageFile}";
+                \mediadb\Logger::debug("FileRepository.php: cmd: {$cmd}");
                 $output = shell_exec($cmd);
-                echo "$output";
+                \mediadb\Logger::info("FileRepository.php: {$output}");
+                //echo "$output";
                 return true;
             }
         }
-        
-        echo "\n\t\t\tWarning: could also not retreive image from video!";
+        \mediadb\Logger::warning("FileRepository.php: could also not retreive image from video");
         return false;
     }
     
@@ -376,3 +362,5 @@ class FileRepository extends AbstractRepository
     }
     
 }    
+
+//\mediadb\Logger::debug("FileRepository.php: ");

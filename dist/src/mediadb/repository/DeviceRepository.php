@@ -175,36 +175,35 @@ class DeviceRepository extends AbstractRepository
         print "Pfad {$device->Path} OK!\n";
         
         $result = scandir($device->Path . "files/");
-        print "\nFound " . (count($result) - 2) . " potential channels.\n";
+        \mediadb\Logger::info("DeviceRepository.php: Found " . (count($result) - 2) . " potential channels.");
         
         foreach ($result as $dir) {
-            if ($dir[0] == ".")
+            if ($dir[0] == "."){
                 continue; // skip .-Directories like ., .. and hidden ones.
-            
-                if (! $device->isActive()) {
-                    return [
-                        'result' => 'Error',
-                        'ErrorHeader' => "<h2>Problem with path {$device->Path}! Scan cancelled!!!</h2>",
-                        'ErrorMessage' => "<p>The device was removed while scanning. Please avoid this!</p>" . "<br /><p>Scan aborted!</p><p align = centered>Return to <a href='" . INDEX . "devicelist'>Device-List</a></p>"
+            }
+            if (! $device->isActive()) {
+                return [
+                    'result' => 'Error',
+                    'ErrorHeader' => "<h2>Problem with path {$device->Path}! Scan cancelled!!!</h2>",
+                    'ErrorMessage' => "<p>The device was removed while scanning. Please avoid this!</p>" . "<br /><p>Scan aborted!</p><p align = centered>Return to <a href='" . INDEX . "devicelist'>Device-List</a></p>"
                 ];
-                }
-                
-            print "\n\tChecking {$dir}:";
+            }
+            \mediadb\Logger::debug("DeviceRepository.php: Checking {$dir}:");
             
             $id_channel = $this->findChannelByPath($dir);
             
             if (! isset($id_channel) || $id_channel < 0) {
-                $this->warning("\n<strong>*************************************************\nError: Unknown Channel </strong> found: <i>$dir</i>\n*************************************************\n");
-                
-                //TODO: update error counter and log
+                $this->scanStatistics['errors']['unknownChannels'];
+                \mediadb\Logger::warning("DeviceRepository.php: Unknown Channel found: {$dir}");
+                //TODO: remember device and channel
                 continue;
             }
             
             if ( $channelIDOnly > -1 && $id_channel != $channelIDOnly ){
-                print("\t\t\tSkipping Channel\n");
-                //wrong channel
+                \mediadb\Logger::debug("DeviceRepository.php: Skipping Channel");
                 continue;
             }
+            
             \mediadb\Logger::info("DeviceRepository.php: Channel identified {$id_channel}! Scanning for episodes: ");
             if (is_dir($device->Path . "/files/{$dir}")) {
                 $sets = scandir($device->Path . "/files/{$dir}/");
@@ -224,9 +223,8 @@ class DeviceRepository extends AbstractRepository
                     }
                         
                     $newSet = false;
-                    //print "<li>Checking <i>{$set}</i>: <br/>";
                     
-                        if ( !is_dir($device->Path . "/files/".$dir . "/" . $set ) ){
+                    if ( !is_dir($device->Path . "/files/".$dir . "/" . $set ) ){
                             $this->scanStatistics['errors']['wrongPlacedFiles']++;
                             array_push($this->errorFiles,  $dir . "/" . $set);
                             \mediadb\Logger::warning("DeviceRepository.php: Episode expected, but file found: {$dir}/{$set}");

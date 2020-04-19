@@ -97,14 +97,23 @@
 }
 
 /****** Buttons ************************************************************* */
+.gal-fullscreen-lightbox {
+	color: white;
+  	position: absolute;
+  	top: 2px;
+  	right: 50px;
+  	font-size: 30px;
+  	font-weight: normal;
+  	cursor: pointer;
+}
 
 .gal-close-lightbox {
   color: white;
   position: absolute;
   top: 2px;
   right: 15px;
-  font-size: 35px;
-  font-weight: bold;
+  font-size: 30px;
+  font-weight: normal;
   cursor: pointer;
 }
 
@@ -118,7 +127,7 @@
   cursor: pointer;
 }
 
-.gal-close-lightbox:hover, .gal-close-lightbox:focus {
+.gal-close-lightbox:hover, .gal-close-lightbox:focus, .gal-fullscreen-lightbox:hover {
   color: #999;
   text-decoration: none;
   cursor: pointer;
@@ -135,7 +144,7 @@
   margin-top: -50px;
   color: white!important;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 30px;
   transition: 0.6s ease;
   
   user-select: none;

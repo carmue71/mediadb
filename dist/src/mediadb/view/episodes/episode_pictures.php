@@ -77,9 +77,12 @@ $target = "showpix?id={$ms->ID_Episode}&";?>
 		<img class='gal-image' src='img/large-1.jpg' />
 		<p class='gal-text'>A cute Fox</p>
 	</div>
-	<span class='gal-close-lightbox' onclick="closeModal()">&times;</span>
-	<a class="gal-prev-button" onclick="changeImage(-1)">&#10094;</a>
-	<a class="gal-next-button" onclick="changeImage(1)">&#10095;</a>
+	
+	<span class='gal-fullscreen-lightbox' onclick="togglefullscreen()"><i class="fas fa-expand-alt"></i></span>
+	
+	<span class='gal-close-lightbox' onclick="closeModal()"><i class="fas fa-window-close"></i></span>
+	<a class="gal-prev-button" onclick="changeImage(-1)"><i class="fas fa-chevron-circle-left"></i></a>
+	<a class="gal-next-button" onclick="changeImage(1)"><i class="fas fa-chevron-circle-right"></i><!-- &#10095; --></a>
 </div>
 
 <?php 

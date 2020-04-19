@@ -22,6 +22,8 @@ class DeviceRepository extends AbstractRepository
     private $episodeRepository;
 
     private $fileRepository;
+    public $scanStatistics;
+    public $errorFiles;
     
         public function __construct(PDO $pdo, EpisodeRepository $msr, FileRepository $fr)
     {
@@ -47,10 +49,10 @@ class DeviceRepository extends AbstractRepository
             'devices' => 0,
             'episodes' => [                'new' => 0,                'updated' => 0            ],
             'files' => [ 'new' =>0, 'updated' => 0, 'removed'=>'0'],
-            'errors' => ['unknownChannels'=>0, 'wrongPlacedFiles'=>0],
+            'errors' => ['unknownChannels'=>0, 'wrongPlacedFiles'=>0, DBErrors=>0 ],
         ];
         
-        $this->errorLog = "";
+        $this->errorFiles = [];
         $this->options['scan']['refreshFileInfo'] = false;
     }
 
@@ -225,7 +227,9 @@ class DeviceRepository extends AbstractRepository
                     //print "<li>Checking <i>{$set}</i>: <br/>";
                     
                         if ( !is_dir($device->Path . "/files/".$dir . "/" . $set ) ){
-                        print("\n\n *********************************************************\nError: Directory (Episode) expected, but file found;\n please check ".$dir . "/" . $set."!\n***********\n\n");
+                            $this->scanStatistics['errors']['wrongPlacedFiles']++;
+                            array_push($this->errorFiles,  $dir . "/" . $set);
+                            \mediadb\Logger::warning("DeviceRepository.php: Episode expected, but file found: {$dir}/{$set}");
                         continue;
                     }
                     
@@ -234,10 +238,11 @@ class DeviceRepository extends AbstractRepository
                     if (! isset($id_episode) || $id_episode < 0) {
                         $newSet = true;
                         if ( $filesOnly ){
-                            print("\n\t\t\tIgnoring new episode, because fileonly-option is set\n");
+                            \mediadb\Logger::debug("DeviceRepository.php: Ignoring new episode, because fileonly-option is set");
                             continue;
                         }
-                        print "\n\t\t\tNew Set found - adding to MediaDB\n";
+                        \mediadb\Logger::info("DeviceRepository.php: New Set found - adding to MediaDB");
+                        $this->scanStatistics['episodes']['new']++;
                         $episode = new Episode();
                         $episode->ID_Episode = - 1;
                         $episode->Comment = "";//Automatically added by Scanner";
@@ -247,8 +252,8 @@ class DeviceRepository extends AbstractRepository
                         $episode->REF_Channel = $id_channel;
                         $episode->PublisherCode = $set;
                         if ( !$this->episodeRepository->save($episode) || $episode->ID_Episode == -1 ) {
-                            print "\n\n***** Episode not saved!";
-                            var_dump($episode);
+                            \mediadb\Logger::error("DeviceRepository.php: Episode not saved {$episode->Title}"); 
+                            $this->scanStatistics['errors']['DBErrors']++;
                             continue;
                         }
                     } else {
@@ -257,8 +262,7 @@ class DeviceRepository extends AbstractRepository
                     if ( isset($episode) && $episode->ID_Episode > -1 ){
                         if ( $episodeIDOnly == -1 || $episodeIDOnly == $episode->ID_Episode && !$episodesOnly ){
                             $addedFiles = $this->findFiles($device, $episode, $dir . "/" . $set . "/","");
-                            if ( $addedFiles > 0 )
-                                print "\n\t\t\t\tAdded {$addedFiles} Files";
+                            \mediadb\Logger::info("DeviceRepository.php: Added {$addedFiles} Files");
                         }
                                 
                     }
@@ -269,9 +273,25 @@ class DeviceRepository extends AbstractRepository
                 }
             }
         }
+        
+        \mediadb\Logger::info("DeviceRepository.php: Files added: {$this->scanStatistics['files']['new']}");
+        \mediadb\Logger::info("DeviceRepository.php: Files updated: {$this->scanStatistics['files']['updated']}");
+        \mediadb\Logger::info("DeviceRepository.php: Files removed: {$this->scanStatistics['files']['removed']}");
+        
         if ( !$cmdline ){
             print "</pre>";
+            print "<h2>Scan Statistics</h2>\n";
+            print "<p> Files added:   {$this->scanStatistics['files']['new']}\n</p>";
+            print "<p> Files updated: {$this->scanStatistics['files']['updated']}\n</p>";
+            print "<p> Files removed: {$this->scanStatistics['files']['removed']}\n</p>";
+            print "<h3>Errors:</h3>";
+            //TODO: print error summary
             print "<p align = centered>Finished - return to <a href='".INDEX."'>MediaDB</a></p>";
+        } else {
+            print("Files added:   {$this->scanStatistics['files']['new']}");
+            print("Files updated: {$this->scanStatistics['files']['updated']}");
+            print("Files removed: {$this->scanStatistics['files']['removed']}");
+            
         }
     }
     
@@ -319,7 +339,8 @@ class DeviceRepository extends AbstractRepository
         $addedFiles = 0;
         $currentPath = $device->Path . "/files/" . $path;
         $filenames = scandir($currentPath);
-        \mediadb\Logger::info("DeviceRepository.php:  {(count($filenames) - 2)} files found in {$path}");
+        $cnt = count($filenames) - 2;
+        \mediadb\Logger::info("DeviceRepository.php: {$cnt} files found in {$path}");
         foreach ($filenames as $filename) {
             if ($filename[0] == ".")
                 continue; // skip .-Directories like ., .. and hidden ones.
@@ -334,10 +355,11 @@ class DeviceRepository extends AbstractRepository
                     \mediadb\Logger::debug("DeviceRepository.php: {$filename} added to db!");
                     $this->fileRepository->addFile($file);
                     $addedFiles++;
-                    $deviceRepository->scanStatistics['files']['new']++;
+                    $this->scanStatistics['files']['new']++;
                 } else {
                     if ( $this->options['scan']['refreshFileInfo'] ){
                         \mediadb\Logger::info("DeviceRepository.php: {$filename} already known - updating fileinfo!");
+                        $this->scanStatistics['files']['updated']++;
                         $this->fileRepository->updateFileInfo($id_file, $currentPath . $filename);
                     }
                     // TODO: Set availlable = true
@@ -383,7 +405,7 @@ class DeviceRepository extends AbstractRepository
                             // remove file from database
                             $delStmt->execute(['fid' => $file['ID_File']]);
                             $fileCounter ++;
-                            $deviceRepository->scanStatistics['files']['removed']++;
+                            $this->scanStatistics['files']['removed']++;
                         }
                     }
                 }

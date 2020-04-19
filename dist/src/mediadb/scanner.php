@@ -43,12 +43,13 @@ $deviceRepository->options['scan']['checkWallpaper'] = $opt["checkwallaper"];
 
 $deviceRepository->scanStatistics['devices'] = 0;
 $deviceRepository->scanStatistics['episodes']['new'] = 0;
-$deviceRepository->scanStatistics['episodes']['updated'] =
+$deviceRepository->scanStatistics['episodes']['updated'] = 0;
 $deviceRepository->scanStatistics['files']['new'] = 0;
 $deviceRepository->scanStatistics['files']['updated'] = 0;
 $deviceRepository->scanStatistics['files']['removed'] = 0;
 $deviceRepository->scanStatistics['errors']['unknownChannels'] = 0;
 $deviceRepository->scanStatistics['errors']['wrongPlacedFiles'] = 0;
+$deviceRepository->scanStatistics['errors']['DBErrors'] = 0;
 
 /* **** check decoration ************************************/
 if ( $opt['checkDeco'] ){

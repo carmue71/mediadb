@@ -29,8 +29,16 @@ include VIEWPATH . 'channels/channel_tabs.php';
 	<div class='row'>
 		<?php  
 		         $target = "listepisodesforchannel?id={$channel->ID_Channel}&";
-		          include VIEWPATH . 'episodes/options_episodes.php'; 
+		          include VIEWPATH . 'episodes/options_episodes.php';
+		          
 		?>
+		</div>
+		<div class="row">
+		<div class="col-md-12">
+        		<?php $this->printPagination($this->msLastPage, $this->episodeRepository); ?>
+            </div>
+	</div>
+	<div class="row">
 		<?php
 		if ( $this->msStyle == 'card' ){
 		    print "<div class='card-group'>";

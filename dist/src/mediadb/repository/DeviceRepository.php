@@ -49,7 +49,7 @@ class DeviceRepository extends AbstractRepository
             'devices' => 0,
             'episodes' => [                'new' => 0,                'updated' => 0            ],
             'files' => [ 'new' =>0, 'updated' => 0, 'removed'=>'0'],
-            'errors' => ['unknownChannels'=>0, 'wrongPlacedFiles'=>0, DBErrors=>0 ],
+            'errors' => ['unknownChannels'=>0, 'wrongPlacedFiles'=>0, 'DBErrors'=>0 ],
         ];
         
         $this->errorFiles = [];
@@ -205,17 +205,17 @@ class DeviceRepository extends AbstractRepository
                 //wrong channel
                 continue;
             }
-            
-            print "\n\t\tChannel identified {$id_channel}! \n\t\tScanning for episodes: ";
+            \mediadb\Logger::info("DeviceRepository.php: Channel identified {$id_channel}! Scanning for episodes: ");
             if (is_dir($device->Path . "/files/{$dir}")) {
                 $sets = scandir($device->Path . "/files/{$dir}/");
-                print "\n\t\tFound " . (count($sets) - 2)." directories - i.e. potential episodes.";
+                \mediadb\Logger::info("DeviceRepository.php: Found " . (count($sets) - 2)." potential episodes.");
                 
                 foreach ($sets as $set) {
                     if ($set[0] == ".")
                         continue; // skip .-Directories like ., .. and hidden ones.
                     
                     if (! $device->isActive()) {
+                        \mediadb\Logger::warning("DeviceRepository.php: The device was removed while scanning - Scan cancelled");
                             return [
                                 'result' => 'Error',
                                 'ErrorHeader' => "<h2>Problem with path {$device->Path}! Scan cancelled!!!</h2>",
@@ -245,7 +245,7 @@ class DeviceRepository extends AbstractRepository
                         $this->scanStatistics['episodes']['new']++;
                         $episode = new Episode();
                         $episode->ID_Episode = - 1;
-                        $episode->Comment = "";//Automatically added by Scanner";
+                        $episode->Comment = "";
                         $episode->Keywords = "MediaDB-Scanner,MDS:" . date("Y-m-d") . ",";
                         $episode->Title = $set;
                         $episode->Link = "{$this->getDefaultPathSetFromChannel($id_channel)}{$set}";
@@ -270,6 +270,7 @@ class DeviceRepository extends AbstractRepository
                         if ( $episode->Picture == "" && $this->setPoster($episode, $device) )
                             $this->episodeRepository->save($episode);
                     }
+                    //TODO: Check Wallpaper, too
                 }
             }
         }
@@ -277,20 +278,28 @@ class DeviceRepository extends AbstractRepository
         \mediadb\Logger::info("DeviceRepository.php: Files added: {$this->scanStatistics['files']['new']}");
         \mediadb\Logger::info("DeviceRepository.php: Files updated: {$this->scanStatistics['files']['updated']}");
         \mediadb\Logger::info("DeviceRepository.php: Files removed: {$this->scanStatistics['files']['removed']}");
+        \mediadb\Logger::info("DeviceRepository.php: Error - unknown channel: {$this->scanStatistics['errors']['unknownChannels']}");
+        \mediadb\Logger::info("DeviceRepository.php: Error - miplaced file: {$this->scanStatistics['errors']['wrongPlacedFiles']}");
+        \mediadb\Logger::info("DeviceRepository.php: Error - db error: {$this->scanStatistics['errors']['DBErrors']}");
         
         if ( !$cmdline ){
             print "</pre>";
             print "<h2>Scan Statistics</h2>\n";
-            print "<p> Files added:   {$this->scanStatistics['files']['new']}\n</p>";
-            print "<p> Files updated: {$this->scanStatistics['files']['updated']}\n</p>";
-            print "<p> Files removed: {$this->scanStatistics['files']['removed']}\n</p>";
+            print "<p>Files added:   {$this->scanStatistics['files']['new']}\n</p>";
+            print "<p>Files updated: {$this->scanStatistics['files']['updated']}\n</p>";
+            print "<p>Files removed: {$this->scanStatistics['files']['removed']}\n</p>";
             print "<h3>Errors:</h3>";
-            //TODO: print error summary
-            print "<p align = centered>Finished - return to <a href='".INDEX."'>MediaDB</a></p>";
+            print("<p>Error - unknown channel: {$this->scanStatistics['errors']['unknownChannels']}</p>\n");
+            print("<p>Error - miplaced file: {$this->scanStatistics['errors']['wrongPlacedFiles']}</p>\n");
+            print("<p>Error - db error: {$this->scanStatistics['errors']['DBErrors']}</p>\n");
+            print "<br/><p align = centered>Finished - return to <a href='".INDEX."'>MediaDB</a></p>";
         } else {
             print("Files added:   {$this->scanStatistics['files']['new']}");
             print("Files updated: {$this->scanStatistics['files']['updated']}");
             print("Files removed: {$this->scanStatistics['files']['removed']}");
+            print("Error - unknown channel: {$this->scanStatistics['errors']['unknownChannels']}\n");
+            print("Error - miplaced file: {$this->scanStatistics['errors']['wrongPlacedFiles']}\n");
+            print("Error - db error: {$this->scanStatistics['errors']['DBErrors']}\n");
             
         }
     }

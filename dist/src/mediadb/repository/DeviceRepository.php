@@ -7,7 +7,6 @@
  * Purpose: DB connection for device handling
  */
 
-
 namespace mediadb\repository;
 
 use PDO;
@@ -15,9 +14,7 @@ use PDOException;
 use mediadb\model\Device;
 use mediadb\model\Episode;
 
-//define('LIB_PATH', '/home/torsten/projects/');
 
-//TODO: include scan_options.php;
 class DeviceRepository extends AbstractRepository
 {
     public $options;
@@ -28,6 +25,7 @@ class DeviceRepository extends AbstractRepository
     
         public function __construct(PDO $pdo, EpisodeRepository $msr, FileRepository $fr)
     {
+        \mediadb\Logger::debug("DeviceRepository.php: construction DeviceRepository");
         $this->logLevel = 1;
         parent::__construct($pdo);
         $this->filter = "";
@@ -277,43 +275,40 @@ class DeviceRepository extends AbstractRepository
         }
     }
     
+    private function setWallpaper($episode, $device){
+        \mediadb\Logger::warning("DeviceRepository.php: feature setWallpaper not implemented yet!!!!");
+    }
+    
     private function setPoster($episode, $device){
-        if ( $this->logLevel > 1 ) 
-            print "\n\t\t\t\tNo Poster set for {$episode->Title} - checking ...";
+        \mediadb\Logger::debug("DeviceRepository.php: No Poster set for {$episode->Title}");
         
-        $posterFile = ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg";
-        //TODO: Check other filetypes as well
-        if ( file_exists($posterFile) ){
-            if ( $this->logLevel > 1 ) print "\n\t\t\t\t\tFound {$posterFile} - linking ...";
-            $episode->Picture = $episode->PublisherCode.".jpg";
-            return true;
-        } else {
-            $firstPic = $this->fileRepository->findFirstPictureOnDevice($episode->ID_Episode, $device);
-            
-            if ( $firstPic != "" && file_exists($firstPic )){
-                if ( $this->logLevel > 1 ) 
-                    print ("\n\t\t\t\t\tUsing the first picture: ".$firstPic);
-                //print "target: ".ASSETSYSPATH."episodes/{$episode->PublisherCode}.jpg";
-                //TODO: resize the image if it is too large
-                    if ( copy ($firstPic, $posterFile) ){
-                    $episode->Picture = $episode->PublisherCode.".jpg";
-                    return true;
-                } else {
-                    print "********************************************************\n".
-                        " Error: Cannot copy $firstPic to {$posterFile}\n".
-                          "********************************************************\n";
-                    return false;
-                }
+        foreach ( ['jpg', 'jpeg', 'png', 'webp', 'gif', 'JPG', 'JPEG', 'PNG', 'WEBP','GIF'] as $ext ){
+            $posterFile = ASSETSYSPATH."episodes/{$episode->PublisherCode}{$ext}";
+            if ( file_exists($posterFile) ){
+                \mediadb\Logger::info("DeviceRepository.php: Found poster {$posterFile}; linking.");
+                $episode->Picture = $episode->PublisherCode.".".$ext;
+                return true;
+            }
+        }
+        $firstPic = $this->fileRepository->findFirstPictureOnDevice($episode->ID_Episode, $device);
+        if ( $firstPic != "" && file_exists($firstPic )){
+            \mediadb\Logger::debug("DeviceRepository.php: tUsing the first picture: ".$firstPic);
+            $ext = pathinfo($firstPic, PATHINFO_EXTENSION);
+            $posterFile = ASSETSYSPATH."episodes/{$episode->PublisherCode}.{$ext}";
+            //TODO: resize the image if it is too large
+            if ( copy($firstPic, $posterFile) ){
+                $episode->Picture = $episode->PublisherCode.".".$ext;
+                \mediadb\Logger::info("DeviceRepository.php: Copyed {$firstPic} to {$poserFiler} and linked");
+                return true;
             } else {
-                if ( $this->logLevel > 1 && $firstPic <> "" ){
-                    print ("\nWarning: firstPic can't be set as poster: '{$firstPic}'");
-                }
-                
-                if ( $this->fileRepository->getImageFromVideo($episode->ID_Episode, $device, $posterFile)){
-                    $episode->Picture = $episode->PublisherCode.".jpg";
-                    return true;
-                }
-                
+                \mediadb\Logger::error("DeviceRepository.php: cannot copy {$firstPic} to {$poserFiler}");
+                return false;
+            }
+        } else {
+            \mediadb\Logger::info("DeviceRepository.php: Found no suitable file");
+            if ( $this->fileRepository->getImageFromVideo($episode->ID_Episode, $device, $posterFile)){
+                $episode->Picture = $episode->PublisherCode.".jpg";
+                return true;
             }
         }
         return false;
@@ -324,8 +319,7 @@ class DeviceRepository extends AbstractRepository
         $addedFiles = 0;
         $currentPath = $device->Path . "/files/" . $path;
         $filenames = scandir($currentPath);
-        if ( $this->logLevel > 1 )
-            print ("\n\t\t\t\t".(count($filenames) - 2) . " files found in {$path}");
+        \mediadb\Logger::info("DeviceRepository.php:  {(count($filenames) - 2)} files found in {$path}");
         foreach ($filenames as $filename) {
             if ($filename[0] == ".")
                 continue; // skip .-Directories like ., .. and hidden ones.
@@ -337,12 +331,13 @@ class DeviceRepository extends AbstractRepository
                 $id_file = $this->fileRepository->findFile($device->ID_Device, $episode->ID_Episode, $filename, $path);
                 if ($id_file < 0) { // not in the database, so add the file
                     $file = $this->fileRepository->createFile($device, $episode->ID_Episode, $filename, $path, $title);
-                    if ( $this->logLevel > 1) print "\n\t\t\t\t{$filename} seems new - adding it!";
+                    \mediadb\Logger::debug("DeviceRepository.php: {$filename} added to db!");
                     $this->fileRepository->addFile($file);
                     $addedFiles++;
+                    $deviceRepository->scanStatistics['files']['new']++;
                 } else {
                     if ( $this->options['scan']['refreshFileInfo'] ){
-                        if ( $this->logLevel > 1 ) print "\n\t\t\t\t{$filename} already known - updating fileinfo!";
+                        \mediadb\Logger::info("DeviceRepository.php: {$filename} already known - updating fileinfo!");
                         $this->fileRepository->updateFileInfo($id_file, $currentPath . $filename);
                     }
                     // TODO: Set availlable = true
@@ -362,22 +357,21 @@ class DeviceRepository extends AbstractRepository
         $delQuery = "DELETE FROM File WHERE ID_File = :fid LIMIT 1";
         $delStmt = $this->pdo->prepare($delQuery);
         if ( !$delStmt ){
-            var_dump($delQuery);
-            var_dump($this->pdo->errorInfo());
-            var_dump($this->pdo->errorCode());
+            \mediadb\Logger::error("DeviceRepository.php: Error {$this->pdo->errorCode()} while executing: {$delQuery}");
+            \mediadb\Logger::error("DeviceRepository.php: \tError-Info: {$this->pdo->errorInfo()}");
             return -1;
         }
             
         $baseDir = $device->Path."files/";
         if ( !file_exists($baseDir) || !is_dir($baseDir)){
-            print "\n\nDevice seems to have Problems!";
-            return;
+            \mediadb\Logger::error("DeviceRepository.php: Device {$device->Name} seems to have a problem!");
+            return -2;
         }
         $cntQry = "SELECT count(*) AS Number FROM File WHERE REF_Device = {$device->ID_Device}";
         $stmt = $this->pdo->prepare($cntQry);
         if ( $stmt->execute() ){
             $anzahl = $stmt->fetch()['Number'];
-            print "Found $anzahl files\n";
+            \mediadb\Logger::info("DeviceRepository.php: Expecting {$anzahl} files on {$device->Name}.");
             $offset = 0;
             While ( $offset < $anzahl ){
                 $query = "SELECT ID_File, Name, Path FROM File WHERE REF_Device = {$device->ID_Device} LIMIT {$offset}, 10000";
@@ -385,10 +379,12 @@ class DeviceRepository extends AbstractRepository
                 if ($stmt->execute()) {
                     while ($file = $stmt->fetch()) {
                         if (! file_exists($baseDir . $file['Path'] . $file['Name'])) {
+                            \mediadb\Logger::debug("DeviceRepository.php: removing ".$baseDir . $file['Path'] . $file['Name']." from db");
                             // remove file from database
                             $delStmt->execute(['fid' => $file['ID_File']]);
                             $fileCounter ++;
-                            }
+                            $deviceRepository->scanStatistics['files']['removed']++;
+                        }
                     }
                 }
                 $offset +=10000;
@@ -412,17 +408,16 @@ class DeviceRepository extends AbstractRepository
     {
         if (isset($device)) {
             if ($device->isActive()) {
-                print "\n\tScanning device {$device->Name}:\n";
+                \mediadb\Logger::info("DeviceRepository.php: Scanning device {$device->Name}");
 
                 if (! $ignoreExistingFiles && ! $episodesOnly ) {
-                    print "\t\tRemoving files:\n";
+                    \mediadb\Logger::info("DeviceRepository.php: Removing files");
                     $this->removeMissingFiles($device, $loglevel, $episodeID, $channelID);
                 }
-                if ($loglevel > 0)
-                    print "\tScanning for directories and files:\n";
+                \mediadb\Logger::info("DeviceRepository.php: Scanning for directories and files");
                 $this->scan($device, true, $loglevel, $filesOnly, $episodesOnly, $episodeID, $channelID);
             } else
-                print("\nDevice {$device->Name} seems to be unavaillable - ignoring it for now.\n\n");
+                \mediadb\Logger::info("DeviceRepository.php: Device {$device->Name} seems to be unavaillable - ignoring it for now.");
         }
     }
 }

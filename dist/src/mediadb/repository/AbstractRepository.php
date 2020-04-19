@@ -11,6 +11,10 @@ namespace mediadb\repository;
 
 use PDO;
 use PDOException;
+include_once SRC_PATH.'tools/logging.php';
+\mediadb\Logger::$logLevel = MDB_LOG_DEBUG;
+\mediadb\Logger::$consoleLevel = MDB_LOG_NONE;
+
 
 abstract class AbstractRepository 
 {
@@ -49,8 +53,7 @@ abstract class AbstractRepository
                 return $this->pdo->query($query, PDO::FETCH_CLASS, $className);
             }
         } catch (PDOException $ex) {
-            print "Exception: <br />";
-            var_dump($ex);
+            \mediadb\Logger::error("AbstractRepository: queryAll throws exception: ".$ex->getMessage());
             return "Error";
         }
     }
@@ -76,8 +79,7 @@ abstract class AbstractRepository
                 }
             }
         } catch (PDOException $ex) {
-            print "Exception: <br />";
-            var_dump($ex);
+            \mediadb\Logger::error("AbstractRepository: queryAll throws exception: ".$ex->getMessage());
             return "Error";
         }
     }
@@ -133,18 +135,16 @@ abstract class AbstractRepository
             if ( $result ){
                 return $result->fetch()['Number'];
             } else {
+                \mediadb\Logger::error("AbstractRepository: getCount: No result for query: ".$query);
                 print "Executed Query: ". $query;
                 return 0;
             }
         } catch (PDOException $ex) {
-            print "PDOException: <br />";
-            print "Query: " + $query;
-            var_dump($ex);
+            \mediadb\Logger::error("AbstractRepository: getCount throws PDOException: ".$ex->getMessage());
             return -1;
         } catch (\Exception $e){
-            print "General Exception: in AbstractRepository.getCount()<br />";
-            print "Executed Query: " + $query;
-            var_dump($e);
+            \mediadb\Logger::error("AbstractRepository: getCount throws exception: ".$ex->getMessage());
+            \mediadb\Logger::error("AbstractRepository: getCount query: ".$query);
             return -2;
         }
     }

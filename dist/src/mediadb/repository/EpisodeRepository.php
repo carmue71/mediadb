@@ -14,7 +14,7 @@ use mediadb\model\Episode;
 // use PDO;
 //use mediadb\model\Episode;
 include_once 'AbstractRepository.php';
-//include_once 'Episode.php';
+\mediadb\Logger::info("EpisodeRepository.php: Loading Module");
 
 class EpisodeRepository extends AbstractRepository
 {
@@ -120,7 +120,9 @@ class EpisodeRepository extends AbstractRepository
      * 2 if poster is blank but a file with the publishercode exists in the poster directory, set it
      * 3 do the same with the wallpaper
      */
-    public function checkDecoration($logLevel){
+    public function checkDecoration(){
+        \mediadb\Logger::debug("EpisodeRepository: Checking Decoration");
+        
         $removePictureQry = "UPDATE Episode SET Picture = NULL WHERE ID_Episode = :msid LIMIT 1";
         $removePictureStmt = $this->pdo->prepare($removePictureQry);
         
@@ -140,31 +142,29 @@ class EpisodeRepository extends AbstractRepository
             while ( $ms = $stmt->fetch() ){
                 if ( $ms['Picture'] != "" ){
                     if ( !file_exists(ASSETSYSPATH."episodes/{$ms['Picture']}") ){
-                        if ( $logLevel > 0 )
-                            print "Poster {$ms['Picture']} not found - removing it\n";
+                        \mediadb\Logger::info("EpisodeRepository: Poster {$ms['Picture']} not found - removing it");
                         $removePictureStmt->execute(['msid'=>$ms['ID_Episode']]);
                     }
                 } else {
                     if ( file_exists(ASSETSYSPATH."episodes/{$ms['PublisherCode']}.jpg") ){
-                        if ( $logLevel > 0 )
-                            print "Poster {$ms['PublisherCode']}.jpg found - setting it\n";
+                        \mediadb\Logger::info("EpisodeRepository: Poster {$ms['PublisherCode']}.jpg found - setting it");
                         $setPictureStmt->execute(['msid'=>$ms['ID_Episode'], 'pic'=>"{$ms['PublisherCode']}.jpg"]);
                     }
                 }
                 
                 if ( $ms['Wallpaper']!=""){
                     if ( !file_exists(ASSETSYSPATH."wallpaper/{$ms['Wallpaper']}") )
-                        if ( $logLevel > 0 )
-                            print "Wallpaper {$ms['Wallpaper']} not found - removing it\n";
+                        \mediadb\Logger::info("EpisodeRepository: Wallpaper {$ms['Wallpaper']} not found - removing it");
                         $removeWallaperStmt->execute(['msid'=>$ms['ID_Episode']]);
                 } else {
                     if ( file_exists(ASSETSYSPATH."wallpaper/{$ms['PublisherCode']}.jpg") ){
-                        if ( $logLevel > 0 )
-                            print "Wallpaper {$ms['PublisherCode']}.jpg found - setting it\n";
+                        \mediadb\Logger::info("EpisodeRepository: Wallpaper {$ms['PublisherCode']}.jpg found - setting it");
                         $setWallaperStmt->execute(['msid'=>$ms['ID_Episode'], 'pic'=>"{$ms['PublisherCode']}.jpg"]);
                     }
                 }
             }
+        } else {
+            \mediadb\Logger::error("EpisodeRepository: Problem executing statement: {$query}");
         }
     }
     

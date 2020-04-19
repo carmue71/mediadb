@@ -28,6 +28,7 @@ require_once 'repository/EpisodeRepository.php';
 require_once 'repository/FileRepository.php';
 require_once 'Container.php';
 
+\mediadb\Logger::info("scanner.php: Loading Scanner");
 
 $container = new Container();
 $deviceRepository = $container->make('DeviceRepository');
@@ -40,10 +41,19 @@ $deviceRepository->options['scan']['refreshFileInfo'] = false;
 $deviceRepository->options['scan']['checkPoster'] = $opt["checkposter"];
 $deviceRepository->options['scan']['checkWallpaper'] = $opt["checkwallaper"];
 
+$deviceRepository->scanStatistics['devices'] = 0;
+$deviceRepository->scanStatistics['episodes']['new'] = 0;
+$deviceRepository->scanStatistics['episodes']['updated'] =
+$deviceRepository->scanStatistics['files']['new'] = 0;
+$deviceRepository->scanStatistics['files']['updated'] = 0;
+$deviceRepository->scanStatistics['files']['removed'] = 0;
+$deviceRepository->scanStatistics['errors']['unknownChannels'] = 0;
+$deviceRepository->scanStatistics['errors']['wrongPlacedFiles'] = 0;
+
 /* **** check decoration ************************************/
 if ( $opt['checkDeco'] ){
-    print "\nChecking Decoration of the Episodes\n";
-    $episodeRepository->checkDecoration($opt['loglevel']);
+    \mediadb\Logger::info("scanner.php: Checking Decoration of the Episodes");
+    $episodeRepository->checkDecoration();
 }
 
 if ( $opt['device'] > 0 ){
@@ -195,7 +205,7 @@ function parseArguments($count, $v){
         $opt['fileinfo'] = 0;
     }
         
-   var_dump($opt);
+   //var_dump($opt);
     
     return $opt;
 }

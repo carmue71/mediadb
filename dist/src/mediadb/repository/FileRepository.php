@@ -332,7 +332,7 @@ class FileRepository extends AbstractRepository
                 $image= $fileInfo['comments']['picture'][0]['data'];
                 if ( file_put_contents($imageFile) ){
                     \mediadb\Logger::info("FileRepository.php: image successfully written");
-                    return true;
+                    return file_exists($imageFile);
                 }
             } else {
                 \mediadb\Logger::info("FileRepository.php: No Poster found in video description! Using ffmpeg");
@@ -343,7 +343,7 @@ class FileRepository extends AbstractRepository
                 $output = shell_exec($cmd);
                 \mediadb\Logger::info("FileRepository.php: {$output}");
                 //echo "$output";
-                return true;
+                return file_exists($imageFile);
             }
         }
         \mediadb\Logger::warning("FileRepository.php: could also not retreive image from video");

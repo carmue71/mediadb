@@ -28,7 +28,7 @@ require_once 'repository/EpisodeRepository.php';
 require_once 'repository/FileRepository.php';
 require_once 'Container.php';
 
-\mediadb\Logger::info("scanner.php: Loading Scanner");
+\mediadb\Logger::info("scanner.php: Loading Scanner *******************************************");
 
 $container = new Container();
 $deviceRepository = $container->make('DeviceRepository');
@@ -58,19 +58,25 @@ if ( $opt['checkDeco'] ){
 }
 
 if ( $opt['device'] > 0 ){
-    //Scan a single device
+    \mediadb\Logger::debug("scanner.php: Scanning single device!");
     $deviceRepository->scanDevice($device = $deviceRepository->find($opt['device']), $opt['filesIgnore'], $opt['loglevel'], 
         $opt['filesOnly'], $opt['episodesOnly'], $opt['episode'], $opt['channel']);
 }  else {
-    print "\nScan all availlable devices\n" ;
+    \mediadb\Logger::debug("scanner.php: Scanning all availlable devices");
     $devices = $deviceRepository->getAll();
     foreach ($devices as $device){
-        $deviceRepository->scanDevice($device, $opt['filesIgnore'], $opt['loglevel'],
-            $opt['filesOnly'], $opt['episodesOnly'], $opt['episode'], $opt['channel']);
+        if (isset($device)) {
+            #\mediadb\Logger::debug("scanner.php: scan started on {$device->Name}!------------------");
+            $deviceRepository->scanDevice($device, $opt['filesIgnore'], $opt['loglevel'],
+                $opt['filesOnly'], $opt['episodesOnly'], $opt['episode'], $opt['channel']);
+            #\mediadb\Logger::debug("scanner.php: scan finished on {$device->Name}!---------------");
+        } else {
+            \mediadb\Logger::error("scanner.php: device not defined!"); 
+        }
     }
+    $deviceRepository->showStatistics(true);
 }
-    
-print "\n\n\nScan finished!\n";
+\mediadb\Logger::info("scanner.php: Scan finished!");
 
 
 
@@ -81,7 +87,7 @@ function connectToDatabase(){
         $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         return $pdo;
     } catch (PDOException $e){
-        print "Cannot connect to database - please check";
+        \mediadb\Logger::error("scanner.php: Cannot connect to database - please check");
         die();
     }
 }
@@ -102,7 +108,7 @@ function parseArguments($count, $v){
     $opt["fileinfo"] = 1;
     
     if ( $count == 1 ){
-        print("\nNo Arguments provided - using default");
+        \mediadb\Logger::debug("scanner.php: No Arguments provided - using default");
         return $opt;
     }
     $long_ops = array("device::", "channel::", "episode::","loglevel::","checkdeco", "verbose", "quiet", "newepisodes", "newfiles", 
@@ -117,10 +123,7 @@ function parseArguments($count, $v){
         "forcefileinfo"
     );
     $options = getopt("d::c::e::l::i::ovqnfx",$long_ops);
-    
-    //var_dump($options);
-    
-    //deco
+       //deco
     if ( isset($options['o']) || isset($options['checkdeco']) ){
         $opt['checkDeco'] = false; // don't check decoration at start
     }
@@ -206,8 +209,7 @@ function parseArguments($count, $v){
         $opt['fileinfo'] = 0;
     }
         
-   //var_dump($opt);
-    
+    \mediadb\Logger::debug("scanner.php: ".json_encode($opt));
     return $opt;
 }
 

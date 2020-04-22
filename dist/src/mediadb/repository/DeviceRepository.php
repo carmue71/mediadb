@@ -332,7 +332,7 @@ class DeviceRepository extends AbstractRepository
             $ext = pathinfo($firstPic, PATHINFO_EXTENSION);
             $posterFile = ASSETSYSPATH."episodes/{$episode->PublisherCode}.{$ext}";
             //TODO: resize the image if it is too large
-            if ( copy($firstPic, $posterFile) ){
+            if ( copy($firstPic, $posterFile) ){ 
                 $episode->Picture = $episode->PublisherCode.".".$ext;
                 \mediadb\Logger::info("DeviceRepository.php: Copyed {$firstPic} to {$posterFile} and linked");
                 return true;

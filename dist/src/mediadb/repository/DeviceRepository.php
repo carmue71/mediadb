@@ -378,7 +378,7 @@ class DeviceRepository extends AbstractRepository
                         \mediadb\Logger::debug("DeviceRepository.php: {$filename} already known - updating fileinfo!");
                         $this->scanStatistics['files']['updated']++;
                         $this->fileRepository->updateFileInfo($id_file, $currentPath . $filename);
-                    }
+                    } 
                 }
             }
         }

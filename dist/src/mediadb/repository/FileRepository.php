@@ -338,7 +338,7 @@ class FileRepository extends AbstractRepository
                 \mediadb\Logger::info("FileRepository.php: No Poster found in video description! Using ffmpeg");
                 
                 $time="00:01:10";
-                $cmd = "/usr/bin/ffmpeg -i {$fullname} -ss {$time} -vframes 1 {$imageFile}";
+                $cmd = "/usr/bin/ffmpeg -i {$fullname} -ss {$time} -vframes 1 -n {$imageFile}";
                 \mediadb\Logger::debug("FileRepository.php: cmd: {$cmd}");
                 $output = shell_exec($cmd);
                 \mediadb\Logger::info("FileRepository.php: {$output}");

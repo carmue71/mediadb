@@ -318,7 +318,7 @@ class DeviceRepository extends AbstractRepository
         \mediadb\Logger::debug("DeviceRepository.php: No Poster set for {$episode->Title}");
         
         foreach ( ['jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'WEBP','GIF'] as $ext ){
-            $posterFile = ASSETSYSPATH."episodes/{$episode->PublisherCode}{$ext}";
+            $posterFile = ASSETSYSPATH."episodes/{$episode->PublisherCode}.{$ext}";
             if ( file_exists($posterFile) ){
                 \mediadb\Logger::info("DeviceRepository.php: Found poster {$posterFile}; linking.");
                 $episode->Picture = $episode->PublisherCode.".".$ext;

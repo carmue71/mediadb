@@ -59,7 +59,7 @@ if ( $opt['checkDeco'] ){
 
 if ( $opt['device'] > 0 ){
     \mediadb\Logger::debug("scanner.php: Scanning single device!");
-    $deviceRepository->scanDevice($device = $deviceRepository->find($opt['device']), $opt['filesIgnore'], $opt['loglevel'], 
+    $deviceRepository->scanDevice($device = $deviceRepository->find($opt['device']), $opt['filesIgnore'],  
         $opt['filesOnly'], $opt['episodesOnly'], $opt['episode'], $opt['channel']);
 }  else {
     \mediadb\Logger::debug("scanner.php: Scanning all availlable devices");
@@ -67,7 +67,7 @@ if ( $opt['device'] > 0 ){
     foreach ($devices as $device){
         if (isset($device)) {
             #\mediadb\Logger::debug("scanner.php: scan started on {$device->Name}!------------------");
-            $deviceRepository->scanDevice($device, $opt['filesIgnore'], $opt['loglevel'],
+            $deviceRepository->scanDevice($device, $opt['filesIgnore'], 
                 $opt['filesOnly'], $opt['episodesOnly'], $opt['episode'], $opt['channel']);
             #\mediadb\Logger::debug("scanner.php: scan finished on {$device->Name}!---------------");
         } else {

@@ -28,7 +28,6 @@ class DeviceRepository extends AbstractRepository
         public function __construct(PDO $pdo, EpisodeRepository $msr, FileRepository $fr)
     {
         \mediadb\Logger::debug("DeviceRepository.php: construction DeviceRepository");
-        $this->logLevel = 1;
         parent::__construct($pdo);
         $this->filter = "";
         $this->className = "\\mediadb\\model\\Device";
@@ -156,9 +155,11 @@ class DeviceRepository extends AbstractRepository
 <?php
     }
 
-    public function scan($device, bool $cmdline = false, int $logLevel=1, $filesOnly = false, $episodesOnly = false, $episodeIDOnly = -1, $channelIDOnly = -1)
+    public function scan($device, bool $cmdline = false, $filesOnly = false, $episodesOnly = false, $episodeIDOnly = -1, $channelIDOnly = -1)
     {
-        $this->logLevel = $logLevel;
+        if ( !$cmdline )
+            \mediadb\Logger::$consoleLevel = MDB_LOG_INFO;
+        
         if (! $device->isActive()) {
             return [
                 'result' => 'Error',
@@ -168,11 +169,9 @@ class DeviceRepository extends AbstractRepository
         }
         
         if ( !$cmdline ) 
-            print "<pre>\n";
-        if ( $this->logLevel > 0 )
-            print "Starting Scan...\n\n";
-        
-        print "Pfad {$device->Path} OK!\n";
+            print "<pre>\nStarting Scan...\n";
+        mediadb\Logger::info("DeviceRepository.php: Starting Scan...");
+        mediadb\Logger::debug("DeviceRepository.php: Pfad {$device->Path} OK!");
         
         $result = scandir($device->Path . "files/");
         \mediadb\Logger::info("DeviceRepository.php: Found " . (count($result) - 2) . " potential channels.");
@@ -385,9 +384,8 @@ class DeviceRepository extends AbstractRepository
         return $addedFiles; 
     }
     
-    public function removeMissingFiles($device, $logLevel, $episodeID=-1, $channelID=-1){
+    public function removeMissingFiles($device, $episodeID=-1, $channelID=-1){
         $fileCounter = 0;
-        $this->logLevel = $logLevel;
         if ( !$device->isActive() )
             return;
         
@@ -456,17 +454,17 @@ class DeviceRepository extends AbstractRepository
         return DEFAULT_SET_PATH; 
     }
     
-    public function scanDevice($device, $ignoreExistingFiles, $loglevel, $filesOnly = false, $episodesOnly = false, $episodeID = - 1, $channelID = - 1)
+    public function scanDevice($device, $ignoreExistingFiles, $filesOnly = false, $episodesOnly = false, $episodeID = - 1, $channelID = - 1)
     {
         if ($device->isActive()) {
             \mediadb\Logger::info("DeviceRepository.php: Scanning device {$device->Name}");
 
             if (! $ignoreExistingFiles && ! $episodesOnly) {
                 \mediadb\Logger::info("DeviceRepository.php: Removing files");
-                $this->removeMissingFiles($device, $loglevel, $episodeID, $channelID);
+                $this->removeMissingFiles($device, $episodeID, $channelID);
             }
             \mediadb\Logger::info("DeviceRepository.php: Scanning for directories and files");
-            $this->scan($device, true, $loglevel, $filesOnly, $episodesOnly, $episodeID, $channelID);
+            $this->scan($device, true, $filesOnly, $episodesOnly, $episodeID, $channelID);
         } else
             \mediadb\Logger::debug("DeviceRepository.php: Device {$device->Name} seems to be unavaillable - ignoring it for now.");
     }

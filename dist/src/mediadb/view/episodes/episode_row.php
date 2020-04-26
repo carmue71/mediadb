@@ -4,7 +4,7 @@
 	<table class='transparent'>
 		<col width="120"> <col>
   		<tr>
-			<td width=120px rowspan=3>
+			<td width=120px rowspan=4>
 			<a href='<?php print INDEX."showepisode?id={$set->ID_Episode}"?>'>
 			<img class='tag_listimage' 
 				src='<?php if ( isset($set) ) print $set->getPicture(120);?>' align=left></a></td>
@@ -20,7 +20,7 @@
       					<?php } else {?>
       						&nbsp; <i class='far fa-circle' style='color:Grey;'></i>
       					<?php }?>
-					</h5>
+      					</h5>
 				</div>
 			</td>
 			<td>
@@ -55,5 +55,20 @@
 					<a href='<?php print INDEX."showchannel?id={$set->REF_Channel}"; ?>'>	<?php print $set->Channel;?></a>
 				</td>
 		</tr>
+		<tr><td>
+		<span style="font-size: 2em;">
+      					<?php 
+      					if ($msRep->countFiles($set->ID_Episode, 3) > 0){
+      					    print "<a href='".INDEX."movies?id={$set->ID_Episode}' alt='Jump to the video'><i class='fas fa-video'></i></a>";
+      					    print "&nbsp;&nbsp;";
+      					}
+      					if ($msRep->countFiles($set->ID_Episode, 2) > 0){
+      					    print "<a href='".INDEX."showpix?id={$set->ID_Episode}' alt='Jump to the Pictures'><i class='fas fa-images'></i></a>";
+      					    print "&nbsp;&nbsp;";        
+      					}
+      					print "<a href='".INDEX."showfiles?id={$set->ID_Episode}' alt='Jump to the Files'><i class='fas fa-file-alt'></i></a>";
+      					?>
+      					</span>
+		</td></tr>
 	</table>
 </div>

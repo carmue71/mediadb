@@ -170,8 +170,8 @@ class DeviceRepository extends AbstractRepository
         
         if ( !$cmdline ) 
             print "<pre>\nStarting Scan...\n";
-        mediadb\Logger::info("DeviceRepository.php: Starting Scan...");
-        mediadb\Logger::debug("DeviceRepository.php: Pfad {$device->Path} OK!");
+        \mediadb\Logger::info("DeviceRepository.php: Starting Scan...");
+        \mediadb\Logger::debug("DeviceRepository.php: Pfad {$device->Path} OK!");
         
         $result = scandir($device->Path . "files/");
         \mediadb\Logger::info("DeviceRepository.php: Found " . (count($result) - 2) . " potential channels.");

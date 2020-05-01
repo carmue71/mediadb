@@ -84,10 +84,20 @@ abstract class AbstractController
         foreach ($list as $key){
             $k = htmlspecialchars(trim($key));
             if ( $k <> "" )
-                print "<span class='badge badge-pill badge-light'><a href='".INDEX."showkeyword?key={$k}'>
-                <i class='fas fa-tag'></i> {$k}</a>&nbsp;<a href='#'><i class='fas fa-times-circle'></i></a> </span>&nbsp;";
+                print ("<span class='badge badge-pill badge-light'><a class=keywordlink href='".INDEX."showkeyword?key={$k}'>
+                <i class='fas fa-tag'></i> {$k}</a> </span>&nbsp;");//&nbsp;<a class=keywordlink href='#'><i class='fas fa-times-circle'></i></a> </span>&nbsp;");
         }
     }
+    
+    public function printActors($actors){
+        if ( isset($actors)){
+            foreach ($actors as $actor){
+                print ("<span class='badge badge-pill badge-light'>
+                                        <a class='actorlink' href='".INDEX."showactor?id={$actor['ID_Actor']}' title='{$actor['ID_Actor']}''> {$actor['Fullname']} </a></span>");
+            }
+        }
+    }
+    
     
     public function cutStr($str, int $maxlen, int $tolerance=10, String $addon=' ...'){
         if ( $str == null)

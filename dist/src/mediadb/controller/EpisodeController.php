@@ -226,24 +226,7 @@ class EpisodeController extends FileContainterController
             }
         }
     }
- 
-    public function printActors($actors){
-        if ( isset($actors)){      
-        	foreach ($actors as $actor){
-        	    ?><a
-        	    class="btn btn-outline-danger btn-sm"
-        	        data-toggle="tooltip"
-        	            data-placement="top"
-        	                data-html="true"
-        	                    title="some tooltip"
-        	                        href='<?php print INDEX;?>showactor?id=<?php print $actor['ID_Actor'];?>'>
-        	                        <?php print $actor['Fullname']?>
-				</a>
-        	    
-            <?php } 
-        } 
-    }
-    
+     
     protected function render($view, $params)
     {
         $this->currentView = $view;
@@ -367,9 +350,9 @@ class EpisodeController extends FileContainterController
         $watchlists = $this->repository->getWatchListsFor($id);
         foreach($watchlists as $item){
             print "<span class='badge badge-pill badge-light' id=WatchList{$item['ID_WatchList']}_{$item['Position']}>".
-                  "<a href='".INDEX."showwatchlist?id={$item['ID_WatchList']}'>".
+                  "<a class=watchlistlink href='".INDEX."showwatchlist?id={$item['ID_WatchList']}'>".
                     "<i class='fas fa-binoculars'></i> {$item['Title']}</a>&nbsp;".
-                    "<a href='#' onClick='removeFromWatchlist({$item['ID_WatchList']},{$id}, {$item['Position']})'>".
+                    "<a class=watchlistlink href='#' onClick='removeFromWatchlist({$item['ID_WatchList']},{$id}, {$item['Position']})'>".
                         "<i class='fas fa-times-circle'></i>".
                     "</a></span>&nbsp;";
         }

@@ -37,8 +37,8 @@
     					<p class="card-text"><?php  print ($this->cutStr($set->Description,80)); ?></p>
     					<p class="card-text"><a href='<?php print INDEX."showchannel?id={$set->REF_Channel}"?>'><small class="text-muted"><?php print $set->Channel?></a></small></p>
     					<?php 
-    					$actors = $this->actorRepository->findActorsForEpisode($set->ID_Episode);
-    					if ( isset($actors)){   
+    					$this->printActors($this->actorRepository->findActorsForEpisode($set->ID_Episode));
+    					/*if ( isset($actors)){   
     						print("<p>");   
             					foreach ($actors as $actor){
             					    //TODO: Pill
@@ -46,7 +46,7 @@
                                         <a class='actorlink' href='".INDEX."showactor?id={$actor['ID_Actor']}'> {$actor['Fullname']} </a></span>"); 
 								} 
 							print("</p>"); 
-    				    } ?>  
+    				    } */?>  
     				</div>
   					</div> <?php 
                     break;

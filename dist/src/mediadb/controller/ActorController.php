@@ -112,6 +112,8 @@ class ActorController extends FileContainterController
     }
 
     public function listepisodesforactor(){
+        $this->updatePageNumbers();
+        
         $id = $_GET['id'];
         if ( isset($id) && $id > -1){
             

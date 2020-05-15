@@ -108,5 +108,11 @@ if (isset($routes[$pathInfo])) {
     $controller->$method();
 } else {
     $showLogin = false;
+    require_once SRC_PATH . 'tools/autoloader.php';
+    require_once SRC_PATH . 'mediadb/Container.php';
+    $container = new Container();
+    $pdo = $container->make("pdo");
     include VIEWPATH . 'welcome.php';
 }
+
+

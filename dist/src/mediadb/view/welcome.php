@@ -7,10 +7,51 @@
  * Purpose: Builds the start page for mediadb
  */
 
+function count_episodes($pdo, $all=true){
+    if ( $all )
+        $query = "SELECT COUNT(*) as Number FROM Episode";
+    else 
+        $query = "SELECT COUNT(*) as Number FROM Episode WHERE Viewed = 0";
+    
+    $stmt = $pdo->prepare($query);
+    if ($stmt->execute()) {
+        if ($stmt != null)
+            return $stmt->fetch()['Number'];
+    }
+    return 0;
+}
+
+function count_channels($pdo){
+    $query = "SELECT COUNT(*) as Number FROM Channel";
+    $stmt = $pdo->prepare($query);
+    if ($stmt->execute()) {
+        if ($stmt != null)
+            return $stmt->fetch()['Number'];
+    }
+    return 0;
+}
+
+function count_actors($pdo){
+    $query = "SELECT COUNT(*) as Number FROM Actor";
+    $stmt = $pdo->prepare($query);
+    if ($stmt->execute()) {
+        if ($stmt != null)
+            return $stmt->fetch()['Number'];
+    }
+    return 0;
+}
+
+
+
 $bodymodifier = " id='welcome'";
 include (VIEWPATH.'fragments/header.php');
 if ( !$showLogin ){
     include (VIEWPATH.'fragments/navigation.php');
+    
+    $numberOfEpisodes = count_episodes($pdo);
+    $unseenEpisodes = count_episodes($pdo, false);
+    $numberOfActors = count_actors($pdo);
+    $numberOfChannels = count_channels($pdo);
 }
 ?>
 
@@ -42,7 +83,9 @@ if ( !$showLogin ){
 			</div>
 			</form>
 		<?php } else {?>
-		<p class="lead">A list of <a href='<?php print INDEX; ?>listepisodes'>episodes</a> can be found here.</p>
+		<p class="lead">The databases currently contains <a href='<?php print INDEX; ?>listepisodes?filter=All'><bold> <?php print $numberOfEpisodes; ?></bold> episodes</a>.</p>
+		<p>From those are <a href='<?php print INDEX; ?>listepisodes?filter=Unwatched'> <?php print $unseenEpisodes?> unseen</a> yet.<br>
+		<?php print $numberOfActors?> <a href='<?php print INDEX;?>listactors'> Actors</a> and <?php print $numberOfChannels;?> different <a href='<?php print INDEX;?>listchannels'>Channels</a> are listed. </p> 
 		<?php } ?>
 	</div>
 </div>

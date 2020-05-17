@@ -136,17 +136,6 @@ $('#scanEpisode').click( function(event){
 	return false;
 });
 
-$('#deleteEpisode').click( function(event){
-	console.log("deleteEpisode clicked");
-	msid = $(this).attr('value');
-    $('#modaltitle').text('Please confirm to delete this episode!');
-    $('#confirmTxt').text('Are you sure to delete this episode?');
-    $("#confirmDeleteModal").modal('show');
-    //event.preventDefault();
-    return false;
-});
-
-
 $(function() {
   $(".my-rating-6").starRating({
     totalStars: 5,

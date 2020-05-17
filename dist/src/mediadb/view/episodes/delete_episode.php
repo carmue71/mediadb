@@ -7,8 +7,8 @@
 
 
 
-$('#deleteMS').click( function(event){
-	console.log("deleteMS clicked");
+$('#deleteEpisode').click( function(event){
+	console.log("deleteEpisode clicked");
     msid = $(this).attr('value');
     $('#modaltitle').text('Please confirm to delete this episode!');
     $('#confirmTxt').text('Are you sure to delete this episode?');
@@ -21,8 +21,7 @@ $('#deleteMS').click( function(event){
         //TODO: Delete Files from Directory - if possible
         //TODO: Remove DB-Entry
         //TODO: remove rows
-        //alert("Some fine day I'll do this!");
-        msid = $('#deleteMS').attr('value');
+        msid = $('#deleteEpisode').attr('value');
 
         
         purge = $("#confirmDeleteModal").find(':checkbox').prop('checked');

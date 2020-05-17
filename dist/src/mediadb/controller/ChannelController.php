@@ -77,7 +77,9 @@ class ChannelController extends FileContainterController
         $this->updatePageNumbers();
         
         if ( isset($_GET['filter'])){
-            $this->Filter = $_GET['filter'];
+            $this->channelFilter = $_GET['filter'];
+            \mediadb\Logger::debug("ChannelController: showAll: filter: ".$this->channelFilter);
+            
             setcookie('channelfilter', $this->channelFilter, time()+COOKIE_LIFETIME);
             //$this->page = 1;
         }
@@ -85,21 +87,25 @@ class ChannelController extends FileContainterController
         if ( isset($_GET['style'])){
             $this->channelStyle = $_GET['style'];
             setcookie('channelstyle', $this->channelStyle, time()+COOKIE_LIFETIME);
+            \mediadb\Logger::debug("ChannelController: showAll: style: ".$this->channelStyle);
             //TODO: check compatibility $this->page = 1;
         }
         
         if ( isset($_GET['order'])){
             $this->channelOrder = $_GET['order'];
+            
             setcookie('channelorder', $this->channelOrder, time()+COOKIE_LIFETIME);
+            \mediadb\Logger::debug("ChannelController: showAll: order: ".$this->channelOrder);
             //TODO: check compatibility $this->page = 1;
         }
         
         switch ($this->channelFilter){
-            case 'Unwatched': $this->sqlchannelFilter = " hasUnwatched "; break;
-            case 'Watched': $this->sqlchannelFilter = " allWatched "; break;
-            case 'Channel': $this->sqlchannelFilter = " type = 'Channel'"; break;
-            case 'Channel': $this->sqlchannelFilter = " type = 'Channel'"; break;
-            case 'Series': $this->sqlchannelFilter = " type = 'Series'"; break;
+            case 'Unwatched': $this->sqlchannelFilter = " ID_Channel in (SELECT DISTINCT REF_Channel from Episode where Episode.Viewed = 0) "; break;
+            case 'AllWatched': $this->sqlchannelFilter = " ID_Channel not in (SELECT DISTINCT REF_Channel from Episode where Episode.Viewed = 0) "; break;
+            case 'Studios': $this->sqlchannelFilter = " StudioType = 'Studio'"; break;
+            case 'Channels': $this->sqlchannelFilter = " StudioType = 'Channel'"; break;
+            case 'Series': $this->sqlchannelFilter = " StudioType = 'Series'"; break;
+            case 'Collections': $this->sqlchannelFilter = " StudioType = 'Collection'"; break;
             case 'All':
             default:
                 $this->sqlchannelFilter = "";

@@ -41,7 +41,8 @@
     				<a class="dropdown-item" href="<?php print INDEX.$target.'filter=AllWatched'?>">AllWatched</a>
     				<a class="dropdown-item" href="<?php print INDEX.$target.'filter=Studios'?>">Studios</a>
     				<a class="dropdown-item" href="<?php print INDEX.$target.'filter=Channels'?>">Channels</a>
-    				<a class="dropdown-item" href="<?php print INDEX.$target.'filter=Series'?>">Series</a>    				
+    				<a class="dropdown-item" href="<?php print INDEX.$target.'filter=Series'?>">Series</a>
+    				<a class="dropdown-item" href="<?php print INDEX.$target.'filter=Collections'?>">Collections</a>        				
   				</div>
 			</div> <!-- dropdown -->		
 		</div><!-- col -->

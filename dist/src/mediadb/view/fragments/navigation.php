@@ -48,14 +48,6 @@
           <a class="dropdown-item" href='<?php print INDEX."listusers"?>'><i class="fas fa-users"></i> List Users</a>
           <a class="dropdown-item" href='<?php print INDEX."adduser"?>'><i class="fas fa-user-plus"></i>Add User</a>
           
-          <?php if (isset($ms)){?>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" id='deleteMS' value='<?php print $ms->ID_Episode;?>' href='#'> 
-          	<i class="fas fa-trash"></i> Delete Episode</a>
-          	<div class="dropdown-divider"></div>
-          <a class='dropdown-item addepisodetowatchlist' value='<?php print $ms->ID_Episode;?>' href='#'> 
-          	<i class="fas fa-binoculars"></i> Add to Watch List</a>
-		  <?php }?>
         </div>
       </li>
       </ul>

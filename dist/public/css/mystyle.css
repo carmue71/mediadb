@@ -44,6 +44,19 @@ pre {
 	margin-top: 10%;
 }
 
+.info-area{
+	background-color: DarkGrey; /*#868e96;*/
+	color: #343a40;
+	opacity: 0.5;
+	margin: 10px;
+	padding: 8px;
+	box-shadow: 0 0 0 0.2rem LightGrey;
+}
+
+.info-text{
+	padding-left: 12px;
+}
+
 .list-group-item{
 	background-color: #343a40;
 	color: AntiqueWhite;

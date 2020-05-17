@@ -53,107 +53,48 @@ if ($this->infoMessageBody != "") {
 		<?php  if ($numberOfMovies>0) print "<a href='".INDEX."movies?id={$ms->ID_Episode}'>"; ?> 
   		<img width=800px src='/mediadb/ajax/getAsset.php?type=poster&size=XL&file=<?php print $ms->Picture;?>' />
   		<?php  if ($numberOfMovies>0) print "</a>"; ?> 
-		</div>
+		
+		<br>
+		<h3>Description</h3>
+		<p><?php print nl2br($ms->Description);?></p> 
+		<hr>
+		<?php if ( $ms->Comment != "" ){ ?>
+			<h3>Comments</h3>
+  			<p><?php print nl2br($ms->Comment); ?></p>
+  		<?php }?>
+  		</div><!-- col-lg-8 -->		
+		
 		<div class="col-lg-4">
-			<div id="accordion">
-				<div class="card transparent">
-					<div class="card-header" id="headingOne">
-						<h4 class="mb-0">
-							<button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
-								aria-controls="collapseOne"><i class="fas fa-file-alt"></i> Description</button></h4>
-					</div>
-
-					<div id="collapseOne" class="collapse"
-						aria-labelledby="headingOne" data-parent="#accordion">
-						<div class="card-body  transparent">
-							<p><?php print nl2br($ms->Description);?></p> 
-						</div>
-					</div>
-				</div>
-
-				<div class="card transparent">
-					<div class="card-header" id="headingTwo">
-						<h4 class="mb-0">
-							<button class="btn btn-link" data-toggle="collapse"
-								data-target="#collapseTwo" aria-expanded="true"
-								aria-controls="collapseTwo"><i class="fas fa-info-circle"></i> Info</button>
-						</h4>
-					</div>
-
-					<div id="collapseTwo" class="collapse"
-						aria-labelledby="headingTwo" data-parent="#accordion">
-						<div class="card-body transparent">
-							<div class="my-rating-6" value='<?php print $ms->Rating; ?>'> </div><br>
-							<p> Publisher Code:<a href='<?php print $ms->Link ?>'> <?php print $ms->PublisherCode ?></a></p>
-						</div> <!-- card-body -->
-					</div>
-				</div>
-				<div class="card  transparent">
-					<div class="card-header" id="headingActors">
-						<h4 class="mb-0">
-							<button class="btn btn-link" data-toggle="collapse"
-								data-target="#collapseActors" aria-expanded="true"
-								aria-controls="collapseActors"><i class="fas fa-female"></i><i class="fas fa-male"></i> Actresses / Actors 
+			<div class="info-area">
+			<div class="my-rating-6" value='<?php print $ms->Rating; ?>'> </div><br>
+			
+			<h4><i class="fas fa-female"></i><i class="fas fa-male"></i> Actresses / Actors 
 								<span class='badge badge-info'><?php print $numberOfActors;?></span>
-							</button>
-							<button class="btn btn-secondary" class='btn secondary' id='addActors' title='Link/Unlink Actors' data-id='<?php print $ms->ID_Episode;?>'>
-								<i class="fas fa-user-tag"></i>
-							</button> 
-						</h4>
-					</div>
-
-					<div id="collapseActors" class="collapse"
-						aria-labelledby="headingActors" data-parent="#accordion">
-						<div class="card-body">
-							<?php if ( isset($actors)){      
-        	                   foreach ($actors as $actor){?>
-        	                   <span class='badge badge-pill badge-light'>
-        	                   		<a class='actorlink' href='<?php print INDEX;?>showactor?id=<?php print $actor['ID_Actor'];?>'>
-        	                        	<?php print $actor['Fullname']?>
-									</a>
-									<span class='unlinkActor'
-										data-actor='<?php print $actor['ID_Actor']?>'
-										data-name='<?php print $actor['Fullname']?>'
-										data-set='<?php print $ms->ID_Episode?>'> 
-										<i class='fas fa-times-circle'></i>
-									</span>
-								</span>
-            					<?php } 
-							}?>
-						</div>
-					</div>
-				</div>
-				<div class="card  transparent">
-					<div class="card-header" id="headingKeywords">
-						<h4 class="mb-0">
-							<button class="btn btn-link" data-toggle="collapse"
-								data-target="#collapseKeywords" aria-expanded="true"
-								aria-controls="collapseKeywords"><i class="fas fa-tags"></i> Keywords</button>
-						</h4>
-					</div>
-
-					<div id="collapseKeywords" class="collapse"
-						aria-labelledby="headingKeywords" data-parent="#accordion">
-						<div class="card-body">
-						<?php $this->printKeywords($ms->Keywords); ?>
-									</div>
-					</div>
-				</div>
-
-				<div class="card  transparent">
-					<div class="card-header" id="headingStatistics">
-						<h4 class="mb-0">
-							<button class="btn btn-link" data-toggle="collapse"
-								data-target="#collapseStatistics" aria-expanded="true"
-								aria-controls="collapseStatistics"><i class="fas fa-chart-bar"></i> Statistics</button>
-						</h4>
-					</div>
-
-					<div id="collapseStatistics" class="collapse"
-						aria-labelledby="headingStatistics" data-parent="#accordion">
-						<div class="card-body">
-							<ul id='msdetails'>
-								<li> Published: <?php print $ms->Published ?></li>
+							
+			</h4>
+			<p class="info-text">
+				<?php if ( isset($actors)){      
+        	       foreach ($actors as $actor){?>
+        	       	<span class='badge badge-pill badge-light'>
+        	        <a class='actorlink' href='<?php print INDEX;?>showactor?id=<?php print $actor['ID_Actor'];?>'><?php print $actor['Fullname']?></a>
+					<span class='unlinkActor' data-actor='<?php print $actor['ID_Actor']?>' data-name='<?php print $actor['Fullname']?>' data-set='<?php print $ms->ID_Episode?>'> 
+					<i class='fas fa-times-circle'></i></span></span>
+					<?php } //foreach 
+				}?>
+			</p>
+			<hr>
+			<h4><i class="fas fa-binoculars"></i> Watch Lists</h4>
+				<p class="info-text"><?php $this->printWatchlists($ms->ID_Episode);?></p>
+			<hr>
+			<h4><i class="fas fa-tags"></i> Keywords</h4>
+			<p class="info-text"><?php $this->printKeywords($ms->Keywords); ?></p>
+			<hr>
+			
+			<h4><i class="fas fa-chart-bar"></i> Statistics</button></h4>
+			<p class="info-text">
+				<ul id='msdetails'>
+								<li>Publisher Code:<a href='<?php print $ms->Link ?>'> <?php print $ms->PublisherCode ?></a></li>
+								<li>Published: <?php print $ms->Published ?></li>
 								<li>Rating: <?php print $ms->Rating ?></li>
 								<li>Viewed: <?php print $ms->Viewed ?></li>
 								<li>Added: <?php print $ms->Added ?></li>
@@ -167,62 +108,46 @@ if ($this->infoMessageBody != "") {
 										</ul></li>
 										</ul>
 										</li>
-							</ul>	
-						</div>
-					</div>
-				</div>
-				
-				<div class="card transparent">
-					<div class="card-header" id="headingWatchList">
-						<h4 class="mb-0">
-							<button class="btn btn-link" data-toggle="collapse"
-								data-target="#collapseWatchList" aria-expanded="true"
-								aria-controls="collapseWatchList"><i class="fas fa-binoculars"></i> Watch Lists</button>
-							<button class="btn btn-secondary addepisodetowatchlist" value='<?php print $ms->ID_Episode;?>'>
-                          		<i class="fas fa-binoculars"></i> 
-                          	</button>
-                          	<button class="btn btn-secondary" onClick='watchlistAdd(<?php print $ms->ID_Episode.", ".$_SESSION['watchlater'];?>)'>
-                          		<i class="far fa-clock"></i> <!-- Todo: Check if already set --> 
-                          	</button>
-						</h4>
-					</div>
+							</ul>
+							</p>
+			<hr>
+			<h4>Actions</h4>
+			<p class="info-text">
+			<button class="btn btn-secondary" onClick='watchlistAdd(<?php print $ms->ID_Episode.", ".$_SESSION['watchlater'];?>)'><i class="far fa-clock"></i>&nbsp;Wach&nbsp;Later</button>&nbsp;
+          	<button class='btn btn-primary' id='scanEpisode' value='<?php print $ms->ID_Episode;?>'><i class="fas fa-search"></i>&nbsp;Scan Episode</button>&nbsp;
+          	<button class="btn btn-secondary" class='btn secondary' id='addActors' title='Link/Unlink Actors' data-id='<?php print $ms->ID_Episode;?>'><i class="fas fa-user-tag"></i>&nbsp;Add Actor</button>&nbsp;
+          	<button class="btn btn-secondary addepisodetowatchlist" value='<?php print $ms->ID_Episode;?>'><i class="fas fa-binoculars">&nbsp;Add&nbsp;to&nbsp;Wachlist</i></button>&nbsp;
+			</p>
+			<br>
+			<button class='btn btn-warning' id='deleteEpisode' value='<?php print $ms->ID_Episode;?>'data-id='<?php print $ms->ID_Episode;?>'><i class="fas fa-trash"></i> Delete Episode</button>
+          	</div><!-- info-area -->
+		</div><!-- Col-lg-4 -->	 
 
-					<div id="collapseWatchList" class="collapse"
-						aria-labelledby="headingWatchList" data-parent="#accordion">
-						<div class='card-body' id='WatchListContainer'>
-                			<?php $this->printWatchlists($ms->ID_Episode);?>
-						</div>
-					</div>
-				</div>  
-				  
 				
-  				<?php if ( $ms->Comment != "" ){ ?>
-  				<div class="card transparent">
-					<div class="card-header" id="headingComment">
-						<h4 class="mb-0">
-							<button class="btn btn-link collapsed" data-toggle="collapse"
-								data-target="#collapseComment" aria-expanded="false"
-								aria-controls="collapseComment"><i class="fas fa-comments"></i> Comment</button>
-						</h4>
-					</div>
-					<div id="collapseComment" class="collapse" aria-labelledby="headingComment"
-						data-parent="#accordion">
-						<div class="card-body">
-							<p><?php print nl2br($ms->Comment); ?></p>
-						</div>
-					</div>
-				</div>
-  				<?php } ?>
-  				</div> <!-- accordeon -->
-			</div>	<!-- col -->
+				
 		</div>	<!-- row -->
 	</div><!-- container -->
 
 <?php include VIEWPATH.'fragments/js.php'; ?>
+<script type="text/javascript">
 
-	<script type="text/javascript">
-		
-    $(function() {
+$('#scanEpisode').click( function(event){
+	console.log("scanEpisode clicked");
+	return false;
+});
+
+$('#deleteEpisode').click( function(event){
+	console.log("deleteEpisode clicked");
+	msid = $(this).attr('value');
+    $('#modaltitle').text('Please confirm to delete this episode!');
+    $('#confirmTxt').text('Are you sure to delete this episode?');
+    $("#confirmDeleteModal").modal('show');
+    //event.preventDefault();
+    return false;
+});
+
+
+$(function() {
   $(".my-rating-6").starRating({
     totalStars: 5,
     initialRating: $(".my-rating-6").attr('value'),
@@ -306,6 +231,7 @@ $('.unlinkActor').click(function(){
         });
          
 });
+
 
 </script>
 

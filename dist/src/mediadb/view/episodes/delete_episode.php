@@ -8,6 +8,7 @@
 
 
 $('#deleteMS').click( function(event){
+	console.log("deleteMS clicked");
     msid = $(this).attr('value');
     $('#modaltitle').text('Please confirm to delete this episode!');
     $('#confirmTxt').text('Are you sure to delete this episode?');

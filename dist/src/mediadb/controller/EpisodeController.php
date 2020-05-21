@@ -346,7 +346,7 @@ class EpisodeController extends FileContainterController
             
             case 'scan':
                 $episode = $params['episode'];
-                $this->pageTitle = "Scanning your device";
+                $this->pageTitle = "Scanning for Episode";
                 include VIEWPATH."episodes/scan_episode.php";
                 break;
         }

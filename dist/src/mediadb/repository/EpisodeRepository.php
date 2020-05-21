@@ -535,6 +535,6 @@ class EpisodeRepository extends AbstractRepository
        }
        $deviceRepository->showStatistics(false);
    
-       \mediadb\Logger::info("scanner.php: Scan finished!");
+       \mediadb\Logger::info("EpisodeRepository.php: Scan finished!");
    }
 }

@@ -114,9 +114,10 @@ if ($this->infoMessageBody != "") {
 			<h4>Actions</h4>
 			<p class="info-text">
 			<button class="btn btn-secondary" onClick='watchlistAdd(<?php print $ms->ID_Episode.", ".$_SESSION['watchlater'];?>)'><i class="far fa-clock"></i>&nbsp;Wach&nbsp;Later</button>&nbsp;
-          	<button class='btn btn-primary' id='scanEpisode' value='<?php print $ms->ID_Episode;?>'><i class="fas fa-search"></i>&nbsp;Scan Episode</button>&nbsp;
-          	<button class="btn btn-secondary" class='btn secondary' id='addActors' title='Link/Unlink Actors' data-id='<?php print $ms->ID_Episode;?>'><i class="fas fa-user-tag"></i>&nbsp;Add Actor</button>&nbsp;
           	<button class="btn btn-secondary addepisodetowatchlist" value='<?php print $ms->ID_Episode;?>'><i class="fas fa-binoculars">&nbsp;Add&nbsp;to&nbsp;Wachlist</i></button>&nbsp;
+          	<a href='<?php print INDEX."scanepisode?id={$ms->ID_Episode}";?>' type="button" class="btn btn-info"> <i class="fas fa-search"></i> Scan Episode</a>
+          	<button class="btn btn-secondary" class='btn secondary' id='addActors' title='Link/Unlink Actors' data-id='<?php print $ms->ID_Episode;?>'><i class="fas fa-user-tag"></i>&nbsp;Add Actor</button>&nbsp;
+          	
 			</p>
 			<br>
 			<button class='btn btn-warning' id='deleteEpisode' value='<?php print $ms->ID_Episode;?>'data-id='<?php print $ms->ID_Episode;?>'><i class="fas fa-trash"></i> Delete Episode</button>

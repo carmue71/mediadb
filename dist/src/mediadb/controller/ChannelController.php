@@ -65,7 +65,11 @@ class ChannelController extends FileContainterController
             $this->channelFilter = "";
 
         if (isset($_COOKIE['channelorder'])) {
-            $this->channelOrder = $_COOKIE['channelorder'];
+            if ($_COOKIE['channelorder'] == "TotalNumber" || $_COOKIE['channelorder'] == "UnseenNumber"){
+                //TODO: Fix this
+                $this->channelOrder = ""; 
+            } else
+                $this->channelOrder = $_COOKIE['channelorder'];
         } else
             $this->channelOrder = "Name";
     }
@@ -276,11 +280,24 @@ class ChannelController extends FileContainterController
                     include VIEWPATH.'channels/edit_channel.php';
                 }
                 break;
+            
+            case 'scan':
+                $channel = $params['channel'];
+                $this->pageTitle = "Scanning your Channel";
+                include VIEWPATH."channels/scan_channel.php";
+                break;
+                
             default:
                 var_dump($view);
                 var_dump($params);
                 break;
         }
-    }      
+    }
+    
+    public function scan()
+    {
+        $id = $_GET['id'];
+        $this->render("scan", ['channel' => $this->repository->find($id)]);
+    }
  }//---eoc
 

@@ -28,15 +28,8 @@ include VIEWPATH . 'channels/channel_tabs.php';
 	<div class="row">
 		<div class="col-8">
 			<p><?php print nl2br($channel->Comment); ?></p>
-		</div>
-		<?php if ($numberOfSets >= 0 ){ ?>
-		<div class="col-4">
-			<p># Media Sets: <?php print $numberOfSets; ?></p>
-		</div>
-		<?php }?>
-	
-	</div><!-- row -->
-	<div class='row'>
+		
+		<br><hr><br>
 		<div class="card-group">
 				<?php foreach($episodes as $set): ?> 
 				<!-- msforchannel.php -->
@@ -91,8 +84,19 @@ include VIEWPATH . 'channels/channel_tabs.php';
 </div>
 				<?php endforeach;?>
 		</div> <!-- card group -->
+	
 	</div>
-</div><!-- container -->
+		<div class="col-4">
+			<div class="info-area">
+				<h4>Statistics</h4>
+				<p class="info-text"># Media Sets: <?php print $numberOfSets; ?></p>
+				<br><hr><br>
+				<h4>Actions</h4>
+				<p  class="info-text">
+				<a href='<?php print INDEX."scanchannel?id={$channel->ID_Channel}";?>'	type="button" class="btn btn-info"> <i class="fas fa-search"></i> Scan Channel</a>
+				</p>
+		</div></div></div>
+	</div><!-- container -->
 
 <?php include VIEWPATH.'fragments/js.php'; ?>
 </body>

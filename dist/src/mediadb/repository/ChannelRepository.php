@@ -102,4 +102,26 @@ class ChannelRepository extends AbstractRepository
             return false;
         }
     }
+    
+    public function scan($channel){
+        $container = new \mediadb\Container();
+        $deviceRepository = $container->make('DeviceRepository');
+        
+        \mediadb\Logger::debug("ChannelRepoistory: Scanning all availlable devices for channel {$channel->Name}");
+        
+        $devices = $deviceRepository->getAll();
+        
+        foreach ($devices as $device){
+            if (isset($device)) {
+                #\mediadb\Logger::debug("scanner.php: scan started on {$device->Name}!------------------");
+                $deviceRepository->scanDevice($device, false,false, false, -1, $channel->ID_Channel);
+                #\mediadb\Logger::debug("scanner.php: scan finished on {$device->Name}!---------------");
+            } else {
+                \mediadb\Logger::error("ChannelRepository.php: device not defined!");
+            }
+        }
+        $deviceRepository->showStatistics(false);
+        
+        \mediadb\Logger::info("ChannelRepository.php: Scan finished!");
+    }
 }

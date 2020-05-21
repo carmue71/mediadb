@@ -14,6 +14,8 @@ use mediadb\model\Episode;
 // use PDO;
 //use mediadb\model\Episode;
 include_once 'AbstractRepository.php';
+include_once 'DeviceRepository.php';
+
 \mediadb\Logger::info("EpisodeRepository.php: Loading Module");
 
 class EpisodeRepository extends AbstractRepository
@@ -513,5 +515,26 @@ class EpisodeRepository extends AbstractRepository
         }
         return "";
    }//getChannelWallpaper
+ 
+   public function scan($episode){
+       $container = new \mediadb\Container();
+       $deviceRepository = $container->make('DeviceRepository');
+       
+       \mediadb\Logger::debug("EpisodeRepoistory: Scanning all availlable devices for episode {$episode->ID_Episode}");
+       
+       $devices = $deviceRepository->getAll();
+       
+       foreach ($devices as $device){
+           if (isset($device)) {
+               #\mediadb\Logger::debug("scanner.php: scan started on {$device->Name}!------------------");
+               $deviceRepository->scanDevice($device, false,false, false, $episode->ID_Episode, $episode->REF_Channel);
+               #\mediadb\Logger::debug("scanner.php: scan finished on {$device->Name}!---------------");
+           } else {
+               \mediadb\Logger::error("EpisodeRepository.php: device not defined!");
+           }
+       }
+       $deviceRepository->showStatistics(false);
    
+       \mediadb\Logger::info("scanner.php: Scan finished!");
+   }
 }

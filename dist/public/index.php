@@ -39,6 +39,7 @@ $routes = [
     '/showfiles' =>['controller' => 'EpisodeController','method' => 'showfiles'],
     '/showpix' =>['controller' => 'EpisodeController','method' => 'showpix'],    
     '/saveepisode' => ['controller' => 'EpisodeController', 'method' => 'save'],
+    '/scanepisode' => ['controller'=> 'EpisodeController', 'method'=>'scan'],
     
     '/showchannel' => ['controller' => 'ChannelController', 'method' => 'show'],
     '/listchannels' => ['controller'=> 'ChannelController', 'method'=>'showAll'],
@@ -47,6 +48,7 @@ $routes = [
     '/savechannel' => ['controller'=> 'ChannelController', 'method'=>'save'],
     '/filesforchannel'=>['controller'=> 'ChannelController', 'method'=>'showfiles'],
     '/listepisodesforchannel'=>['controller'=> 'ChannelController', 'method'=>'listEpisodesForChannel'],
+    '/scanchannel' => ['controller'=> 'ChannelController', 'method'=>'scan'],
     
     '/showwatchlist' => ['controller' => 'WatchListController', 'method' => 'show'],
     '/listwatchlists' => ['controller'=> 'WatchListController', 'method'=>'showAll'],

@@ -21,6 +21,10 @@ $('.viewFile').click(function(){
     console.log(currentPos);
     showLightbox(src, title, id, currentPos);
 });
+
+function togglefullscreen(elem){
+	console.log('toggling fullscreen');
+}
     
 function changeImage(i){
 	 var pos = getNewPos(i);

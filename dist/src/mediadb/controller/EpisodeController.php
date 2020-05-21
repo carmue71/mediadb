@@ -343,6 +343,12 @@ class EpisodeController extends FileContainterController
                 $channels = $this->repository->getChannelList();
                 include VIEWPATH.'episodes/edit_episode.php';
                 break;
+            
+            case 'scan':
+                $episode = $params['episode'];
+                $this->pageTitle = "Scanning your device";
+                include VIEWPATH."episodes/scan_episode.php";
+                break;
         }
     }
     
@@ -358,4 +364,11 @@ class EpisodeController extends FileContainterController
         }
         
     }
+    
+    public function scan()
+    {
+        $id = $_GET['id'];
+        $this->render("scan", ['episode' => $this->repository->find($id)]);
+    }
 }
+

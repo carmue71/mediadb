@@ -89,7 +89,10 @@ include VIEWPATH . 'channels/channel_tabs.php';
 		<div class="col-4">
 			<div class="info-area">
 				<h4>Statistics</h4>
-				<p class="info-text"># Media Sets: <?php print $numberOfSets; ?></p>
+				<p class="info-text"># Episodes: <?php print $numberOfSets; ?></p>
+				<p class="info-text"># unseen Episodes: <?php print $numberOfUnseenSets; ?></p> 
+				<p class="info-text"># Files: <?php print $totalNumberOfFiles; ?></p>
+				<p class="info-text">Channel Type: <?php print($channel->StudioType)?></p>
 				<br><hr><br>
 				<h4>Actions</h4>
 				<p  class="info-text">

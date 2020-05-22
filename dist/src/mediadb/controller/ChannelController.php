@@ -222,7 +222,7 @@ class ChannelController extends FileContainterController
                 //TODO: add actors to the episodes
                 $this->pageTitle = "Channel {$channel->Name}";
                 $numberOfSets = $this->episodeRepository->countEpisodesForChannel($channel->ID_Channel, "");
-                $numberOfUnseenSets = $this->episodeRepository->countEpisodesForChannel($channel->ID_Channel, " Viewed > 0 ");
+                $numberOfUnseenSets = $this->episodeRepository->countEpisodesForChannel($channel->ID_Channel, " Viewed = 0 ");
                 $totalNumberOfFiles = $this->fileRepository->countFilesForChannel($channel->ID_Channel, ""); //For File-Badge
                 
                 include VIEWPATH.'channels/details_channel.php';

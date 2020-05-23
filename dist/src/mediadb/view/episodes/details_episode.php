@@ -89,6 +89,17 @@ if ($this->infoMessageBody != "") {
 			<h4><i class="fas fa-tags"></i> Keywords</h4>
 			<p class="info-text"><?php $this->printKeywords($ms->Keywords); ?></p>
 			<hr>
+			<h4>Actions</h4>
+			<p class="info-text">
+			<button class="btn btn-secondary" onClick='watchlistAdd(<?php print $ms->ID_Episode.", ".$_SESSION['watchlater'];?>)'><i class="far fa-clock"></i>&nbsp;Wach&nbsp;Later</button>&nbsp;
+          	<button class="btn btn-secondary addepisodetowatchlist" value='<?php print $ms->ID_Episode;?>'><i class="fas fa-binoculars">&nbsp;Add&nbsp;to&nbsp;Wachlist</i></button>&nbsp;
+          	<a href='<?php print INDEX."scanepisode?id={$ms->ID_Episode}";?>' type="button" class="btn btn-info"> <i class="fas fa-search"></i> Scan Episode</a>
+          	<button class="btn btn-secondary" class='btn secondary' id='addActors' title='Link/Unlink Actors' data-id='<?php print $ms->ID_Episode;?>'><i class="fas fa-user-tag"></i>&nbsp;Add Actor</button>&nbsp;
+          	
+			</p>
+			<br>
+			<button class='btn btn-warning' id='deleteEpisode' value='<?php print $ms->ID_Episode;?>'data-id='<?php print $ms->ID_Episode;?>'><i class="fas fa-trash"></i> Delete Episode</button>
+          	<hr>
 			
 			<h4><i class="fas fa-chart-bar"></i> Statistics</button></h4>
 			<p class="info-text">
@@ -110,17 +121,7 @@ if ($this->infoMessageBody != "") {
 										</li>
 							</ul>
 							</p>
-			<hr>
-			<h4>Actions</h4>
-			<p class="info-text">
-			<button class="btn btn-secondary" onClick='watchlistAdd(<?php print $ms->ID_Episode.", ".$_SESSION['watchlater'];?>)'><i class="far fa-clock"></i>&nbsp;Wach&nbsp;Later</button>&nbsp;
-          	<button class="btn btn-secondary addepisodetowatchlist" value='<?php print $ms->ID_Episode;?>'><i class="fas fa-binoculars">&nbsp;Add&nbsp;to&nbsp;Wachlist</i></button>&nbsp;
-          	<a href='<?php print INDEX."scanepisode?id={$ms->ID_Episode}";?>' type="button" class="btn btn-info"> <i class="fas fa-search"></i> Scan Episode</a>
-          	<button class="btn btn-secondary" class='btn secondary' id='addActors' title='Link/Unlink Actors' data-id='<?php print $ms->ID_Episode;?>'><i class="fas fa-user-tag"></i>&nbsp;Add Actor</button>&nbsp;
-          	
-			</p>
-			<br>
-			<button class='btn btn-warning' id='deleteEpisode' value='<?php print $ms->ID_Episode;?>'data-id='<?php print $ms->ID_Episode;?>'><i class="fas fa-trash"></i> Delete Episode</button>
+			
           	</div><!-- info-area -->
 		</div><!-- Col-lg-4 -->	 
 

@@ -261,6 +261,7 @@ class DeviceRepository extends AbstractRepository
                             $addedFiles = $this->findFiles($device, $episode, $dir . "/" . $set . "/","");
                             if ( $addedFiles > 0 ){
                                 \mediadb\Logger::debug("DeviceRepository.php: Added {$addedFiles} Files");
+                                $this->scanStatistics['episodes']['updated']++;
                             }
                         }
                                 
@@ -269,6 +270,7 @@ class DeviceRepository extends AbstractRepository
                         if ( $episode->Picture == "" && $this->setPoster($episode, $device) )
                             $this->episodeRepository->save($episode);
                     }
+                    //TODO: Check all potential updates and finally set $this->scanStatistics['episodes']['updated']++;
                     //TODO: Check Wallpaper, too
                 }
             }
@@ -280,7 +282,8 @@ class DeviceRepository extends AbstractRepository
     }
     
     public function showStatistics(bool $cmdline){
-        
+        \mediadb\Logger::info("DeviceRepository.php: Episodes added: {$this->scanStatistics['episodes']['new']}");
+        \mediadb\Logger::info("DeviceRepository.php: Episodes updated: {$this->scanStatistics['episodes']['updated']}");
         \mediadb\Logger::info("DeviceRepository.php: Files added: {$this->scanStatistics['files']['new']}");
         \mediadb\Logger::info("DeviceRepository.php: Files updated: {$this->scanStatistics['files']['updated']}");
         \mediadb\Logger::info("DeviceRepository.php: Files removed: {$this->scanStatistics['files']['removed']}");
@@ -291,15 +294,22 @@ class DeviceRepository extends AbstractRepository
         if ( !$cmdline ){
             print "</pre>";
             print "<h2>Scan Statistics</h2>\n";
+            print "<p>Episodes added:   {$this->scanStatistics['episodes']['new']}\n</p>";
+            print "<p>Episodes updated: {$this->scanStatistics['episodes']['updated']}\n</p>";
+            
             print "<p>Files added:   {$this->scanStatistics['files']['new']}\n</p>";
             print "<p>Files updated: {$this->scanStatistics['files']['updated']}\n</p>";
             print "<p>Files removed: {$this->scanStatistics['files']['removed']}\n</p>";
             print "<h3>Errors:</h3>";
-            print("<p>Error - unknown channel: {$this->scanStatistics['errors']['unknownChannels']}</p>\n");
-            print("<p>Error - miplaced file: {$this->scanStatistics['errors']['wrongPlacedFiles']}</p>\n");
-            print("<p>Error - db error: {$this->scanStatistics['errors']['DBErrors']}</p>\n");
+            print("<p>Errors - unknown channel: {$this->scanStatistics['errors']['unknownChannels']}</p>\n");
+            print("<p>Errors - miplaced file: {$this->scanStatistics['errors']['wrongPlacedFiles']}</p>\n");
+            print("<p>Errors - db error: {$this->scanStatistics['errors']['DBErrors']}</p>\n");
             print "<br/><p align = centered>Finished - return to <a href='".INDEX."'>MediaDB</a></p>";
         } else {
+            
+            print("Episodes added:   {$this->scanStatistics['episodes']['new']}\n");
+            print("Epsiodes updated: {$this->scanStatistics['episodes']['updated']}\n");
+            
             print("Files added:   {$this->scanStatistics['files']['new']}\n");
             print("Files updated: {$this->scanStatistics['files']['updated']}\n");
             print("Files removed: {$this->scanStatistics['files']['removed']}\n\n");

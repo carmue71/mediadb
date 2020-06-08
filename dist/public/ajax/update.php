@@ -223,6 +223,7 @@ function removeEpisode($msid, $purge){
                         if ( file_exists($path) ){
                             Logger::debug("Update.php: device is mounted {$path} - trying to delete the episode");
                             $episode_path = $path . $episode['site'] . "/" . $episode['code'] . '/';
+                            //TODO: use escapeshellarg()
                             if ( file_exists($episode_path) ){
                                 Logger::info("Update.php: Episode '{$episode_path}' found on this device");
                                 //realy remove the episode
@@ -231,7 +232,7 @@ function removeEpisode($msid, $purge){
                                 $output = shell_exec($cmd);
                                 Logger::info("Update.php: output: {$output}");
                             } else {
-                                Logger::info("Update.php: Episode not found on this device");
+                                Logger::info("Update.php: Episode '{$episode_path}' not found on this device");
                             }
                         } else {
                             Logger::debug("Update.php: device is not mounted - {$path} - does not exist; going to the next device");
@@ -301,7 +302,7 @@ function deleteFile(int $fid, String $purge){
         if ( $stmt && $stmt->execute(['fid' => $fid]) ) {
             $file = $stmt->fetch();
             if ( $file != null ){
-                $fullname = $file['SystemPath']."files/".$file['Path'].$file['Name'];
+                $fullname = $file['SystemPath']."files/".escapeshellarg($file['Path']).escapeshellarg($file['Name']);
                 if ( is_writable($fullname) ){
                     if ( !unlink($fullname) ){
                         $success = false;

@@ -111,13 +111,16 @@ class DeviceRepository extends AbstractRepository
             'path' => strtolower($path)
         ])) {
             $id = $stmt->fetch();
+            if (!$id) {
+                \mediadb\Logger::info("DeviceRepository.php: No Channel found at path " . $path);
+                return -1;
+            }
             return $id['ID_Channel'];
         } else {
-            print "<pre>";
-            var_dump($query);
-            var_dump($this->pdo->errorInfo());
-            print "</pre>";
-            return - 1;
+            \mediadb\Logger::error("DeviceRepository.php: Problem with query " . $query);
+            \mediadb\Logger::error("DeviceRepository.php: Further info " . string($this->pdo->errorInfo()));
+                        
+            return -1;
         }
     }
 

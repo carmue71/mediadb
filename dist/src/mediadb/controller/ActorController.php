@@ -66,21 +66,22 @@ class ActorController extends FileContainterController
     public function showAll()
     {
         $this->updatePageNumbers();
+        $arr_cookie_options = array ('expires' => time()+COOKIE_LIFETIME,  'samesite' => 'Strict');
         if ( isset($_GET['filter'])){
             $this->actorFilter = $_GET['filter'];
-            setcookie('actorfilter', $this->actorFilter, time()+COOKIE_LIFETIME);
+            setcookie('actorfilter', $this->actorFilter, $arr_cookie_options);
             //$this->page = 1;
         }
         
         if ( isset($_GET['style'])){
             $this->actorStyle = $_GET['style'];
-            setcookie('actorstyle', $this->actorStyle, time()+COOKIE_LIFETIME);
+            setcookie('actorstyle', $this->actorStyle, $arr_cookie_options);
             //TODO: check compatibility $this->page = 1;
         }
         
         if ( isset($_GET['order'])){
             $this->actorOrder = $_GET['order'];
-            setcookie('actororder', $this->actorOrder, time()+COOKIE_LIFETIME);
+            setcookie('actororder', $this->actorOrder, $arr_cookie_options);
             //TODO: check compatibility $this->page = 1;
         }
         

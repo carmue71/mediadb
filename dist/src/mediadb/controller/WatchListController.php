@@ -60,10 +60,12 @@ class WatchListController extends AbstractController
         $this->updatePageNumbers();
         $id = $_GET['id'];
         
+        $arr_cookie_options = array ('expires' => time()+COOKIE_LIFETIME,  'samesite' => 'Strict');
+        
         if ( isset($_GET['filter'])){
             if ( $this->msFilter != $_GET['filter'] ){
                 $this->msFilter = $_GET['filter'];
-                setcookie('watchlist_msfilter', $this->msFilter, time()+COOKIE_LIFETIME);
+                setcookie('watchlist_msfilter', $this->msFilter, $arr_cookie_options);
                 $this->page = 1;
             }
         }
@@ -71,7 +73,7 @@ class WatchListController extends AbstractController
         if ( isset($_GET['style'])){
             if ( $_GET['style'] != $this->msStyle ){
                 $this->msStyle = $_GET['style'];
-                setcookie('watchlist_msstyle', $this->msStyle, time()+COOKIE_LIFETIME);
+                setcookie('watchlist_msstyle', $this->msStyle, $arr_cookie_options);
                 $this->page = 1;
             }
         }
@@ -79,7 +81,7 @@ class WatchListController extends AbstractController
         if ( isset($_GET['order'])){
             if ( $this->msOrder != $_GET['order'] ){
                 $this->msOrder = $_GET['order'];
-                setcookie('watchlist_msorder', $this->msOrder, time()+COOKIE_LIFETIME);
+                setcookie('watchlist_msorder', $this->msOrder, $arr_cookie_options);
                 $this->page = 1;
             }
         }

@@ -70,22 +70,23 @@ class EpisodeController extends FileContainterController
 	public function showAll()
     {
         $this->updatePageNumbers();
+        $arr_cookie_options = array ('expires' => time()+COOKIE_LIFETIME,  'samesite' => 'Strict');
         
         if ( isset($_GET['filter'])){
             $this->msFilter = $_GET['filter'];
-            setcookie('msfilter', $this->msFilter, time()+COOKIE_LIFETIME);
+            setcookie('msfilter', $this->msFilter, $arr_cookie_options );
             //$this->page = 1;
         } 
         
         if ( isset($_GET['style'])){
             $this->msStyle = $_GET['style'];
-            setcookie('msstyle', $this->msStyle, time()+COOKIE_LIFETIME);
+            setcookie('msstyle', $this->msStyle, $arr_cookie_options );
             //TODO: check compatibility $this->page = 1;
         }
         
         if ( isset($_GET['order'])){
             $this->msOrder = $_GET['order'];
-            setcookie('msorder', $this->msOrder, time()+COOKIE_LIFETIME);
+            setcookie('msorder', $this->msOrder, $arr_cookie_options );
             //TODO: check compatibility $this->page = 1;
         }
         

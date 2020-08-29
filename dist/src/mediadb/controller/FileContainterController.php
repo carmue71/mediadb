@@ -103,25 +103,26 @@ abstract class FileContainterController extends AbstractController {
     }
     
     public function handleFileOptions(){
+        $arr_cookie_options = array ('expires' => time()+COOKIE_LIFETIME,  'samesite' => 'Strict');
         if (isset($_GET['filter'])) {
             $this->fileFilter = $_GET['filter'];
-            setcookie('filefilter', $this->fileFilter, time() + COOKIE_LIFETIME);
+            setcookie('filefilter', $this->fileFilter, $arr_cookie_options);
             $this->setSQLFileFilter();
         } else {
             //$this->fileFilter = "";
-            //setcookie('filefilter', $this->fileFilter, time() + COOKIE_LIFETIME);
+            //setcookie('filefilter', $this->fileFilter, $arr_cookie_options);
             //$this->sqlFileFilter = "";
         }
         
         if (isset($_GET['style'])) {
             $this->fileStyle = $_GET['style'];
-            setcookie('filestyle', $this->fileStyle, time() + COOKIE_LIFETIME);
+            setcookie('filestyle', $this->fileStyle, $arr_cookie_options);
             // TODO: check compatibility $this->page = 1;
         } //else
             
         if (isset($_GET['order'])) {
             $this->fileOrder = $_GET['order'];
-            setcookie('fileorder', $this->fileOrder, time() + COOKIE_LIFETIME);
+            setcookie('fileorder', $this->fileOrder, $arr_cookie_options);
             $this->setSQLFileOrder();
         }
         
@@ -139,25 +140,26 @@ abstract class FileContainterController extends AbstractController {
     }
     
     public function handlePixOptions(){
+        $arr_cookie_options = array ('expires' => time()+COOKIE_LIFETIME,  'samesite' => 'Strict');
         if (isset($_GET['filter'])) {
             $this->pixFilter = $_GET['filter'];
-            setcookie('pixfilter', $this->pixFilter, time() + COOKIE_LIFETIME);
+            setcookie('pixfilter', $this->pixFilter, $arr_cookie_options);
             $this->setSQLPixFilter();
         } else {
             //$this->pixFilter = "";
-            //setcookie('pixfilter', $this->pixFilter, time() + COOKIE_LIFETIME);
+            //setcookie('pixfilter', $this->pixFilter, $arr_cookie_options);
             //$this->sqlPixFilter = "";
         }
         
         if (isset($_GET['style'])) {
             $this->pixStyle = $_GET['style'];
-            setcookie('pixstyle', $this->pixStyle, time() + COOKIE_LIFETIME);
+            setcookie('pixstyle', $this->pixStyle, $arr_cookie_options);
             // TODO: check compatibility $this->page = 1;
         } //else
         
         if (isset($_GET['order'])) {
             $this->pixOrder = $_GET['order'];
-            setcookie('pixorder', $this->pixOrder, time() + COOKIE_LIFETIME);
+            setcookie('pixorder', $this->pixOrder, $arr_cookie_options);
             $this->setSQLPixOrder();
         }
         

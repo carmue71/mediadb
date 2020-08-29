@@ -38,17 +38,17 @@ class ChannelController extends FileContainterController
         parent::__construct($rep, $fileRepository);
         $this->currentSection = "Channels";
         
-        if ( isset($_COOKIE['channel_msstyle']) ){
-            $this->msStyle = $_COOKIE['channel_msstyle'];
+        if ( isset($_COOKIE['channel_epstyle']) ){
+            $this->msStyle = $_COOKIE['channel_epstyle'];
         } else
             $this->msStyle = "plain";
-        if (isset($_COOKIE['channel_msfilter'])) {
-            $this->msFilter = $_COOKIE['channel_msfilter'];
+        if (isset($_COOKIE['channel_epfilter'])) {
+            $this->msFilter = $_COOKIE['channel_epfilter'];
         } else
             $this->msFilter = "";
         
-        if (isset($_COOKIE['channel_msorder'])) {
-            $this->msOrder = $_COOKIE['channel_msorder'];
+        if (isset($_COOKIE['channel_eporder'])) {
+            $this->msOrder = $_COOKIE['channel_eporder'];
         } else
             $this->msOrder = "Title";
         
@@ -79,26 +79,26 @@ class ChannelController extends FileContainterController
     public function showAll()
     {
         $this->updatePageNumbers();
+        $arr_cookie_options = array ('expires' => time()+COOKIE_LIFETIME,  'samesite' => 'Strict');
         
         if ( isset($_GET['filter'])){
             $this->channelFilter = $_GET['filter'];
             \mediadb\Logger::debug("ChannelController: showAll: filter: ".$this->channelFilter);
-            
-            setcookie('channelfilter', $this->channelFilter, time()+COOKIE_LIFETIME);
+            setcookie('channelfilter', $this->channelFilter, $arr_cookie_options);
             //$this->page = 1;
         }
         
         if ( isset($_GET['style'])){
             $this->channelStyle = $_GET['style'];
-            setcookie('channelstyle', $this->channelStyle, time()+COOKIE_LIFETIME);
-            \mediadb\Logger::debug("ChannelController: showAll: style: ".$this->channelStyle);
+            setcookie('channelstyle', $this->channelStyle, $arr_cookie_options);
+            \mediadb\Logger::debug("ChannelController: showAll: style: ".$this->channelStyle, $arr_cookie_options);
             //TODO: check compatibility $this->page = 1;
         }
         
         if ( isset($_GET['order'])){
             $this->channelOrder = $_GET['order'];
             
-            setcookie('channelorder', $this->channelOrder, time()+COOKIE_LIFETIME);
+            setcookie('channelorder', $this->channelOrder, $arr_cookie_options);
             \mediadb\Logger::debug("ChannelController: showAll: order: ".$this->channelOrder);
             //TODO: check compatibility $this->page = 1;
         }
@@ -128,13 +128,14 @@ class ChannelController extends FileContainterController
     }
     
     public function listEpisodesForChannel(){
+        $arr_cookie_options = array ('expires' => time()+COOKIE_LIFETIME,  'samesite' => 'Strict');
         $this->updatePageNumbers();
         $id = $_GET['id'];
         
         if ( isset($_GET['filter'])){
             if ( $this->msFilter != $_GET['filter'] ){
                 $this->msFilter = $_GET['filter'];
-                setcookie('channel_msfilter', $this->msFilter, time()+COOKIE_LIFETIME);
+                setcookie('channel_epfilter', $this->msFilter, $arr_cookie_options);
                 $this->page = 1;
             }
         }
@@ -142,7 +143,7 @@ class ChannelController extends FileContainterController
         if ( isset($_GET['style'])){
             if ( $_GET['style'] != $this->msStyle ){
                 $this->msStyle = $_GET['style'];
-                setcookie('channel_msstyle', $this->msStyle, time()+COOKIE_LIFETIME);
+                setcookie('channel_epstyle', $this->msStyle, $arr_cookie_options);
                 $this->page = 1;
             }
         }
@@ -150,7 +151,7 @@ class ChannelController extends FileContainterController
         if ( isset($_GET['order'])){
             if ( $this->msOrder != $_GET['order'] ){
                 $this->msOrder = $_GET['order'];
-                setcookie('channel_msorder', $this->msOrder, time()+COOKIE_LIFETIME);
+                setcookie('channel_eporder', $this->msOrder, $arr_cookie_options);
                 $this->page = 1;
             }
         }

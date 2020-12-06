@@ -36,7 +36,11 @@ class ActorRepository extends AbstractRepository
         $query = "SELECT ID_Actor from Actor WHERE Fullname = :fullname";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(['fullname'=>$name]);
-        return $stmt->fetch()['ID_Actor'];
+        $found = $stmt->fetch();
+        if ( $found )
+            return $found['ID_Actor'];
+        else 
+            return null;
     }
     
     public function isAlreadyLinked(int $id_actor, int $id_episode){

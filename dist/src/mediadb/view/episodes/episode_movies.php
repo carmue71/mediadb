@@ -51,6 +51,7 @@ foreach ($movies as $video){
         	<div class='col-lg-12'>
     			<p align=center id=progressContainer>
     				<a><i class='fas fa-undo-alt activeItem' id=goback></i></a>&nbsp; 
+    				<a><i class='fas fa-tachometer-alt activeItem' id=gofaster></i></a>&nbsp;
     				<a><i class='fas fa-volume-up activeItem' id=unmute></i></a>&nbsp;
     				<span id=progress>0:00</span>
     				&nbsp; 
@@ -132,6 +133,11 @@ include VIEWPATH.'episodes/delete_episode.php';
 		$("#goback").click(function(){
 			console.log('trying to go back 30 secs');
 			currentVideo.currentTime = currentVideo.currentTime-30>0 ? currentVideo.currentTime-30:0;   
+		});
+
+		$("#gofaster").click(function(){
+			console.log('going faster');
+			currentVideo.defaultPlaybackRate = 2.0;
 		});
 
 		$("#gofwd").click(function(){

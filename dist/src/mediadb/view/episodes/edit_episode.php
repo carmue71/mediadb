@@ -52,8 +52,8 @@ include VIEWPATH . 'episodes/episode_tabs.php';
 						<option value=' '<?PHP if ($ms->Published=="" ) print "selected"; ?>></option>
 						<?php
 						  if ( ! isset($ms->Published) )
-						      $ms->Published = 2018; 
-						  for ($i=1990; $i < 2021; $i++):?>
+						      $ms->Published = 2021; 
+						  for ($i=1990; $i < 2022; $i++):?>
 								<option value='<?php print $i; ?>'
 								<?PHP if ( $ms->Published==$i ) print "selected"; ?>>
 									<?php print $i;?>

@@ -143,6 +143,8 @@ include VIEWPATH.'episodes/delete_episode.php';
 				current_speed = 0.5
 			console.log('setting speed to '+ current_speed);	
 			currentVideo.defaultPlaybackRate = current_speed;
+			console.log(currentVideo.defaultPlaybackRate);
+			currentVideo.play()
 		});
 
 		$("#gofwd").click(function(){

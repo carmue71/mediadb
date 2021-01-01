@@ -137,15 +137,15 @@ include VIEWPATH.'episodes/delete_episode.php';
 		});
 
 		$("#gofaster").click(function(){
-			document.querySelector('video').playbackRate = 2;
-			/*current_speed = current_speed + 0.5
-			if (current_speed > 5)
+			if (current_speed >= 2)
+				current_speed = current_speed + 1
+			else
+				current_speed = current_speed + 0.25
+			if (current_speed > 4)
 				current_speed = 0.5
 			console.log('setting speed to '+ current_speed);	
-			currentVideo.defaultPlaybackRate = current_speed;
-			console.log(currentVideo.defaultPlaybackRate);
-			currentVideo.play()*/
-			
+			document.querySelector('video').playbackRate = current_speed;
+			console.log(currentVideo.defaultPlaybackRate+ ":"+document.querySelector('video').playbackRate);
 		});
 
 		$("#gofwd").click(function(){

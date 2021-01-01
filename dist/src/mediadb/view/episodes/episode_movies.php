@@ -137,14 +137,15 @@ include VIEWPATH.'episodes/delete_episode.php';
 		});
 
 		$("#gofaster").click(function(){
-			
-			current_speed = current_speed + 0.5
+			document.querySelector('video').playbackRate = 2;
+			/*current_speed = current_speed + 0.5
 			if (current_speed > 5)
 				current_speed = 0.5
 			console.log('setting speed to '+ current_speed);	
 			currentVideo.defaultPlaybackRate = current_speed;
 			console.log(currentVideo.defaultPlaybackRate);
-			currentVideo.play()
+			currentVideo.play()*/
+			
 		});
 
 		$("#gofwd").click(function(){

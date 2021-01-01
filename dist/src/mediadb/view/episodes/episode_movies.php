@@ -79,6 +79,7 @@ include VIEWPATH.'episodes/delete_episode.php';
 
 		lastProgress = 0;
 		currentVideo = null;
+		current_speed = 1;
 		fileid = -1; /*$video[0]->ID_File*/
 
 		$(document).ready(function () {
@@ -136,8 +137,12 @@ include VIEWPATH.'episodes/delete_episode.php';
 		});
 
 		$("#gofaster").click(function(){
-			console.log('going faster');
-			currentVideo.defaultPlaybackRate = 2.0;
+			
+			current_speed = current_speed + 0.5
+			if (current_speed > 5)
+				current_speed = 0.5
+			console.log('setting speed to '+ current_speed);	
+			currentVideo.defaultPlaybackRate = current_speed;
 		});
 
 		$("#gofwd").click(function(){

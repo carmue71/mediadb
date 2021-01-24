@@ -63,7 +63,7 @@ $(".gal-thumbcontainer").on({
 	  }
 });
 
-/*/---------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------
 $('.viewFile').click(function(){
     var src = $(this).data('img');
     var title = $(this).data('title');
@@ -161,4 +161,5 @@ function changeImage(i){
 		console.log("Hiding Slide Show Options");
 		$("#slideshowOptionsDlg").modal('hide');
 	});
-*/
+	
+	

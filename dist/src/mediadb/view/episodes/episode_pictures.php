@@ -94,7 +94,7 @@ var current_episode = <?php print $ms->ID_Episode;?>
 <script src="/mediadb/js/mygal.js"></script>
 <script src="/mediadb/js/js.cookie.js"></script>
 
-<?php include VIEWPATH.'fragments/galscript.php'; ?> 
+<!--  ?php include VIEWPATH.'fragments/galscript.php'; ?> --> 
 
 </body>
 </html>

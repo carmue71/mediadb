@@ -1,5 +1,6 @@
 <!-- galscript.php -->
 <script type="text/javascript">
+var current_episode = <?php print $ms->ID_Episode;?>
 
 $('.viewFile').click(function(){
     var src = $(this).data('img');
@@ -30,7 +31,7 @@ function changeImage(i){
 	 var pos = getNewPos(i);
 		//console.log(pos);
 	    var values = {
-	    	'msid': <?php print $ms->ID_Episode;?>,
+	    	'msid': current_episode,
 		    'pos': pos
 		};
 		//console.log("Values:", values);

@@ -41,7 +41,7 @@ class FileRepository extends AbstractRepository
         try {
             $file->REF_Filetype = $this->getFiletype($filename);
             $this->extractFileInfo($file, $device->Path.'files/'.$path.$filename);
-        } catch (\Excpetion $error){
+        } catch (\Exception $error){
             print($error);
         }
         

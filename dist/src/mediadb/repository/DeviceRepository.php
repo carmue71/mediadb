@@ -280,7 +280,7 @@ class DeviceRepository extends AbstractRepository
         }
         
         if ( !$cmdline )
-            showStatistics(false);
+            $this->showStatistics(false);
         
     }
     

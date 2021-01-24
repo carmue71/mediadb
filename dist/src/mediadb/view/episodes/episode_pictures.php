@@ -86,11 +86,15 @@ $target = "showpix?id={$ms->ID_Episode}&";?>
     include VIEWPATH.'fragments/slideshowoptions.php';
 ?>
 
+<script type="text/javascript">
+var current_episode = <?php print $ms->ID_Episode;?>
+</script>
+
 <script src="/mediadb/js/togglewatch.js"></script>
 <script src="/mediadb/js/mygal.js"></script>
 <script src="/mediadb/js/js.cookie.js"></script>
 
-<?php include VIEWPATH.'fragments/galscript.php'; ?> 
+<!-- ?php include VIEWPATH.'fragments/galscript.php'; ? --> 
 
 </body>
 </html>

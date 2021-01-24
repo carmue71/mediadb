@@ -183,7 +183,8 @@ include VIEWPATH.'episodes/delete_episode.php';
 			var to = (total/3600).toFixed(0)+":"+
 				((total%3600)/60).toFixed(0)+":"+(total.toFixed(0)%60);
 			var percent = (current/total*100).toFixed(0);
-			return cur + "/" + to + " ("+percent+"%)"
+			var speed = current_speed.toFixed(2)
+			return cur + "/" + to + " ("+percent+"%) "+speed+" x"
 		}
 </script>
 </body>

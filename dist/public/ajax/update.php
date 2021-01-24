@@ -70,7 +70,7 @@ switch($_POST['what']){
         Logger::debug("Update.php: deletms episode {$_POST['msid']}, {$_POST['purge']}");
         try {
             return removeEpisode(esc($_POST['msid']), esc($_POST['purge']));
-        } catch ( Excpetion $ex){
+        } catch ( \Exception $ex){
             Logger::error("Update.php: Exction deleting episode {$_POST['msid']}, {$_POST['purge']}:");
             Logger::error("Update.php: " + $ex->getMessage());
             return false;
@@ -146,7 +146,7 @@ switch($_POST['what']){
             Logger::debug("Update.php: Removing / deleting single file {$_POST['fid']} - {$_POST['purge']} ");
             $retVal = deleteFile(esc($_POST['fid']), esc($_POST['purge']));
             Logger::debug("Update.php: deleteFile returned {$retVal} ");
-        } catch ( Exception $e){
+        } catch ( \Exception $e){
             Logger::error("Update.php: Exception: ".$e->getMessage());
         }
         return $retVal;

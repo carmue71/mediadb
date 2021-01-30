@@ -42,7 +42,7 @@ class FileRepository extends AbstractRepository
             $file->REF_Filetype = $this->getFiletype($filename);
             $this->extractFileInfo($file, $device->Path.'files/'.$path.$filename);
         } catch (\Exception $error){
-            print($error);
+            \mediadb\Logger::error("FileRepository.php: error creating file: {$error}");
         }
         
         return $file;
@@ -54,18 +54,7 @@ class FileRepository extends AbstractRepository
             $file->Modified = date("Y-m-d H:i:s", filemtime($fullname));
 
             $fileExt = strtolower(pathinfo($fullname, PATHINFO_EXTENSION));
-            $validExt = array(
-                'jpg',
-                'jpeg',
-                'png',
-                'mp3',
-                'mp4',
-                'm4v',
-                'avi',
-                'webm',
-                'wmv',
-                'mkv'
-            );
+            $validExt = array('jpg', 'jpeg', 'png', 'mp3', 'mp4', 'm4v', 'avi', 'webm', 'wmv', 'mkv');
 
             if (in_array($fileExt, $validExt)) {
                 try {
@@ -98,11 +87,11 @@ class FileRepository extends AbstractRepository
                     $file->Info = $info;
                     return;
                 } catch (\Exception $ex) {
-                    var_dump($ex);
+                    \mediadb\Logger::error("FileRepository.php: error analyising file: {$ex}");
                 }
             }
         } catch (\Exception $generror) {
-            var_dump($generror);
+            \mediadb\Logger::error("FileRepository.php: error reading file info: {$generror}");
         }
         $file->Info = null;
     }
@@ -149,7 +138,7 @@ class FileRepository extends AbstractRepository
             ];
             $this->execute($query, $parameters);
         } catch (\Exception $generror) {
-            var_dump($generror);
+            \mediadb\Logger::error("FileRepository.php: error updating file info: {$generror}");
         }
     }
        

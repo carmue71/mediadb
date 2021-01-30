@@ -85,9 +85,10 @@ $('.viewFile').click(function(){
     showLightbox(src, title, id, currentPos);
 });
 
-function togglefullscreen(elem){
+/*function togglefullscreen(elem){
+	
 	console.log('toggling fullscreen');
-}
+}*/
     
 function changeImage(i){
 	 var pos = getNewPos(i);
@@ -161,5 +162,58 @@ function changeImage(i){
 		console.log("Hiding Slide Show Options");
 		$("#slideshowOptionsDlg").modal('hide');
 	});
+	
+	function toggleFullscreen(elem) {
+		//console.log('toggling fullscreen');
+		//console.log(elem)
+        elem = elem || document.documentElement;
+                if (!document.fullscreenElement && !document.mozFullScreenElement &&
+                    !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen();
+                    } else if (elem.msRequestFullscreen) {
+                        elem.msRequestFullscreen();
+                    } else if (elem.mozRequestFullScreen) {
+                        elem.mozRequestFullScreen();
+                    } else if (elem.webkitRequestFullscreen) {
+                        elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.msExitFullscreen) {
+                        document.msExitFullscreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                }
+    	setImageSize('.gal-image', $(window).width(), $(window).height())d;
+ 	}
+ 	
+ 	function setImageSize(img, maxWidth, maxHeight){
+                var ratio = 0;  // Used for aspect ratio
+                var width = $(img).width();    // Current image width
+                var height = $(img).height();
+                
+                // Check if the current width is larger than the max
+                if ( width > maxWidth ){
+                    ratio = maxWidth / width;   // get ratio for scaling image
+                    $(img).css("width", maxWidth); // Set new width
+                    $(img).css("height", height * ratio);  // Scale height based on ratio
+                    height = height * ratio;    // Reset height to match scaled image
+                    width = width * ratio;    // Reset width to match scaled image
+                }
+                // Check if current height is larger than max
+                if ( height > maxHeight ){
+                    ratio = maxHeight / height; // get ratio for scaling image
+                    $(img).css("height", maxHeight);   // Set new height
+                    $(img).css("width", width * ratio);    // Scale width based on ratio
+                    width = width * ratio;    // Reset width to match scaled image
+                    height = height * ratio;    // Reset height to match scaled image
+                }
+                //$(img).height(height).width(width);
+            }
 	
 	

@@ -189,7 +189,7 @@ function changeImage(i){
                         document.webkitExitFullscreen();
                     }
                 }
-    	setImageSize('.gal-image', $(window).width(), $(window).height())d;
+    	setImageSize('.gal-image', $(window).width(), $(window).height());
  	}
  	
  	function setImageSize(img, maxWidth, maxHeight){
